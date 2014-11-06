@@ -21,7 +21,7 @@
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>travel</artifactId>
     <packaging>war</packaging>
-    <name>JBoss WFK Quickstart: contacts-angularjs</name>
+    <name>Geoffrey Prytherch: travel</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
     <url>http://jboss.org/</url>
     <licenses>
