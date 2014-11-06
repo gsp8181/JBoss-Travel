@@ -19,8 +19,7 @@
     
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-contacts-angularjs</artifactId>
-    <version>2.7.0-SNAPSHOT</version>
+    <artifactId>travel</artifactId>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: contacts-angularjs</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
@@ -407,4 +406,5 @@
         </profile>
     </profiles>
     
+    <version>0.1</version>
 </project>

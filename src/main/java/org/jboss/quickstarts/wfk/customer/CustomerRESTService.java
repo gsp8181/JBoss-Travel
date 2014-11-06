@@ -64,7 +64,7 @@ import javax.ws.rs.WebApplicationException;
  * transaction demarcation when accessing the database." - Antonio Goncalves
  * 
  */
-@Path("/Customers")
+@Path("/customers")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Stateless
