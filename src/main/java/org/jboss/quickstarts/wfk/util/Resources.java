@@ -41,7 +41,7 @@ import javax.persistence.PersistenceContext;
 public class Resources {
 
     @Produces
-    @PersistenceContext(unitName = "customers_pu")
+    @PersistenceContext(unitName = "contacts_pu")
     private EntityManager em;
 
     private static final CloseableHttpClient HTTP_CLIENT = HttpClients.createDefault();
