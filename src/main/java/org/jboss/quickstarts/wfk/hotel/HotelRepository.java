@@ -160,37 +160,4 @@ public class HotelRepository {
         return Hotel;
     }
 
-    /**
-     * <p>Deletes the provided Hotel object from the application database if found there</p>
-     *
-     * @param Hotel The Hotel object to be removed from the application database
-     * @return The Hotel object that has been successfully removed from the application database; or null
-     * @throws Exception
-     */
-    Hotel delete(Hotel Hotel) throws Exception {
-        log.info("HotelRepository.delete() - Deleting " + Hotel.getFirstName() + " " + Hotel.getLastName());
-        
-        if (Hotel.getId() != null) {
-            /*
-             * The Hibernate session (aka EntityManager's persistent context) is closed and invalidated after the commit(), 
-             * because it is bound to a transaction. The object goes into a detached status. If you open a new persistent 
-             * context, the object isn't known as in a persistent state in this new context, so you have to merge it. 
-             * 
-             * Merge sees that the object has a primary key (id), so it knows it is not new and must hit the database 
-             * to reattach it. 
-             * 
-             * Note, there is NO remove method which would just take a primary key (id) and a entity class as argument. 
-             * You first need an object in a persistent state to be able to delete it.
-             * 
-             * Therefore we merge first and then we can remove it.
-             */
-            em.remove(em.merge(Hotel));
-            
-        } else {
-            log.info("HotelRepository.delete() - No ID was found so can't Delete.");
-        }
-        
-        return Hotel;
-    }
-
 }

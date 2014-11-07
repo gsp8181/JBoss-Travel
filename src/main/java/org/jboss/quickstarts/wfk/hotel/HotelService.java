@@ -152,25 +152,4 @@ public class HotelService {
         return crud.update(Hotel);
     }
 
-    /**
-     * <p>Deletes the provided Hotel object from the application database if found there.<p/>
-     * 
-     * @param Hotel The Hotel object to be removed from the application database
-     * @return The Hotel object that has been successfully removed from the application database; or null
-     * @throws Exception
-     */
-    Hotel delete(Hotel Hotel) throws Exception {
-        log.info("HotelService.delete() - Deleting " + Hotel.getFirstName() + " " + Hotel.getLastName());
-        
-        Hotel deletedHotel = null;
-        
-        if (Hotel.getId() != null) {
-            deletedHotel = crud.delete(Hotel);
-        } else {
-            log.info("HotelService.delete() - No ID was found so can't Delete.");
-        }
-        
-        return deletedHotel;
-    }
-
 }

@@ -152,25 +152,4 @@ public class CustomerService {
         return crud.update(Customer);
     }
 
-    /**
-     * <p>Deletes the provided Customer object from the application database if found there.<p/>
-     * 
-     * @param Customer The Customer object to be removed from the application database
-     * @return The Customer object that has been successfully removed from the application database; or null
-     * @throws Exception
-     */
-    Customer delete(Customer Customer) throws Exception {
-        log.info("CustomerService.delete() - Deleting " + Customer.getFirstName() + " " + Customer.getLastName());
-        
-        Customer deletedCustomer = null;
-        
-        if (Customer.getId() != null) {
-            deletedCustomer = crud.delete(Customer);
-        } else {
-            log.info("CustomerService.delete() - No ID was found so can't Delete.");
-        }
-        
-        return deletedCustomer;
-    }
-
 }
