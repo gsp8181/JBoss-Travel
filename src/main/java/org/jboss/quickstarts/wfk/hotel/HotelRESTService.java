@@ -96,7 +96,7 @@ public class HotelRESTService {
      * @param email The string parameter value provided as a Hotel's email
      * @return A Response containing a single Hotel
      */
-    @GET
+    /*@GET
     @Path("/{email:^.+@.+$}")
     public Response retrieveHotelsByEmail(@PathParam("email") String email) {
         Hotel Hotel;
@@ -106,7 +106,7 @@ public class HotelRESTService {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         return Response.ok(Hotel).build();
-    }
+    }*/
     
     /**
      * <p>Search for and return a Hotel identified by id.</p>
@@ -121,7 +121,7 @@ public class HotelRESTService {
         if (Hotel == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("findById " + id + ": found Hotel = " + Hotel.getFirstName() + " " + Hotel.getLastName() + " " + Hotel.getEmail() + " " + Hotel.getPhoneNumber() + " "
+        log.info("findById " + id + ": found Hotel = " + Hotel.getName() + " " + Hotel.getPostcode() + " " + Hotel.getPhoneNumber() + " "
                 + Hotel.getId());
         
         return Response.ok(Hotel).build();
@@ -137,7 +137,7 @@ public class HotelRESTService {
     @SuppressWarnings("unused")
     @POST
     public Response createHotel(Hotel Hotel) {
-        log.info("createHotel started. Hotel = " + Hotel.getFirstName() + " " + Hotel.getLastName() + " " + Hotel.getEmail() + " " + Hotel.getPhoneNumber() + " "
+        log.info("createHotel started. Hotel = " + Hotel.getName() + " " + Hotel.getPostcode() + " " + Hotel.getPhoneNumber() + " "
             + Hotel.getId());
         if (Hotel == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -152,7 +152,7 @@ public class HotelRESTService {
             // Create a "Resource Created" 201 Response and pass the Hotel back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(Hotel);
             
-            log.info("createHotel completed. Hotel = " + Hotel.getFirstName() + " " + Hotel.getLastName() + " " + Hotel.getEmail() + " " + Hotel.getPhoneNumber() + " "
+            log.info("createHotel completed. Hotel = " + Hotel.getName() + " " + Hotel.getPostcode() + " " + Hotel.getPhoneNumber() + " "
                 + Hotel.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
@@ -162,7 +162,7 @@ public class HotelRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("email", "That email is already used, please use a unique email");
+            //responseObj.put("email", "That email is already used, please use a unique email"); //TODO: CHANGE THIS
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
@@ -189,7 +189,7 @@ public class HotelRESTService {
         if (Hotel == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        log.info("updateHotel started. Hotel = " + Hotel.getFirstName() + " " + Hotel.getLastName() + " " + Hotel.getEmail() + " " + Hotel.getPhoneNumber() + " "
+        log.info("updateHotel started. Hotel = " + Hotel.getName() + " " + Hotel.getPostcode() + " " + Hotel.getPhoneNumber() + " "
                 + Hotel.getId());
 
         if (Hotel.getId() != id) {
@@ -211,7 +211,7 @@ public class HotelRESTService {
             // Create an OK Response and pass the Hotel back in case it is needed.
             builder = Response.ok(Hotel);
 
-            log.info("updateHotel completed. Hotel = " + Hotel.getFirstName() + " " + Hotel.getLastName() + " " + Hotel.getEmail() + " " + Hotel.getPhoneNumber() + " "
+            log.info("updateHotel completed. Hotel = " + Hotel.getName() + " " + Hotel.getPostcode() + " " + Hotel.getPhoneNumber() + " "
                 + Hotel.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
@@ -221,7 +221,7 @@ public class HotelRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("email", "That email is already used, please use a unique email");
+            //responseObj.put("email", "That email is already used, please use a unique email"); //TODO: CHANGE
             responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
             responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/wfk/rest/HotelRESTService.java line 242.");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);

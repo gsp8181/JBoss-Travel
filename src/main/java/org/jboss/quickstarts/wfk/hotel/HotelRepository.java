@@ -76,44 +76,26 @@ public class HotelRepository {
      * @param email The email field of the Hotel to be returned
      * @return The first Hotel with the specified email
      */
-    Hotel findByEmail(String email) {
+    /*Hotel findByEmail(String email) {
         TypedQuery<Hotel> query = em.createNamedQuery(Hotel.FIND_BY_EMAIL, Hotel.class).setParameter("email", email); 
         return query.getSingleResult();
-    }
+    }*/
 
     /**
-     * <p>Returns a single Hotel object, specified by a String firstName.<p/>
+     * <p>Returns a single Hotel object, specified by a String name.<p/>
      *
      * <p>If there is more then one, only the first will be returned.<p/>
      *
-     * @param firstName The firstName field of the Hotel to be returned
-     * @return The first Hotel with the specified firstName
+     * @param name The name field of the Hotel to be returned
+     * @return The first Hotel with the specified name
      */
-    Hotel findByFirstName(String firstName) {
+    Hotel findByName(String name) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Hotel> criteria = cb.createQuery(Hotel.class);
         Root<Hotel> Hotel = criteria.from(Hotel.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(Hotel).where(cb.equal(Hotel.get(Hotel_.firstName), firstName));
-        criteria.select(Hotel).where(cb.equal(Hotel.get("firstName"), firstName));
-        return em.createQuery(criteria).getSingleResult();
-    }
-
-    /**
-     * <p>Returns a single Hotel object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     *
-     * @param lastName The lastName field of the Hotel to be returned
-     * @return The first Hotel with the specified lastName
-     */
-    Hotel findByLastName(String lastName) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Hotel> criteria = cb.createQuery(Hotel.class);
-        Root<Hotel> Hotel = criteria.from(Hotel.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(Hotel).where(cb.equal(Hotel.get(Hotel_.lastName), lastName));
-        criteria.select(Hotel).where(cb.equal(Hotel.get("lastName"), lastName));
+        // criteria.select(Hotel).where(cb.equal(Hotel.get(Hotel_.name), name));
+        criteria.select(Hotel).where(cb.equal(Hotel.get("name"), name));
         return em.createQuery(criteria).getSingleResult();
     }
 
@@ -130,7 +112,7 @@ public class HotelRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Hotel create(Hotel Hotel) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("HotelRepository.create() - Creating " + Hotel.getFirstName() + " " + Hotel.getLastName());
+        log.info("HotelRepository.create() - Creating " + Hotel.getName());
         
         // Write the Hotel to the database.
         em.persist(Hotel);
@@ -152,7 +134,7 @@ public class HotelRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Hotel update(Hotel Hotel) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("HotelRepository.update() - Updating " + Hotel.getFirstName() + " " + Hotel.getLastName());
+        log.info("HotelRepository.update() - Updating " + Hotel.getName());
         
         // Either update the Hotel or add it if it can't be found.
         em.merge(Hotel);

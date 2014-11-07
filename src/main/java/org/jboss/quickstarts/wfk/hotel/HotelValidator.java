@@ -63,9 +63,9 @@ public class HotelValidator {
         }
 
         // Check the uniqueness of the email address
-        if (emailAlreadyExists(Hotel.getEmail(), Hotel.getId())) {
+        /*if (emailAlreadyExists(Hotel.getEmail(), Hotel.getId())) {
             throw new ValidationException("Unique Email Violation");
-        }
+        }*/
     }
 
     /**
@@ -79,7 +79,7 @@ public class HotelValidator {
      * @param id The user id to check the email against if it was found
      * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
      */
-    boolean emailAlreadyExists(String email, Long id) {
+   /* boolean emailAlreadyExists(String email, Long id) {
         Hotel Hotel = null;
         Hotel HotelWithID = null;
         try {
@@ -99,5 +99,5 @@ public class HotelValidator {
             }
         }
         return Hotel != null;
-    }
+    }*/
 }

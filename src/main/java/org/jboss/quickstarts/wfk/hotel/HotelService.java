@@ -85,20 +85,20 @@ public class HotelService {
      * @param email The email field of the Hotel to be returned
      * @return The first Hotel with the specified email
      */
-    Hotel findByEmail(String email) {
+    /*Hotel findByEmail(String email) {
         return crud.findByEmail(email);
-    }
+    }*/
 
     /**
-     * <p>Returns a single Hotel object, specified by a String firstName.<p/>
+     * <p>Returns a single Hotel object, specified by a String name.<p/>
      *
      * <p>If there is more then one, only the first will be returned.<p/>
      * 
-     * @param firstName The firstName field of the Hotel to be returned
-     * @return The first Hotel with the specified firstName
+     * @param name The firstName field of the Hotel to be returned
+     * @return The first Hotel with the specified name
      */
-    Hotel findByFirstName(String firstName) {
-        return crud.findByFirstName(firstName);
+    Hotel findByFirstName(String name) {
+        return crud.findByName(name);
     }
 
     /**
@@ -109,9 +109,9 @@ public class HotelService {
      * @param lastName The lastName field of the Hotel to be returned
      * @return The first Hotel with the specified lastName
      */
-    Hotel findByLastName(String lastName) {
+    /*Hotel findByLastName(String lastName) {
         return crud.findByFirstName(lastName);
-    }
+    }*/
 
     /**
      * <p>Writes the provided Hotel object to the application database.<p/>
@@ -123,7 +123,7 @@ public class HotelService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Hotel create(Hotel Hotel) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("HotelService.create() - Creating " + Hotel.getFirstName() + " " + Hotel.getLastName());
+        log.info("HotelService.create() - Creating " + Hotel.getName());
         
         // Check to make sure the data fits with the parameters in the Hotel model and passes validation.
         validator.validateHotel(Hotel);
@@ -143,7 +143,7 @@ public class HotelService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Hotel update(Hotel Hotel) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("HotelService.update() - Updating " + Hotel.getFirstName() + " " + Hotel.getLastName());
+        log.info("HotelService.update() - Updating " + Hotel.getName());
         
         // Check to make sure the data fits with the parameters in the Hotel model and passes validation.
         validator.validateHotel(Hotel);

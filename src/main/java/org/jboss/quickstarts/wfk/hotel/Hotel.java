@@ -44,17 +44,17 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Hotel.FIND_ALL, query = "SELECT c FROM Hotel c ORDER BY c.lastName ASC, c.firstName ASC"),
-    @NamedQuery(name = Hotel.FIND_BY_EMAIL, query = "SELECT c FROM Hotel c WHERE c.email = :email")
+    @NamedQuery(name = Hotel.FIND_ALL, query = "SELECT c FROM Hotel c ORDER BY c.name ASC"),
+    //@NamedQuery(name = Hotel.FIND_BY_EMAIL, query = "SELECT c FROM Hotel c WHERE c.email = :email")
 })
 @XmlRootElement
-@Table(name = "Hotel", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "Hotel")
 public class Hotel implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
     
     public static final String FIND_ALL = "Hotel.findAll";
-    public static final String FIND_BY_EMAIL = "Hotel.findByEmail";
+    //public static final String FIND_BY_EMAIL = "Hotel.findByEmail";
 
     /*
      * The  error messages match the ones in the UI so that the user isn't confused by two similar error messages for
@@ -72,19 +72,19 @@ public class Hotel implements Serializable {
     @NotNull
     @Size(min = 1, max = 25)
     @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "name")
+    private String name;
 
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    @Column(name = "last_name")
-    private String lastName;
+    //@NotNull
+    //@Size(min = 1, max = 25)
+    //@Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
+    //@Column(name = "last_name")
+    //private String lastName;
 
     @NotNull
     @NotEmpty
-    @Email(message = "The email address must be in the format of name@domain.com")
-    private String email;
+    @Column(name = "postcode")
+    private String postcode;
 
     @NotNull
     @Pattern(regexp = "^\\([2-9][0-8][0-9]\\)\\s?[0-9]{3}\\-[0-9]{4}$")
@@ -99,28 +99,20 @@ public class Hotel implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPostcode() {
+        return postcode;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public String getPhoneNumber() {
