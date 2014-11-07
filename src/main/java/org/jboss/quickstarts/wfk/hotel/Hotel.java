@@ -82,7 +82,7 @@ public class Hotel implements Serializable {
     private String postcode;
 
     @NotNull
-    @Pattern(regexp = "^[0-9]{11}$", message = "")
+    @Pattern(regexp = "^0[0-9]{10}$", message = "")
     @Column(name = "phoneNumber")
     private String phoneNumber;
 

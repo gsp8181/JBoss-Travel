@@ -87,7 +87,7 @@ public class Customer implements Serializable {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "^\\([2-9][0-8][0-9]\\)\\s?[0-9]{3}\\-[0-9]{4}$")
+    @Pattern(regexp = "^0[0-9]{10}$")
     @Column(name = "phone_number")
     private String phoneNumber;
 
