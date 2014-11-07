@@ -249,8 +249,7 @@ public class CustomerRESTService {
     public Response deleteCustomer(@PathParam("id") Long id) {
         log.info("deleteCustomer started. Customer ID = " + id);
         
-        // 405 - Method Not Allowed
-        throw new WebApplicationException(405);
+        throw new WebApplicationException(Response.Status.BAD_REQUEST);
     }
     
     /**

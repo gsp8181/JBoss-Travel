@@ -249,8 +249,7 @@ public class HotelRESTService {
     public Response deleteHotel(@PathParam("id") Long id) {
         log.info("deleteHotel started. Hotel ID = " + id);
         
-        // 405 - Method Not Allowed
-        throw new WebApplicationException(405);
+        throw new WebApplicationException(Response.Status.BAD_REQUEST);
     }
     
     /**
