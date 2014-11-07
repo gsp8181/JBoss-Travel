@@ -83,7 +83,7 @@ public class Hotel implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 10)
-    @Pattern(regexp = "[A-Za-z0-9 -']+", message = "Please enter a valid postcode")
+    @Pattern(regexp = "([0-9-]+)|([A-Z0-9 ]+)", message = "Please enter a valid postcode/ZIP using uppercase letters, numbers, spaces and hyphens as appropriate")
     @Column(name = "postcode")
     private String postcode;
 
