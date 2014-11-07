@@ -248,29 +248,9 @@ public class CustomerRESTService {
     @Path("/{id:[0-9][0-9]*}")
     public Response deleteCustomer(@PathParam("id") Long id) {
         log.info("deleteCustomer started. Customer ID = " + id);
-        Response.ResponseBuilder builder = null;
-
-        try {
-            Customer Customer = service.findById(id);
-            if (Customer != null) {
-                service.delete(Customer);
-            } else {
-                log.info("CustomerRESTService - deleteCustomer - No Customer with matching ID was found so can't Delete.");
-                throw new WebApplicationException(Response.Status.NOT_FOUND);
-            }
-
-            builder = Response.noContent();
-            log.info("deleteCustomer completed. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-                + Customer.getId());
-        } catch (Exception e) {
-            log.info("Exception - " + e.toString());
-            // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("error", e.getMessage());
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-        }
-
-        return builder.build();
+        
+        // 405 - Method Not Allowed
+        throw new WebApplicationException(405);
     }
     
     /**
