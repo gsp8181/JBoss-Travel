@@ -91,15 +91,6 @@ public class Customer implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @NotNull
-    @Past(message = "Birthdates can not be in the future. Please choose one from the past")
-    @Column(name = "birth_date")
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
-
-    @Column(name = "state")
-    private String state;
-
     public Long getId() {
         return id;
     }
@@ -138,21 +129,5 @@ public class Customer implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getState() {
-        return this.state;
     }
 }

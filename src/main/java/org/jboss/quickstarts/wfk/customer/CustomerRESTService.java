@@ -122,7 +122,7 @@ public class CustomerRESTService {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         log.info("findById " + id + ": found Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-                + Customer.getBirthDate() + " " + Customer.getId());
+                + Customer.getId());
         
         return Response.ok(Customer).build();
     }
@@ -138,7 +138,7 @@ public class CustomerRESTService {
     @POST
     public Response createCustomer(Customer Customer) {
         log.info("createCustomer started. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-            + Customer.getBirthDate() + " " + Customer.getId());
+            + Customer.getId());
         if (Customer == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
@@ -153,7 +153,7 @@ public class CustomerRESTService {
             builder = Response.status(Response.Status.CREATED).entity(Customer);
             
             log.info("createCustomer completed. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-                + Customer.getBirthDate() + " " + Customer.getId());
+                + Customer.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -190,7 +190,7 @@ public class CustomerRESTService {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         log.info("updateCustomer started. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-                + Customer.getBirthDate() + " " + Customer.getId());
+                + Customer.getId());
 
         if (Customer.getId() != id) {
             // The client attempted to update the read-only Id. This is not permitted.
@@ -212,7 +212,7 @@ public class CustomerRESTService {
             builder = Response.ok(Customer);
 
             log.info("updateCustomer completed. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-                + Customer.getBirthDate() + " " + Customer.getId());
+                + Customer.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -261,7 +261,7 @@ public class CustomerRESTService {
 
             builder = Response.noContent();
             log.info("deleteCustomer completed. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
-                + Customer.getBirthDate() + " " + Customer.getId());
+                + Customer.getId());
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions

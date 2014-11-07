@@ -17,23 +17,13 @@
 package org.jboss.quickstarts.wfk.customer;
 
 
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
-import java.net.URI;
 import java.util.List;
 
 import java.util.logging.Logger;
@@ -138,23 +128,6 @@ public class CustomerService {
         // Check to make sure the data fits with the parameters in the Customer model and passes validation.
         validator.validateCustomer(Customer);
 
-        //Perform a rest call to get the state of the Customer from the allareacodes.com API
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.allareacodes.com")
-                .setPath("/api/1.0/api.json")
-                .setParameter("npa", Customer.getPhoneNumber().substring(1,4))
-                .setParameter("tracking_email", "h.firth@ncl.ac.uk")
-                .setParameter("tracking_url", "http://www.ncl.ac.uk/undergraduate/modules/module/CSC8104")
-                .build();
-        HttpGet req = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(req);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject responseJson = new JSONObject(responseBody);
-        JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        Customer.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);
-
 
         // Write the Customer to the database.
         return crud.create(Customer);
@@ -174,23 +147,6 @@ public class CustomerService {
         
         // Check to make sure the data fits with the parameters in the Customer model and passes validation.
         validator.validateCustomer(Customer);
-
-        //Perform a rest call to get the state of the Customer from the allareacodes.com API
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.allareacodes.com")
-                .setPath("/api/1.0/api.json")
-                .setParameter("npa", Customer.getPhoneNumber().substring(1,4))
-                .setParameter("tracking_email", "h.firth@ncl.ac.uk")
-                .setParameter("tracking_url", "http://www.ncl.ac.uk/undergraduate/modules/module/CSC8104")
-                .build();
-        HttpGet req = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(req);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject responseJson = new JSONObject(responseBody);
-        JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        Customer.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);
 
         // Either update the Customer or add it if it can't be found.
         return crud.update(Customer);
