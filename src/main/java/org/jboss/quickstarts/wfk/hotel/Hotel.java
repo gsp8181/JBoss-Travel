@@ -71,7 +71,7 @@ public class Hotel implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
+    @Pattern(regexp = "[A-Za-z -']+", message = "Please use a name without numbers or specials")
     @Column(name = "name")
     private String name;
 
@@ -82,7 +82,8 @@ public class Hotel implements Serializable {
     //private String lastName;
 
     @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 10)
+    @Pattern(regexp = "[A-Za-z0-9 -']+", message = "Please enter a valid postcode")
     @Column(name = "postcode")
     private String postcode;
 
