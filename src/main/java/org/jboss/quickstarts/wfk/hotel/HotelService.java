@@ -78,16 +78,16 @@ public class HotelService {
     }
 
     /**
-     * <p>Returns a single Hotel object, specified by a String email.</p>
+     * <p>Returns a single Hotel object, specified by a String phone number.</p>
      *
-     * <p>If there is more than one Hotel with the specified email, only the first encountered will be returned.<p/>
+     * <p>If there is more than one Hotel with the specified phone number, only the first encountered will be returned.<p/>
      * 
-     * @param email The email field of the Hotel to be returned
-     * @return The first Hotel with the specified email
+     * @param phoneNumber The phone number field of the Hotel to be returned
+     * @return The first Hotel with the specified phone number
      */
-    /*Hotel findByEmail(String email) {
-        return crud.findByEmail(email);
-    }*/
+    Hotel findByPhoneNumber(String phoneNumber) {
+        return crud.findByPhoneNumber(phoneNumber);
+    }
 
     /**
      * <p>Returns a single Hotel object, specified by a String name.<p/>
@@ -100,18 +100,6 @@ public class HotelService {
     Hotel findByFirstName(String name) {
         return crud.findByName(name);
     }
-
-    /**
-     * <p>Returns a single Hotel object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     * 
-     * @param lastName The lastName field of the Hotel to be returned
-     * @return The first Hotel with the specified lastName
-     */
-    /*Hotel findByLastName(String lastName) {
-        return crud.findByFirstName(lastName);
-    }*/
 
     /**
      * <p>Writes the provided Hotel object to the application database.<p/>

@@ -69,17 +69,17 @@ public class HotelRepository {
     }
 
     /**
-     * <p>Returns a single Hotel object, specified by a String email.</p>
+     * <p>Returns a single Hotel object, specified by a String phone number.</p>
      *
-     * <p>If there is more than one Hotel with the specified email, only the first encountered will be returned.<p/>
+     * <p>If there is more than one Hotel with the specified phone number, only the first encountered will be returned.<p/>
      *
-     * @param email The email field of the Hotel to be returned
-     * @return The first Hotel with the specified email
+     * @param phoneNumber The phone number field of the Hotel to be returned
+     * @return The first Hotel with the specified phone number
      */
-    /*Hotel findByEmail(String email) {
-        TypedQuery<Hotel> query = em.createNamedQuery(Hotel.FIND_BY_EMAIL, Hotel.class).setParameter("email", email); 
+    Hotel findByPhoneNumber(String phoneNumber) {
+        TypedQuery<Hotel> query = em.createNamedQuery(Hotel.FIND_BY_PHONE_NUMBER, Hotel.class).setParameter("phoneNumber", phoneNumber); 
         return query.getSingleResult();
-    }*/
+    }
 
     /**
      * <p>Returns a single Hotel object, specified by a String name.<p/>

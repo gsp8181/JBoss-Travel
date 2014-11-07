@@ -62,28 +62,28 @@ public class HotelValidator {
             throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
         }
 
-        // Check the uniqueness of the email address
-        /*if (emailAlreadyExists(Hotel.getEmail(), Hotel.getId())) {
-            throw new ValidationException("Unique Email Violation");
-        }*/
+        // Check the uniqueness of the phone number
+        if (phoneNumberAlreadyExists(Hotel.getPhoneNumber(), Hotel.getId())) {
+            throw new ValidationException("Unique Phone Number Violation");
+        }
     }
 
     /**
-     * <p>Checks if a Hotel with the same email address is already registered. This is the only way to easily capture the
-     * "@UniqueConstraint(columnNames = "email")" constraint from the Hotel class.</p>
+     * <p>Checks if a Hotel with the same phone number is already registered. This is the only way to easily capture the
+     * "@UniqueConstraint(columnNames = "phoneNumber")" constraint from the Hotel class.</p>
      * 
-     * <p>Since Update will being using an email that is already in the database we need to make sure that it is the email
+     * <p>Since Update will being using a phone number that is already in the database we need to make sure that it is the phone number
      * from the record being updated.</p>
      * 
-     * @param email The email to check is unique
-     * @param id The user id to check the email against if it was found
-     * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
+     * @param email The phone number to check is unique
+     * @param id The user id to check the phone number against if it was found
+     * @return boolean which represents whether the phone number was found, and if so if it belongs to the user with id
      */
-   /* boolean emailAlreadyExists(String email, Long id) {
+    boolean phoneNumberAlreadyExists(String phoneNumber, Long id) {
         Hotel Hotel = null;
         Hotel HotelWithID = null;
         try {
-            Hotel = crud.findByEmail(email);
+            Hotel = crud.findByPhoneNumber(phoneNumber);
         } catch (NoResultException e) {
             // ignore
         }
@@ -91,7 +91,7 @@ public class HotelValidator {
         if (Hotel != null && id != null) {
             try {
                 HotelWithID = crud.findById(id);
-                if (HotelWithID != null && HotelWithID.getEmail().equals(email)) {
+                if (HotelWithID != null && HotelWithID.getPhoneNumber().equals(phoneNumber)) {
                     Hotel = null;
                 }
             } catch (NoResultException e) {
@@ -99,5 +99,5 @@ public class HotelValidator {
             }
         }
         return Hotel != null;
-    }*/
+    }
 }

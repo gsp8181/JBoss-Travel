@@ -162,7 +162,7 @@ public class HotelRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            //responseObj.put("email", "That email is already used, please use a unique email"); //TODO: CHANGE THIS
+            responseObj.put("phoneNumber", "That phone number is already used, please use a unique phone number");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
@@ -221,7 +221,7 @@ public class HotelRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            //responseObj.put("email", "That email is already used, please use a unique email"); //TODO: CHANGE
+            responseObj.put("email", "That phone number is already used, please use a unique phone number");
             responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
             responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/wfk/rest/HotelRESTService.java line 242.");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);

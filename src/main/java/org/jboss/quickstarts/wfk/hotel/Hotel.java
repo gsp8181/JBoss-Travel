@@ -45,7 +45,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Hotel.FIND_ALL, query = "SELECT c FROM Hotel c ORDER BY c.name ASC"),
-    //@NamedQuery(name = Hotel.FIND_BY_EMAIL, query = "SELECT c FROM Hotel c WHERE c.email = :email")
+    @NamedQuery(name = Hotel.FIND_BY_PHONE_NUMBER, query = "SELECT c FROM Hotel c WHERE c.phoneNumber = :phoneNumber")
 })
 @XmlRootElement
 @Table(name = "Hotel")
@@ -54,7 +54,7 @@ public class Hotel implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public static final String FIND_ALL = "Hotel.findAll";
-    //public static final String FIND_BY_EMAIL = "Hotel.findByEmail";
+    public static final String FIND_BY_PHONE_NUMBER = "Hotel.findByPhoneNumber";
 
     /*
      * The  error messages match the ones in the UI so that the user isn't confused by two similar error messages for
@@ -70,16 +70,10 @@ public class Hotel implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 50)
     @Pattern(regexp = "[A-Za-z -']+", message = "Please use a name without numbers or specials")
     @Column(name = "name")
     private String name;
-
-    //@NotNull
-    //@Size(min = 1, max = 25)
-    //@Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    //@Column(name = "last_name")
-    //private String lastName;
 
     @NotNull
     @Size(min = 1, max = 10)
@@ -88,8 +82,8 @@ public class Hotel implements Serializable {
     private String postcode;
 
     @NotNull
-    @Pattern(regexp = "^\\([2-9][0-8][0-9]\\)\\s?[0-9]{3}\\-[0-9]{4}$")
-    @Column(name = "phone_number")
+    @Pattern(regexp = "^[0-9]{11}$", message = "")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     public Long getId() {
