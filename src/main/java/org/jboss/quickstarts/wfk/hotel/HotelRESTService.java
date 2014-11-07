@@ -248,29 +248,9 @@ public class HotelRESTService {
     @Path("/{id:[0-9][0-9]*}")
     public Response deleteHotel(@PathParam("id") Long id) {
         log.info("deleteHotel started. Hotel ID = " + id);
-        Response.ResponseBuilder builder = null;
-
-        try {
-            Hotel Hotel = service.findById(id);
-            if (Hotel != null) {
-                service.delete(Hotel);
-            } else {
-                log.info("HotelRESTService - deleteHotel - No Hotel with matching ID was found so can't Delete.");
-                throw new WebApplicationException(Response.Status.NOT_FOUND);
-            }
-
-            builder = Response.noContent();
-            log.info("deleteHotel completed. Hotel = " + Hotel.getFirstName() + " " + Hotel.getLastName() + " " + Hotel.getEmail() + " " + Hotel.getPhoneNumber() + " "
-                + Hotel.getId());
-        } catch (Exception e) {
-            log.info("Exception - " + e.toString());
-            // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("error", e.getMessage());
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-        }
-
-        return builder.build();
+        
+        // 405 - Method Not Allowed
+        throw new WebApplicationException(405);
     }
     
     /**
