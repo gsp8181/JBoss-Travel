@@ -1,5 +1,6 @@
 target/
 .openshift/
+.tern-project
 #################
 ## Eclipse
 #################
