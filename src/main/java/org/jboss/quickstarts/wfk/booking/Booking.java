@@ -1,4 +1,6 @@
 /*
+ * Geoffrey Prytherch - Adapted from JBoss Examples, with the licence given below
+ * 
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -37,7 +39,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * <p>The class also specifies how a bookings are retrieved from the database (with @NamedQueries), and acceptable values
  * for Booking fields (with @NotNull, @Pattern etc...)<p/>
  * 
- * @author Joshua Wilson
+ * @author Geoffrey Prytherch
  */
 /*
  * The @NamedQueries included here are for searching against the table that reflects this object.  This is the most efficient

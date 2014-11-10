@@ -1,4 +1,6 @@
 /*
+ * Geoffrey Prytherch - Adapted from JBoss Examples, with the licence given below
+ * 
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -30,7 +32,7 @@ import javax.validation.Validator;
 /**
  * <p>This class provides methods to check Booking objects against arbitrary requirements.</p>
  * 
- * @author Joshua Wilson
+ * @author Geoffrey Prytherch
  * @see Booking
  * @see BookingRepository
  * @see javax.validation.Validator

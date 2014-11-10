@@ -1,4 +1,6 @@
 /*
+ * Geoffrey Prytherch - Adapted from JBoss Examples, with the licence given below
+ * 
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -36,7 +38,7 @@ import java.util.logging.Logger;
  * <p>There are no access modifiers on the methods making them 'package' scope.  They should only be accessed by a
  * Service/Control object.<p/>
  * 
- * @author Joshua Wilson
+ * @author Geoffrey Prytherch
  * @see Hotel
  * @see javax.persistence.EntityManager
  */

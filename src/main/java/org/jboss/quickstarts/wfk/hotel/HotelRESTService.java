@@ -1,4 +1,6 @@
 /*
+ * Geoffrey Prytherch - Adapted from JBoss Examples, with the licence given below
+ * 
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -48,7 +50,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * <p>The resource accepts and produces JSON.</p>
  * 
- * @author Joshua Wilson
+ * @author Geoffrey Prytherch
  * @see HotelService
  * @see javax.ws.rs.core.Response
  */
