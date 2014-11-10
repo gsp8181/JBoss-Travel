@@ -16,6 +16,7 @@
  */
 package org.jboss.quickstarts.wfk.booking;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,7 +64,7 @@ public class BookingValidator {
         }
 
         // Check the uniqueness of the email address
-        if (bookingAlreadyExists(booking.getEmail(), booking.getId())) {
+        if (bookingAlreadyExists(booking.getHotelId(), booking.getBookingDate(), booking.getId())) {
             throw new ValidationException("Date/Hotel combination already exists");
         }
     }
@@ -79,11 +80,11 @@ public class BookingValidator {
      * @param id The user id to check the email against if it was found
      * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
      */
-    boolean bookingAlreadyExists(String email, Long id) {
+    boolean bookingAlreadyExists(String hotelId, Date bookingDate, Long id) {
         Booking booking = null;
         Booking bookingWithID = null;
         try {
-            booking = crud.findByIdAndDate(email);
+            booking = crud.findByIdAndDate(hotelId, bookingDate);
         } catch (NoResultException e) {
             // ignore
         }
@@ -91,7 +92,7 @@ public class BookingValidator {
         if (booking != null && id != null) {
             try {
                 bookingWithID = crud.findById(id);
-                if (bookingWithID != null && bookingWithID.getEmail().equals(email)) {
+                if (bookingWithID != null && bookingWithID.getHotelId().equals(hotelId) && bookingWithID.getBookingDate().equals(bookingDate)) {
                     booking = null;
                 }
             } catch (NoResultException e) {
