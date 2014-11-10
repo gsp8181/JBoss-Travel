@@ -17,6 +17,7 @@
 package org.jboss.quickstarts.wfk.hotel;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -42,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = Hotel.FIND_BY_PHONE_NUMBER, query = "SELECT c FROM Hotel c WHERE c.phoneNumber = :phoneNumber")
 })
 @XmlRootElement
-@Table(name = "Hotel")
+@Table(name = "Hotel", uniqueConstraints = @UniqueConstraint(columnNames = "phoneNumber"))
 public class Hotel implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
