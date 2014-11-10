@@ -1,8 +1,8 @@
 travel: JAX-RS Services Documentation 
 =======================================================
-Author: Hugo Firth
+Author: Geoffrey Prytherch
 
-This example supports various RESTFul end points which also includes JSONP support for cross domain requests.
+These services support various RESTFul end points which also includes JSONP support for cross domain requests.
 
 By default the base URL for services is `/travel/rest`.
 
@@ -19,7 +19,7 @@ CustomerService End Points
 * Request example:
 
 ```JavaScript
-{id: 14, firstName: "John", lastName: 'Smith', phoneNumber: "01915552092", email: "john.smith@newcastle.co.uk"}
+{"firstName": "John", "lastName": "Smith", "phoneNumber": "01915552092", "email": "john.smith@newcastle.co.uk"}
 ```
 
 * Response example:
@@ -40,8 +40,8 @@ CustomerService End Points
 * Response example:
 
 ```javascript
-[{id: 14, firstName: "John", lastName: 'Smith', phoneNumber: "01915552092", email: "john.smith@newcastle.co.uk"},
- {id: 15, firstName: "Jane", lastName: 'Smith', phoneNumber: "01512235655", email: "jane.smith@liverpool.co.uk"}]
+[{"id": 14, "firstName": "John", "lastName": 'Smith', "phoneNumber": "01915552092", "email": "john.smith@newcastle.co.uk"},
+ {"id": 15, "firstName": "Jane", "lastName": "Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}]
 ```
 
 ### Find a contact by it's ID.
@@ -51,34 +51,22 @@ CustomerService End Points
 * Response example:
 
 ```javascript
-{id: 15, firstName: "Jane", lastName: 'Smith', phoneNumber: "01512235655", email: "jane.smith@liverpool.co.uk"}
+{"id": 15, "firstName": "Jane", "lastName": "Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}
 ```
 
 
 ##UPDATE
 ### Edit one contact
-#### /rest/customers
+#### /rest/customers/\<id>
 
 * Request type: PUT
 * Return type: JSON
 * Response example:
 
 ```javascript
-{id: 15, firstName: "Jane", lastName: 'Smith', phoneNumber: "01512235655", email: "jane.smith@liverpool.co.uk"}
+{"id": 15, "firstName": "Jane", "lastName": "Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}
 ```
 
-
-##DELETE
-### Delete one contact
-#### /rest/customers
-
-* Request type: DELETE
-* Return type: JSON
-* Response example:
-
-```javascript
-{id: 15, firstName: "Jane", lastName: 'Smith', phoneNumber: "01512235655", email: "jane.smith@liverpool.co.uk"}
-```
 
 HotelService End Points
 ------------------------
