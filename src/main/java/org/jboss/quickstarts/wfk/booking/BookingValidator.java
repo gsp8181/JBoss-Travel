@@ -63,8 +63,8 @@ public class BookingValidator {
         }
 
         // Check the uniqueness of the email address
-        if (emailAlreadyExists(booking.getEmail(), booking.getId())) {
-            throw new ValidationException("Unique Email Violation");
+        if (bookingAlreadyExists(booking.getEmail(), booking.getId())) {
+            throw new ValidationException("Date/Hotel combination already exists");
         }
     }
 
@@ -79,11 +79,11 @@ public class BookingValidator {
      * @param id The user id to check the email against if it was found
      * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
      */
-    boolean emailAlreadyExists(String email, Long id) {
+    boolean bookingAlreadyExists(String email, Long id) {
         Booking booking = null;
         Booking bookingWithID = null;
         try {
-            booking = crud.findByEmail(email);
+            booking = crud.findByIdAndDate(email);
         } catch (NoResultException e) {
             // ignore
         }

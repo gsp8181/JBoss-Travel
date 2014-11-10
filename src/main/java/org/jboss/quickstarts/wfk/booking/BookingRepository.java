@@ -26,6 +26,9 @@ import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
+import org.jboss.quickstarts.wfk.contact.Contact;
+
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -53,7 +56,7 @@ public class BookingRepository {
      * 
      * @return List of Booking objects
      */
-    List<Booking> findAllOrderedByName() {
+    List<Booking> findAllOrderedByIds() {
         TypedQuery<Booking> query = em.createNamedQuery(Booking.FIND_ALL, Booking.class); 
         return query.getResultList();
     }
@@ -67,17 +70,19 @@ public class BookingRepository {
     Booking findById(Long id) {
         return em.find(Booking.class, id);
     }
-
+    
     /**
-     * <p>Returns a single Booking object, specified by a String email.</p>
+     * <p>Returns a single Contact object, specified by a String email.</p>
      *
-     * <p>If there is more than one Booking with the specified email, only the first encountered will be returned.<p/>
+     * <p>If there is more than one Contact with the specified email, only the first encountered will be returned.<p/>
      *
-     * @param email The email field of the Booking to be returned
-     * @return The first Booking with the specified email
+     * @param email The email field of the Contact to be returned
+     * @return The first Contact with the specified email
      */
-    Booking findByEmail(String email) {
-        TypedQuery<Booking> query = em.createNamedQuery(Booking.FIND_BY_EMAIL, Booking.class).setParameter("email", email); 
+    Booking findByIdAndDate(String hotelId, Date bookingDate) {
+        TypedQuery<Booking> query = em.createNamedQuery(Booking.FIND_BY_ID_AND_DATE, Booking.class);
+        query = query.setParameter("hotelId", hotelId);
+        query = query.setParameter("bookingDate", bookingDate);
         return query.getSingleResult();
     }
 
@@ -89,31 +94,13 @@ public class BookingRepository {
      * @param firstName The firstName field of the Booking to be returned
      * @return The first Booking with the specified firstName
      */
-    Booking findByFirstName(String firstName) {
+    Booking findByCustomerId(String customerId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Booking> criteria = cb.createQuery(Booking.class);
         Root<Booking> booking = criteria.from(Booking.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
         // criteria.select(booking).where(cb.equal(booking.get(Booking_.firstName), firstName));
-        criteria.select(booking).where(cb.equal(booking.get("firstName"), firstName));
-        return em.createQuery(criteria).getSingleResult();
-    }
-
-    /**
-     * <p>Returns a single Booking object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     *
-     * @param lastName The lastName field of the Booking to be returned
-     * @return The first Booking with the specified lastName
-     */
-    Booking findByLastName(String lastName) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Booking> criteria = cb.createQuery(Booking.class);
-        Root<Booking> booking = criteria.from(Booking.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(booking).where(cb.equal(booking.get(Booking_.lastName), lastName));
-        criteria.select(booking).where(cb.equal(booking.get("lastName"), lastName));
+        criteria.select(booking).where(cb.equal(booking.get("customerId"), customerId));
         return em.createQuery(criteria).getSingleResult();
     }
 
@@ -130,7 +117,7 @@ public class BookingRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Booking create(Booking booking) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("BookingRepository.create() - Creating " + booking.getFirstName() + " " + booking.getLastName());
+        log.info("BookingRepository.create() - Creating " + booking.getCustomerId() + " customer booking hotel: " + booking.getHotelId());
         
         // Write the booking to the database.
         em.persist(booking);
@@ -152,7 +139,7 @@ public class BookingRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Booking update(Booking booking) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("BookingRepository.update() - Updating " + booking.getFirstName() + " " + booking.getLastName());
+        log.info("BookingRepository.update() - Updating booking number " + booking.getId());
         
         // Either update the booking or add it if it can't be found.
         em.merge(booking);
@@ -168,7 +155,7 @@ public class BookingRepository {
      * @throws Exception
      */
     Booking delete(Booking booking) throws Exception {
-        log.info("BookingRepository.delete() - Deleting " + booking.getFirstName() + " " + booking.getLastName());
+        log.info("BookingRepository.delete() - Deleting booking number " + booking.getId());
         
         if (booking.getId() != null) {
             /*

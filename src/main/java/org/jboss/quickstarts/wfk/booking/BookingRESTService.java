@@ -82,7 +82,7 @@ public class BookingRESTService {
      */
     @GET
     public Response retrieveAllBookings() {
-        List<Booking> bookings = service.findAllOrderedByName();
+        List<Booking> bookings = service.findAllOrderedByIds();
         return Response.ok(bookings).build();
     }
 

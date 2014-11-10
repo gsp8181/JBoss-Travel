@@ -73,8 +73,8 @@ public class BookingService {
      * 
      * @return List of Booking objects
      */
-    List<Booking> findAllOrderedByName() {
-        return crud.findAllOrderedByName();
+    List<Booking> findAllOrderedByIds() {
+        return crud.findAllOrderedByIds();
     }
 
     /**
@@ -95,32 +95,8 @@ public class BookingService {
      * @param email The email field of the Booking to be returned
      * @return The first Booking with the specified email
      */
-    Booking findByEmail(String email) {
-        return crud.findByEmail(email);
-    }
-
-    /**
-     * <p>Returns a single Booking object, specified by a String firstName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     * 
-     * @param firstName The firstName field of the Booking to be returned
-     * @return The first Booking with the specified firstName
-     */
-    Booking findByFirstName(String firstName) {
-        return crud.findByFirstName(firstName);
-    }
-
-    /**
-     * <p>Returns a single Booking object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     * 
-     * @param lastName The lastName field of the Booking to be returned
-     * @return The first Booking with the specified lastName
-     */
-    Booking findByLastName(String lastName) {
-        return crud.findByFirstName(lastName);
+    Booking findByCustomerId(String customerId) {
+        return crud.findByCustomerId(customerId);
     }
 
     /**
@@ -133,28 +109,10 @@ public class BookingService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Booking create(Booking booking) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("BookingService.create() - Creating " + booking.getFirstName() + " " + booking.getLastName());
+    	log.info("BookingService.create() - Creating " + booking.getCustomerId() + " customer booking hotel: " + booking.getHotelId());
         
         // Check to make sure the data fits with the parameters in the Booking model and passes validation.
         validator.validateBooking(booking);
-
-        //Perform a rest call to get the state of the booking from the allareacodes.com API
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.allareacodes.com")
-                .setPath("/api/1.0/api.json")
-                .setParameter("npa", booking.getPhoneNumber().substring(1,4))
-                .setParameter("tracking_email", "h.firth@ncl.ac.uk")
-                .setParameter("tracking_url", "http://www.ncl.ac.uk/undergraduate/modules/module/CSC8104")
-                .build();
-        HttpGet req = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(req);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject responseJson = new JSONObject(responseBody);
-        JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        booking.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);
-
 
         // Write the booking to the database.
         return crud.create(booking);
@@ -170,27 +128,10 @@ public class BookingService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Booking update(Booking booking) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("BookingService.update() - Updating " + booking.getFirstName() + " " + booking.getLastName());
+    	log.info("BookingService.update() - Updating booking number " + booking.getId());
         
         // Check to make sure the data fits with the parameters in the Booking model and passes validation.
         validator.validateBooking(booking);
-
-        //Perform a rest call to get the state of the booking from the allareacodes.com API
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.allareacodes.com")
-                .setPath("/api/1.0/api.json")
-                .setParameter("npa", booking.getPhoneNumber().substring(1,4))
-                .setParameter("tracking_email", "h.firth@ncl.ac.uk")
-                .setParameter("tracking_url", "http://www.ncl.ac.uk/undergraduate/modules/module/CSC8104")
-                .build();
-        HttpGet req = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(req);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject responseJson = new JSONObject(responseBody);
-        JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        booking.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);
 
         // Either update the booking or add it if it can't be found.
         return crud.update(booking);
@@ -204,7 +145,7 @@ public class BookingService {
      * @throws Exception
      */
     Booking delete(Booking booking) throws Exception {
-        log.info("BookingService.delete() - Deleting " + booking.getFirstName() + " " + booking.getLastName());
+    	log.info("BookingService.delete() - Deleting booking number " + booking.getId());
         
         Booking deletedBooking = null;
         

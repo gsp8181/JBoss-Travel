@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -44,17 +45,17 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Booking.FIND_ALL, query = "SELECT c FROM Booking c ORDER BY c.lastName ASC, c.firstName ASC"),
-    @NamedQuery(name = Booking.FIND_BY_EMAIL, query = "SELECT c FROM Booking c WHERE c.email = :email")
+    @NamedQuery(name = Booking.FIND_ALL, query = "SELECT c FROM Booking c ORDER BY c.hotelId ASC, c.customerId ASC, c.bookingDate ASC"),
+    @NamedQuery(name = Booking.FIND_BY_ID_AND_DATE, query = "SELECT c FROM Booking c WHERE c.hotelId = :hotelId AND c.bookingDate = :bookingDate")
 })
 @XmlRootElement
-@Table(name = "Booking", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "Booking")//, uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Booking implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
     
     public static final String FIND_ALL = "Booking.findAll";
-    public static final String FIND_BY_EMAIL = "Booking.findByEmail";
+    public static final String FIND_BY_ID_AND_DATE = "Booking.findByIdAndDate";
 
     /*
      * The  error messages match the ones in the UI so that the user isn't confused by two similar error messages for
@@ -71,34 +72,22 @@ public class Booking implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    @Column(name = "first_name")
-    private String firstName;
-
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    @Column(name = "last_name")
-    private String lastName;
+    @NotEmpty
+    @Column(name = "customer_id")
+    private String customerId;
 
     @NotNull
     @NotEmpty
-    @Email(message = "The email address must be in the format of name@domain.com")
-    private String email;
+    @Size(min = 1, max = 25)
+    @Column(name = "hotel_id")
+    private String hotelId;
 
+    //TODO: is future the right ting?
+    @Future(message = "Booking date must be in the future")
     @NotNull
-    @Pattern(regexp = "^\\([2-9][0-8][0-9]\\)\\s?[0-9]{3}\\-[0-9]{4}$")
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @NotNull
-    @Past(message = "Birthdates can not be in the future. Please choose one from the past")
-    @Column(name = "birth_date")
+    @Column(name = "booking_date")
     @Temporal(TemporalType.DATE)
-    private Date birthDate;
-
-    @Column(name = "state")
-    private String state;
+    private Date bookingDate;
 
     public Long getId() {
         return id;
@@ -108,51 +97,27 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getHotelId() {
+        return hotelId;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public String getEmail() {
-        return email;
+    public Date getBookingDate() {
+        return bookingDate;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getState() {
-        return this.state;
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
     }
 }
