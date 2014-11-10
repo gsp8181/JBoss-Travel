@@ -243,13 +243,13 @@ public class CustomerRESTService {
      * @param id The Long parameter value provided as the id of the Customer to be deleted
      * @return A Response indicating the outcome of the delete operation
      */
-    @DELETE
+    /*@DELETE
     @Path("/{id:[0-9]+}")
     public Response deleteCustomer(@PathParam("id") Long id) {
         log.info("deleteCustomer started. Customer ID = " + id);
         
         throw new WebApplicationException(Response.Status.BAD_REQUEST);
-    }
+    }*/
     
     /**
      * <p>Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can be used

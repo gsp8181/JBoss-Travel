@@ -242,13 +242,13 @@ public class HotelRESTService {
      * @param id The Long parameter value provided as the id of the Hotel to be deleted
      * @return A Response indicating the outcome of the delete operation
      */
-    @DELETE
+    /*@DELETE
     @Path("/{id:[0-9][0-9]*}")
     public Response deleteHotel(@PathParam("id") Long id) {
         log.info("deleteHotel started. Hotel ID = " + id);
         
         throw new WebApplicationException(Response.Status.BAD_REQUEST);
-    }
+    }*/
     
     /**
      * <p>Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can be used
