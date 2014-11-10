@@ -71,21 +71,17 @@ public class Booking implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 25)
-    @NotEmpty
-    @Column(name = "customer_id")
+    @Column(name = "customerId")
     private Long customerId;
 
     @NotNull
-    @NotEmpty
-    @Size(min = 1, max = 25)
-    @Column(name = "hotel_id")
+    @Column(name = "hotelId")
     private Long hotelId;
 
     //TODO: is future the right ting?
     @Future(message = "Booking date must be in the future")
     @NotNull
-    @Column(name = "booking_date")
+    @Column(name = "bookingDate")
     @Temporal(TemporalType.DATE)
     private Date bookingDate;
 
