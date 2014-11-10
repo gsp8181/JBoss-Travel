@@ -183,7 +183,7 @@ public class CustomerRESTService {
      * @return A Response indicating the outcome of the create operation
      */
     @PUT
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("/{id:[0-9]+}")
     public Response updateCustomer(@PathParam("id") long id, Customer Customer) {
         if (Customer == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -244,7 +244,7 @@ public class CustomerRESTService {
      * @return A Response indicating the outcome of the delete operation
      */
     @DELETE
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("/{id:[0-9]+}")
     public Response deleteCustomer(@PathParam("id") Long id) {
         log.info("deleteCustomer started. Customer ID = " + id);
         
