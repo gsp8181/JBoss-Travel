@@ -46,13 +46,13 @@ public class HotelValidator {
      * bean validation errors then it will throw a ConstraintValidationException with the set of the constraints violated.<p/>
      *
      *
-     * <p>If the error is caused because an existing Hotel with the same email is registered it throws a regular validation
+     * <p>If the error is caused because an existing Hotel with the same phone number is registered it throws a regular validation
      * exception so that it can be interpreted separately.</p>
      *
      * 
      * @param Hotel The Hotel object to be validated
      * @throws ConstraintViolationException If Bean Validation errors exist
-     * @throws ValidationException If Hotel with the same email already exists
+     * @throws ValidationException If Hotel with the same phone number already exists
      */
     void validateHotel(Hotel Hotel) throws ConstraintViolationException, ValidationException {
         // Create a bean validator and check for issues.
@@ -75,7 +75,7 @@ public class HotelValidator {
      * <p>Since Update will being using a phone number that is already in the database we need to make sure that it is the phone number
      * from the record being updated.</p>
      * 
-     * @param email The phone number to check is unique
+     * @param phoneNumber The phone number to check is unique
      * @param id The user id to check the phone number against if it was found
      * @return boolean which represents whether the phone number was found, and if so if it belongs to the user with id
      */
