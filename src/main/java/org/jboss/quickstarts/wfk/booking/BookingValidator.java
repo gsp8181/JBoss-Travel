@@ -80,7 +80,7 @@ public class BookingValidator {
      * @param id The user id to check the email against if it was found
      * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
      */
-    boolean bookingAlreadyExists(String hotelId, Date bookingDate, Long id) {
+    boolean bookingAlreadyExists(Long hotelId, Date bookingDate, Long id) {
         Booking booking = null;
         Booking bookingWithID = null;
         try {

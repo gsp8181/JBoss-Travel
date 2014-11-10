@@ -79,7 +79,7 @@ public class BookingRepository {
      * @param email The email field of the Contact to be returned
      * @return The first Contact with the specified email
      */
-    Booking findByIdAndDate(String hotelId, Date bookingDate) {
+    Booking findByIdAndDate(Long hotelId, Date bookingDate) {
         TypedQuery<Booking> query = em.createNamedQuery(Booking.FIND_BY_ID_AND_DATE, Booking.class);
         query = query.setParameter("hotelId", hotelId);
         query = query.setParameter("bookingDate", bookingDate);

@@ -74,13 +74,13 @@ public class Booking implements Serializable {
     @Size(min = 1, max = 25)
     @NotEmpty
     @Column(name = "customer_id")
-    private String customerId;
+    private Long customerId;
 
     @NotNull
     @NotEmpty
     @Size(min = 1, max = 25)
     @Column(name = "hotel_id")
-    private String hotelId;
+    private Long hotelId;
 
     //TODO: is future the right ting?
     @Future(message = "Booking date must be in the future")
@@ -97,19 +97,19 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public String getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public String getHotelId() {
+    public Long getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(String hotelId) {
+    public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
     }
 
