@@ -96,7 +96,7 @@ public class BookingRESTService {
      * @param email The string parameter value provided as a Booking's email
      * @return A Response containing a single Booking
      */
-    @GET
+    /*@GET
     @Path("/{email:^.+@.+$}")
     public Response retrieveBookingsByEmail(@PathParam("email") String email) {
         Booking booking;
@@ -106,7 +106,7 @@ public class BookingRESTService {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         return Response.ok(booking).build();
-    }
+    }*/
     
     /**
      * <p>Search for and return a Booking identified by id.</p>
@@ -121,8 +121,7 @@ public class BookingRESTService {
         if (booking == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("findById " + id + ": found Booking = " + booking.getFirstName() + " " + booking.getLastName() + " " + booking.getEmail() + " " + booking.getPhoneNumber() + " "
-                + booking.getBirthDate() + " " + booking.getId());
+        log.info("findById " + id + ": found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         
         return Response.ok(booking).build();
     }
@@ -137,8 +136,7 @@ public class BookingRESTService {
     @SuppressWarnings("unused")
     @POST
     public Response createBooking(Booking booking) {
-        log.info("createBooking started. Booking = " + booking.getFirstName() + " " + booking.getLastName() + " " + booking.getEmail() + " " + booking.getPhoneNumber() + " "
-            + booking.getBirthDate() + " " + booking.getId());
+        log.info("createBooking started. Booking = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         if (booking == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
@@ -152,8 +150,7 @@ public class BookingRESTService {
             // Create a "Resource Created" 201 Response and pass the booking back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(booking);
             
-            log.info("createBooking completed. Booking = " + booking.getFirstName() + " " + booking.getLastName() + " " + booking.getEmail() + " " + booking.getPhoneNumber() + " "
-                + booking.getBirthDate() + " " + booking.getId());
+            log.info("createBooking completed. Booking =  = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -162,7 +159,7 @@ public class BookingRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("email", "That email is already used, please use a unique email");
+            responseObj.put("HotelID/Date", "That Hotel and Date combination is already used, please use a unique combination");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
@@ -189,8 +186,7 @@ public class BookingRESTService {
         if (booking == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        log.info("updateBooking started. Booking = " + booking.getFirstName() + " " + booking.getLastName() + " " + booking.getEmail() + " " + booking.getPhoneNumber() + " "
-                + booking.getBirthDate() + " " + booking.getId());
+        log.info("updateBooking started. Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
 
         if (booking.getId() != id) {
             // The client attempted to update the read-only Id. This is not permitted.
@@ -211,8 +207,7 @@ public class BookingRESTService {
             // Create an OK Response and pass the booking back in case it is needed.
             builder = Response.ok(booking);
 
-            log.info("updateBooking completed. Booking = " + booking.getFirstName() + " " + booking.getLastName() + " " + booking.getEmail() + " " + booking.getPhoneNumber() + " "
-                + booking.getBirthDate() + " " + booking.getId());
+            log.info("updateBooking completed. Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -260,8 +255,7 @@ public class BookingRESTService {
             }
 
             builder = Response.noContent();
-            log.info("deleteBooking completed. Booking = " + booking.getFirstName() + " " + booking.getLastName() + " " + booking.getEmail() + " " + booking.getPhoneNumber() + " "
-                + booking.getBirthDate() + " " + booking.getId());
+            log.info("deleteBooking completed. Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions
