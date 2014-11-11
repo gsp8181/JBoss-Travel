@@ -29,6 +29,11 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
 
+import org.jboss.quickstarts.wfk.customer.Customer;
+import org.jboss.quickstarts.wfk.customer.CustomerRepository;
+import org.jboss.quickstarts.wfk.hotel.Hotel;
+import org.jboss.quickstarts.wfk.hotel.HotelRepository;
+
 /**
  * <p>This class provides methods to check Booking objects against arbitrary requirements.</p>
  * 
@@ -43,6 +48,12 @@ public class BookingValidator {
 
     @Inject
     private BookingRepository crud;
+    
+    @Inject 
+    private CustomerRepository custRep;
+    
+    @Inject 
+    private HotelRepository hotelRep;
 
     /**
      * <p>Validates the given Booking object and throws validation exceptions based on the type of error. If the error is standard
@@ -68,6 +79,17 @@ public class BookingValidator {
         // Check the uniqueness of the email address
         if (bookingAlreadyExists(booking.getHotelId(), booking.getBookingDate(), booking.getId())) {
             throw new ValidationException("Date/Hotel combination already exists");
+        }
+        
+        // TODO: THIS NEEDS TO HAVE ITS OWN VERBOSE ERROR MESSAGE
+        if(!customerExists(booking.getCustomerId()))
+        {
+        	throw new ValidationException("Customer ID does not exist in the database");
+        }
+        
+        if(!hotelExists(booking.getHotelId()))
+        {
+        	throw new ValidationException("Hotel ID does not exist in the database");
         }
     }
 
@@ -100,6 +122,48 @@ public class BookingValidator {
             } catch (NoResultException e) {
                 // ignore
             }
+        }
+        return booking != null;
+    }
+    
+    /**
+     * <p>Checks if a booking with the same email address is already registered. This is the only way to easily capture the
+     * "@UniqueConstraint(columnNames = "email")" constraint from the Booking class.</p>
+     * 
+     * <p>Since Update will being using an email that is already in the database we need to make sure that it is the email
+     * from the record being updated.</p>
+     * 
+     * @param email The email to check is unique
+     * @param id The user id to check the email against if it was found
+     * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
+     */
+    boolean customerExists(Long customerId) {
+        Customer booking = null;
+        try {
+            booking = custRep.findById(customerId);
+        } catch (NoResultException e) {
+            // ignore
+        }
+        return booking != null;
+    }
+    
+    /**
+     * <p>Checks if a booking with the same email address is already registered. This is the only way to easily capture the
+     * "@UniqueConstraint(columnNames = "email")" constraint from the Booking class.</p>
+     * 
+     * <p>Since Update will being using an email that is already in the database we need to make sure that it is the email
+     * from the record being updated.</p>
+     * 
+     * @param email The email to check is unique
+     * @param id The user id to check the email against if it was found
+     * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
+     */
+    boolean hotelExists(Long hotelId) {
+        Hotel booking = null;
+        try {
+            booking = hotelRep.findById(hotelId);
+        } catch (NoResultException e) {
+            // ignore
         }
         return booking != null;
     }

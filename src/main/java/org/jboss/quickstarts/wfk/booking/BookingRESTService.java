@@ -180,7 +180,16 @@ public class BookingRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("HotelID/Date", "That Hotel and Date combination is already used, please use a unique combination");
+            if(e.getMessage().startsWith("Date/Hotel"))
+            		{
+            responseObj.put("hotelId/bookingDate", "That Hotel and Date combination is already used, please use a unique combination");
+            		} else if (e.getMessage().startsWith("Hotel ID"))
+            		{
+            			responseObj.put("hotelId", "That Hotel ID provided does not match a corresponding record in the Hotel database");
+            		} else if(e.getMessage().startsWith("Customer ID"))
+            		{
+            			responseObj.put("customerId", "That Customer ID provided does not match a corresponding record in the Customer database");
+            		}
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
@@ -237,9 +246,16 @@ public class BookingRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("email", "That email is already used, please use a unique email");
-            responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
-            responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/wfk/rest/BookingRESTService.java line 242.");
+            if(e.getMessage().startsWith("Date/Hotel"))
+    		{
+    responseObj.put("hotelId/bookingDate", "That Hotel and Date combination is already used, please use a unique combination");
+    		} else if (e.getMessage().startsWith("Hotel ID"))
+    		{
+    			responseObj.put("hotelId", "That Hotel ID provided does not match a corresponding record in the Hotel database");
+    		} else if(e.getMessage().startsWith("Customer ID"))
+    		{
+    			responseObj.put("customerId", "That Customer ID provided does not match a corresponding record in the Customer database");
+    		}
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
