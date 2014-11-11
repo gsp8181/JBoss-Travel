@@ -71,9 +71,9 @@ CustomerService End Points
 HotelService End Points
 ------------------------
 ##CREATE
-### Create a new contact
+### Create a new hotel
 
-#### /rest/contacts
+#### /rest/hotels
 
 * Request type: POST
 * Request type: JSON
@@ -81,7 +81,7 @@ HotelService End Points
 * Request example:
 
 ```JavaScript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+{"name":"MGM Grand","postcode":"SW4 5AX","phoneNumber":"02074450192"}
 ```
 
 * Response example:
@@ -89,65 +89,51 @@ HotelService End Points
 * Validation error: Collection of `<field name>:<error msg>` for each error
 
 ```JavaScript
-{"email":"That email is already used, please use a unique email"}
+{"phoneNumber":"That phone number is already used, please use a unique phone number"}
 ```
 
 
 ##READ
-### List all contacts
-#### /rest/contacts
+### List all hotels
+#### /rest/hotels
 
 * Request type: GET
 * Return type: JSON
 * Response example:
 
 ```javascript
-[{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'},
- {email: "john.doe@company.com", id: 15, firstName: "John", lastName: 'Doe', phoneNumber: "212-555-1212", birthDate:'1978-02-23'}]
+[{"id":27,"name":"MGM Grand","postcode":"SW4 5AX","phoneNumber":"02074450192"},{"id":99,"name":"Marriot Liverpool","postcode":"L1 9AZ","phoneNumber":"01916662903"}]
 ```
 
-### Find a contact by it's ID.
-#### /rest/contacts/\<id>
+### Find a hotel by it's ID.
+#### /rest/hotels/\<id>
 * Request type: GET
 * Return type: JSON
 * Response example:
 
 ```javascript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+{"id":99,"name":"Marriot Liverpool","postcode":"L1 9AZ","phoneNumber":"01916662903"}
 ```
 
 
 ##UPDATE
-### Edit one contact
-#### /rest/contacts
+### Edit one hotel
+#### /rest/hotels
 
 * Request type: PUT
 * Return type: JSON
 * Response example:
 
 ```javascript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
-```
-
-
-##DELETE
-### Delete one contact
-#### /rest/contacts
-
-* Request type: DELETE
-* Return type: JSON
-* Response example:
-
-```javascript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+{"id":99,"name":"Marriot Liverpool","postcode":"L1 9AZ","phoneNumber":"01916662903"}
 ```
 
 BookingService End Points
 ------------------------
 ##CREATE
-### Create a new contact
+### Create a new booking
 
-#### /rest/contacts
+#### /rest/bookings
 
 * Request type: POST
 * Request type: JSON
@@ -155,7 +141,7 @@ BookingService End Points
 * Request example:
 
 ```JavaScript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+{"customerId":10001,"hotelId":27,"bookingDate":"2015-10-20"}
 ```
 
 * Response example:
@@ -163,59 +149,60 @@ BookingService End Points
 * Validation error: Collection of `<field name>:<error msg>` for each error
 
 ```JavaScript
-{"email":"That email is already used, please use a unique email"}
+{"HotelID/Date":"That Hotel and Date combination is already used, please use a unique combination"}
 ```
 
 
 ##READ
-### List all contacts
-#### /rest/contacts
+### List all bookings
+#### /rest/bookings
 
 * Request type: GET
 * Return type: JSON
 * Response example:
 
 ```javascript
-[{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'},
- {email: "john.doe@company.com", id: 15, firstName: "John", lastName: 'Doe', phoneNumber: "212-555-1212", birthDate:'1978-02-23'}]
+[{"id":1001,"customerId":10001,"hotelId":27,"bookingDate":"2015-10-20"},{"id":1002,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-20"},{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"},{"id":1,"customerId":10012,"hotelId":99,"bookingDate":"2015-10-22"}]
 ```
 
-### Find a contact by it's ID.
-#### /rest/contacts/\<id>
+### Find a list of bookings by it's associated customer ID.
+#### /rest/bookings/\<customerId>
 * Request type: GET
 * Return type: JSON
 * Response example:
 
 ```javascript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+[{"id":1002,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-20"},{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}]
 ```
 
 
 ##UPDATE
-### Edit one contact
-#### /rest/contacts
+### Edit one booking
+#### /rest/bookings
 
 * Request type: PUT
 * Return type: JSON
 * Response example:
 
 ```javascript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}
 ```
 
 
 ##DELETE
-### Delete one contact
-#### /rest/contacts
+### Delete one booking
+#### /rest/bookings
 
 * Request type: DELETE
 * Return type: JSON
 * Response example:
 
 ```javascript
-{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "223-223-1231", birthDate:'1966-01-03'}
+{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}
 ```
-ContactService End Points
+
+
+ContactService End Points (Depreciated)
 ------------------------
 ##CREATE
 ### Create a new contact
