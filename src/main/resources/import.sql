@@ -26,4 +26,5 @@ insert into Customer (id, first_name, last_name, email, phone_number) values (10
 insert into Hotel (id, name, postcode, phoneNumber) values (27, 'MGM Grand', 'SW4 5AX', '02074450192') 
 insert into Hotel (id, name, postcode, phoneNumber) values (99, 'Marriot Liverpool', 'L1 9AZ', '01916662903')
 insert into Booking (id, customerId, hotelId, bookingDate) values (1, 10001, 27, '2015-10-20')
-insert into Booking (id, customerId, hotelId, bookingDate) values (2, 10012, 99, '2015-10-20')
+insert into Booking (id, customerId, hotelId, bookingDate) values (2, 10002, 99, '2015-10-20')
+insert into Booking (id, customerId, hotelId, bookingDate) values (3, 10002, 99, '2015-10-21')
