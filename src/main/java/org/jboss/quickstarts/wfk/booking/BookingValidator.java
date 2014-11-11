@@ -81,12 +81,13 @@ public class BookingValidator {
             throw new ValidationException("Date/Hotel combination already exists");
         }
         
-        // TODO: THIS NEEDS TO HAVE ITS OWN VERBOSE ERROR MESSAGE
+        // Make sure there is an associated Customer to the provided customerId
         if(!customerExists(booking.getCustomerId()))
         {
         	throw new ValidationException("Customer ID does not exist in the database");
         }
         
+        // Make sure there is an associated Hotel to the provided hotelId
         if(!hotelExists(booking.getHotelId()))
         {
         	throw new ValidationException("Hotel ID does not exist in the database");
@@ -94,15 +95,12 @@ public class BookingValidator {
     }
 
     /**
-     * <p>Checks if a booking with the same email address is already registered. This is the only way to easily capture the
-     * "@UniqueConstraint(columnNames = "email")" constraint from the Booking class.</p>
+     * <p>Checks if a booking with the same hotelId and bookingDate is already registered.</p>
      * 
-     * <p>Since Update will being using an email that is already in the database we need to make sure that it is the email
-     * from the record being updated.</p>
-     * 
-     * @param email The email to check is unique
-     * @param id The user id to check the email against if it was found
-     * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
+     * @param hotelId The hotelId of the new Booking
+     * @param bookingDate The date of the new Booking
+     * @param id The user id to check the parameters against if it was found
+     * @return boolean which represents whether the combination of parameters was found, and if so if it belongs to the user with id
      */
     boolean bookingAlreadyExists(Long hotelId, Date bookingDate, Long id) {
         Booking booking = null;
@@ -127,16 +125,13 @@ public class BookingValidator {
     }
     
     /**
-     * <p>Checks if a booking with the same email address is already registered. This is the only way to easily capture the
-     * "@UniqueConstraint(columnNames = "email")" constraint from the Booking class.</p>
+     *
+     * <p>Checks if a booking with the same customerId is already registered. </p>
      * 
-     * <p>Since Update will being using an email that is already in the database we need to make sure that it is the email
-     * from the record being updated.</p>
-     * 
-     * @param email The email to check is unique
-     * @param id The user id to check the email against if it was found
-     * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
+     * @param customerId The customerId to check is unique
+     * @return boolean which represents whether the booking was already found, and if so, whether it belongs to the user with the given ID
      */
+  //TODO: THIS IS ALL WRONG, THIS SHOULD ALSO CHECK WHETHER THE BOOKING IS REGISTERED TO THE GIVEN USER!!
     boolean customerExists(Long customerId) {
         Customer booking = null;
         try {
@@ -148,16 +143,13 @@ public class BookingValidator {
     }
     
     /**
-     * <p>Checks if a booking with the same email address is already registered. This is the only way to easily capture the
-     * "@UniqueConstraint(columnNames = "email")" constraint from the Booking class.</p>
-     * 
-     * <p>Since Update will being using an email that is already in the database we need to make sure that it is the email
-     * from the record being updated.</p>
-     * 
-     * @param email The email to check is unique
-     * @param id The user id to check the email against if it was found
-     * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
-     */
+    *
+    * <p>Checks if a booking with the same hotelId is already registered. </p>
+    * 
+    * @param customerId The hotelId to check is unique
+    * @return boolean which represents whether the booking was already found, and if so, whether it belongs to the user with the given ID
+    */
+ //TODO: THIS IS ALL WRONG, THIS SHOULD ALSO CHECK WHETHER THE BOOKING IS REGISTERED TO THE GIVEN USER!!
     boolean hotelExists(Long hotelId) {
         Hotel booking = null;
         try {

@@ -90,12 +90,10 @@ public class BookingRepository {
     }
 
     /**
-     * <p>Returns a single Booking object, specified by a String firstName.<p/>
+     * <p>Returns a List of Booking objects, specified by a long CustomerId.<p/>
      *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     *
-     * @param firstName The firstName field of the Booking to be returned
-     * @return The first Booking with the specified firstName
+     * @param customerId The customerId field of the Booking to be returned
+     * @return The List of Bookings with the specified customerId
      */
     List<Booking> findByCustomerId(long customerId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

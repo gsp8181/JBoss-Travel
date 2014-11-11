@@ -129,10 +129,10 @@ public class BookingRESTService {
     }*/
     
     /**
-     * <p>Search for and return a collection of bookings identified by its customer id.</p>
+     * <p>Search for and return a collection of bookings identified by its customerId.</p>
      * 
-     * @param id The long parameter value provided as a Booking's id
-     * @return A Response containing a single Booking
+     * @param id The long parameter value provided as a Booking's customerId
+     * @return A Response containing a list of Bookings
      */
     @GET
     @Path("/{customerId:[0-9]+}")
