@@ -141,7 +141,8 @@ public class BookingRESTService {
         if (bookings == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        //log.info("findById " + id + ": found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        for(Booking booking : bookings)
+        	log.info("retrieveBookingById: found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         
         return Response.ok(bookings).build();
     }
