@@ -89,14 +89,12 @@ public class BookingService {
     }
 
     /**
-     * <p>Returns a single Booking object, specified by a String email.</p>
-     *
-     * <p>If there is more than one Booking with the specified email, only the first encountered will be returned.<p/>
+     * <p>Returns a collection of bookings, identified by a customer ID.</p>
      * 
-     * @param email The email field of the Booking to be returned
-     * @return The first Booking with the specified email
+     * @param customerId The customerId field of the Bookings to be returned
+     * @return The collection of Bookings with the specified customer ID
      */
-    Booking findByCustomerId(String customerId) {
+    List<Booking> findByCustomerId(long customerId) {
         return crud.findByCustomerId(customerId);
     }
 

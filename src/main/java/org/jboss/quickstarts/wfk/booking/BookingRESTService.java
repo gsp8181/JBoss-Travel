@@ -116,7 +116,7 @@ public class BookingRESTService {
      * @param id The long parameter value provided as a Booking's id
      * @return A Response containing a single Booking
      */
-    @GET
+    /*@GET
     @Path("/{id:[0-9]+}")
     public Response retrieveBookingById(@PathParam("id") long id) {
         Booking booking = service.findById(id);
@@ -126,6 +126,24 @@ public class BookingRESTService {
         log.info("findById " + id + ": found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         
         return Response.ok(booking).build();
+    }*/
+    
+    /**
+     * <p>Search for and return a collection of bookings identified by its customer id.</p>
+     * 
+     * @param id The long parameter value provided as a Booking's id
+     * @return A Response containing a single Booking
+     */
+    @GET
+    @Path("/{customerId:[0-9]+}")
+    public Response retrieveBookingById(@PathParam("customerId") long customerId) {
+        List<Booking> bookings = service.findByCustomerId(customerId);
+        if (bookings == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        //log.info("findById " + id + ": found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        
+        return Response.ok(bookings).build();
     }
 
     /**

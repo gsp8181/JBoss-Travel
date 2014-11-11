@@ -96,14 +96,14 @@ public class BookingRepository {
      * @param firstName The firstName field of the Booking to be returned
      * @return The first Booking with the specified firstName
      */
-    Booking findByCustomerId(String customerId) {
+    List<Booking> findByCustomerId(long customerId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Booking> criteria = cb.createQuery(Booking.class);
         Root<Booking> booking = criteria.from(Booking.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
         // criteria.select(booking).where(cb.equal(booking.get(Booking_.firstName), firstName));
         criteria.select(booking).where(cb.equal(booking.get("customerId"), customerId));
-        return em.createQuery(criteria).getSingleResult();
+        return em.createQuery(criteria).getResultList();
     }
 
     /**
