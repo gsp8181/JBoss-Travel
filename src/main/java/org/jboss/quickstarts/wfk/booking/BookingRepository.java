@@ -74,12 +74,13 @@ public class BookingRepository {
     }
     
     /**
-     * <p>Returns a single Contact object, specified by a String email.</p>
+     * <p>Returns a single Booking object, specified by a Long hotelId and Date bookingDate.</p>
      *
      * <p>If there is more than one Contact with the specified email, only the first encountered will be returned.<p/>
      *
-     * @param email The email field of the Contact to be returned
-     * @return The first Contact with the specified email
+     * @param hotelId The hotelId field of the Booking to be returned
+     * @param bookingDate The bookingDate field of the Booking to be returned
+     * @return The first Booking with the specified fields
      */
     Booking findByIdAndDate(Long hotelId, Date bookingDate) {
         TypedQuery<Booking> query = em.createNamedQuery(Booking.FIND_BY_ID_AND_DATE, Booking.class);
