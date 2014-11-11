@@ -23,3 +23,7 @@ insert into Contact (id, first_name, last_name, email, phone_number, birth_date,
 insert into Contact (id, first_name, last_name, email, phone_number, birth_date, state) values (10002, 'Davey', 'Jones', 'davey.jones@locker.com', '(212) 555-3333', '1996-08-07', 'NY')
 insert into Customer (id, first_name, last_name, email, phone_number) values (10001, 'John', 'Smith', 'john.smith@cust.com', '(212) 555-1212')
 insert into Customer (id, first_name, last_name, email, phone_number) values (10002, 'Davey', 'Jones', 'davey.jones@cust.com', '(212) 555-3333')
+insert into Hotel (id, name, postcode, phoneNumber) values (27, 'MGM Grand', 'SW4 5AX', '02074450192') 
+insert into Hotel (id, name, postcode, phoneNumber) values (99, 'Marriot Liverpool', 'L1 9AZ', '01916662903')
+insert into Booking (id, customerId, hotelId, bookingDate) values (1, 10001, 27, '2015-10-20')
+insert into Booking (id, customerId, hotelId, bookingDate) values (2, 10012, 99, '2015-10-20')
