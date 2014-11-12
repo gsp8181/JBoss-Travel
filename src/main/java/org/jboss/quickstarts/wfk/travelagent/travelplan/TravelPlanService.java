@@ -21,6 +21,7 @@ package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -37,7 +38,6 @@ import javax.validation.ValidationException;
 
 import java.net.URI;
 import java.util.List;
-
 import java.util.logging.Logger;
 
 /**
@@ -70,6 +70,10 @@ public class TravelPlanService {
     @Inject
     private @Named("httpClient") CloseableHttpClient httpClient;
     
+    private final Long travelAgentTaxi = (long) 0;
+    private final Long travelAgentFlight = (long) 0;
+    private final Long travelAgentHotel = (long) 18181;
+    
     /**
      * <p>Returns a List of all persisted {@link TravelPlan} objects, sorted alphabetically by last name.<p/>
      * 
@@ -98,12 +102,34 @@ public class TravelPlanService {
      * @return The TravelPlan object that has been successfully written to the application database
      * @throws ConstraintViolationException, ValidationException, Exception
      */
-    TravelPlan create(TravelPlan travelPlan) throws ConstraintViolationException, ValidationException, Exception {
-    	/*log.info("TravelPlanService.create() - Creating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+    TravelPlan create(TravelSketch travelSketch) throws ConstraintViolationException, ValidationException, Exception {
+    	TravelPlan travelPlan = new TravelPlan();//validate travelsketch?
+    	travelPlan.setCustomerId(travelSketch.getCustomerId());
+    	
+    	URI uri = new URIBuilder()
+        .setScheme("http")
+        .setHost("travel.gsp8181.co.uk")
+        .setPath("/rest/bookings")
+        .setParameter("customerId", travelAgentHotel.toString())
+        .setParameter("hotelId",travelSketch.getHotelId().toString())
+        .setParameter("bookingDate","2016-10-20")
+        .setParameter("bookingDate",travelSketch.getBookingDate().toString()) //RIGHT FORMAT??
+        .build();
+HttpPost req = new HttpPost(uri);
+CloseableHttpResponse response = httpClient.execute(req);
+String responseBody = EntityUtils.toString(response.getEntity());
+JSONObject responseJson = new JSONObject(responseBody);
+travelPlan.setHotelBookingId(responseJson.getLong("id"));//Change to Return
+HttpClientUtils.closeQuietly(response);//get 404
+    	
+    	travelPlan.setFlightBookingId((long) 1);
+    	travelPlan.setTaxiBookingId((long) 2);
+    	
+    	//log.info("TravelPlanService.create() - Creating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
         
         // Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
         validator.validateTravelPlan(travelPlan);
-
+/*
         //Perform a rest call to get the state of the travelPlan from the allareacodes.com API
         URI uri = new URIBuilder()
                 .setScheme("http")
@@ -119,12 +145,11 @@ public class TravelPlanService {
         JSONObject responseJson = new JSONObject(responseBody);
         JSONArray areaCodes = responseJson.getJSONArray("area_codes");
         travelPlan.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);
+        HttpClientUtils.closeQuietly(response);*/
 
 
         // Write the travelPlan to the database.
-        return crud.create(travelPlan);*/
-    	return null;
+        return crud.create(travelPlan);
     }
 
     /**

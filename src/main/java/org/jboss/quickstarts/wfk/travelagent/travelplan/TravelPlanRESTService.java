@@ -115,9 +115,9 @@ public class TravelPlanRESTService {
      */
     @SuppressWarnings("unused")
     @POST
-    public Response createTravelPlan(TravelPlan travelPlan) {
-        log.info("createTravelPlan started. TravelPlan for Customer " + travelPlan.getCustomerId());
-        if (travelPlan == null) {
+    public Response createTravelPlan(TravelSketch travelSketch) {
+        log.info("createTravelPlan started. TravelPlan for Customer " + travelSketch.getCustomerId());
+        if (travelSketch == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         
@@ -125,11 +125,12 @@ public class TravelPlanRESTService {
 
         try {
             // Go add the new TravelPlan.
-            service.create(travelPlan);
+            TravelPlan travelPlan = service.create(travelSketch);
 
             // Create a "Resource Created" 201 Response and pass the travelPlan back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(travelPlan);
             
+            //TODO: the contents of what is below is pure rubbish, change in the future
             log.info("createTravelPlan completed. TravelPlan #" + travelPlan.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
