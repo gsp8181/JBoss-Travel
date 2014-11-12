@@ -28,3 +28,5 @@ insert into Hotel (id, name, postcode, phoneNumber) values (1099, 'Marriot Liver
 insert into Booking (id, customerId, hotelId, bookingDate) values (1001, 10001, 1027, '2015-10-20')
 insert into Booking (id, customerId, hotelId, bookingDate) values (1002, 10002, 1099, '2015-10-20')
 insert into Booking (id, customerId, hotelId, bookingDate) values (1003, 10002, 1099, '2015-10-21')
+
+insert into Customer (id, name, email, phone_number) values (10000, 'Don', 'd.daubaras@ncl.ac.uk', '07123456789')
