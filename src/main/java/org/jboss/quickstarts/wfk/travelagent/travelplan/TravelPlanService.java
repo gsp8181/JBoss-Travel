@@ -19,11 +19,13 @@
 package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -36,7 +38,10 @@ import javax.inject.Named;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -104,23 +109,9 @@ public class TravelPlanService {
      */
     TravelPlan create(TravelSketch travelSketch) throws ConstraintViolationException, ValidationException, Exception {
     	TravelPlan travelPlan = new TravelPlan();//validate travelsketch?
-    	travelPlan.setCustomerId(travelSketch.getCustomerId());
+    	travelPlan.setCustomerId(travelSketch.getCustomerId()); //TODO: WHY DOES THE ID JUMP 2?
     	
-    	URI uri = new URIBuilder()
-        .setScheme("http")
-        .setHost("travel.gsp8181.co.uk")
-        .setPath("/rest/bookings")
-        .setParameter("customerId", travelAgentHotel.toString())
-        .setParameter("hotelId",travelSketch.getHotelId().toString())
-        .setParameter("bookingDate","2016-10-20")
-        .setParameter("bookingDate",travelSketch.getBookingDate().toString()) //RIGHT FORMAT??
-        .build();
-HttpPost req = new HttpPost(uri);
-CloseableHttpResponse response = httpClient.execute(req);
-String responseBody = EntityUtils.toString(response.getEntity());
-JSONObject responseJson = new JSONObject(responseBody);
-travelPlan.setHotelBookingId(responseJson.getLong("id"));//Change to Return
-HttpClientUtils.closeQuietly(response);//get 404
+		bookHotel(travelSketch, travelPlan);
     	
     	travelPlan.setFlightBookingId((long) 1);
     	travelPlan.setTaxiBookingId((long) 2);
@@ -151,6 +142,28 @@ HttpClientUtils.closeQuietly(response);//get 404
         // Write the travelPlan to the database.
         return crud.create(travelPlan);
     }
+
+	private void bookHotel(TravelSketch travelSketch, TravelPlan travelPlan)
+			throws URISyntaxException, UnsupportedEncodingException,
+			IOException, ClientProtocolException {//TODO: Change return type to true or false or exception/id
+		URI uri = new URIBuilder().setScheme("http")
+				//.setHost("travel.gsp8181.co.uk")
+				//.setPath("/rest/bookings")
+				.setHost("localhost")
+				.setPort(8080)
+				.setPath("/travel/rest/bookings")
+				.build();
+		HttpPost req = new HttpPost(uri);
+		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentHotel.toString() + "\",\"hotelId\":\"" + travelSketch.getHotelId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
+		req.addHeader("Content-Type", "application/json");
+		req.setEntity(params);
+		CloseableHttpResponse response = httpClient.execute(req);
+		String responseBody = EntityUtils.toString(response.getEntity());
+		log.info(responseBody);
+		JSONObject responseJson = new JSONObject(responseBody); //TODO: were there any JSON errors??
+		travelPlan.setHotelBookingId(responseJson.getLong("id"));//TODO: Change to Return
+		HttpClientUtils.closeQuietly(response);//TODO: get 404 http://stackoverflow.com/questions/7181534/http-post-using-json-in-java
+	}
 
     /**
      * <p>Deletes the provided TravelPlan object from the application database if found there.<p/>

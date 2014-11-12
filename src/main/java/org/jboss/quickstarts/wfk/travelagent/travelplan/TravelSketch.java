@@ -53,15 +53,14 @@ public class TravelSketch implements Serializable {
     private Long taxiId;
     
     @NotNull
-    @Future
     @Column(name = "bookingDate")
-    private Date bookingDate;
+    private String bookingDate;
 
-    public Date getBookingDate() {
+    public String getBookingDate() {
 		return bookingDate;
 	}
 
-	public void setBookingDate(Date bookingDate) {
+	public void setBookingDate(String bookingDate) {
 		this.bookingDate = bookingDate;
 	}
 
