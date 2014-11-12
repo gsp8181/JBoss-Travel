@@ -101,8 +101,7 @@ public class TravelPlanRESTService {
         if (travelPlan == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("findById " + id + ": found TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " "
-                + travelPlan.getBirthDate() + " " + travelPlan.getId());
+       // log.info("findById " + id + ": found TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " " + travelPlan.getBirthDate() + " " + travelPlan.getId());
         
         return Response.ok(travelPlan).build();
     }
@@ -117,8 +116,7 @@ public class TravelPlanRESTService {
     @SuppressWarnings("unused")
     @POST
     public Response createTravelPlan(TravelPlan travelPlan) {
-        log.info("createTravelPlan started. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " "
-            + travelPlan.getBirthDate() + " " + travelPlan.getId());
+        //log.info("createTravelPlan started. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " " + travelPlan.getBirthDate() + " " + travelPlan.getId());
         if (travelPlan == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
@@ -132,8 +130,7 @@ public class TravelPlanRESTService {
             // Create a "Resource Created" 201 Response and pass the travelPlan back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(travelPlan);
             
-            log.info("createTravelPlan completed. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " "
-                + travelPlan.getBirthDate() + " " + travelPlan.getId());
+            //log.info("createTravelPlan completed. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " " + travelPlan.getBirthDate() + " " + travelPlan.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -179,8 +176,7 @@ public class TravelPlanRESTService {
             }
 
             builder = Response.noContent();
-            log.info("deleteTravelPlan completed. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " "
-                + travelPlan.getBirthDate() + " " + travelPlan.getId());
+            //log.info("deleteTravelPlan completed. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " " + travelPlan.getBirthDate() + " " + travelPlan.getId());
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions

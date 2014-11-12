@@ -75,7 +75,6 @@ public class TravelPlan implements Serializable {
     private Long customerId;
 
     @NotNull
-
     @Column(name = "flightId")
     private Long flightId;
 

@@ -65,9 +65,9 @@ public class TravelPlanValidator {
         }
 
         // Check the uniqueness of the email address
-        if (emailAlreadyExists(travelPlan.getEmail(), travelPlan.getId())) {
-            throw new ValidationException("Unique Email Violation");
-        }
+        //if (emailAlreadyExists(travelPlan.getEmail(), travelPlan.getId())) {
+        //    throw new ValidationException("Unique Email Violation");
+        //}
     }
 
     /**
@@ -82,7 +82,7 @@ public class TravelPlanValidator {
      * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
      */
     boolean emailAlreadyExists(String email, Long id) {
-        TravelPlan travelPlan = null;
+        /*TravelPlan travelPlan = null;
         TravelPlan travelPlanWithID = null;
         try {
             travelPlan = crud.findByEmail(email);
@@ -100,6 +100,7 @@ public class TravelPlanValidator {
                 // ignore
             }
         }
-        return travelPlan != null;
+        return travelPlan != null;*/
+    	return false;
     }
 }

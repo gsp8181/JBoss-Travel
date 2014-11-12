@@ -99,7 +99,7 @@ public class TravelPlanService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     TravelPlan create(TravelPlan travelPlan) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("TravelPlanService.create() - Creating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+    	/*log.info("TravelPlanService.create() - Creating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
         
         // Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
         validator.validateTravelPlan(travelPlan);
@@ -123,7 +123,8 @@ public class TravelPlanService {
 
 
         // Write the travelPlan to the database.
-        return crud.create(travelPlan);
+        return crud.create(travelPlan);*/
+    	return null;
     }
 
     /**
@@ -134,7 +135,7 @@ public class TravelPlanService {
      * @throws Exception
      */
     TravelPlan delete(TravelPlan travelPlan) throws Exception {
-        log.info("TravelPlanService.delete() - Deleting " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+        /*log.info("TravelPlanService.delete() - Deleting " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
         
         TravelPlan deletedTravelPlan = null;
         
@@ -144,7 +145,8 @@ public class TravelPlanService {
             log.info("TravelPlanService.delete() - No ID was found so can't Delete.");
         }
         
-        return deletedTravelPlan;
+        return deletedTravelPlan;*/
+    	return null;
     }
 
 }
