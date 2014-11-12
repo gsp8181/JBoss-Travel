@@ -55,7 +55,6 @@ public class TravelPlan implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public static final String FIND_ALL = "TravelPlan.findAll";
-    public static final String FIND_BY_EMAIL = "TravelPlan.findByEmail";
 
     /*
      * The  error messages match the ones in the UI so that the user isn't confused by two similar error messages for
@@ -75,16 +74,16 @@ public class TravelPlan implements Serializable {
     private Long customerId;
 
     @NotNull
-    @Column(name = "flightId")
-    private Long flightId;
+    @Column(name = "flightBookingId")
+    private Long flightBookingId;
 
     @NotNull
-    @Column(name = "hotelId")
-    private Long hotelId;
+    @Column(name = "hotelBookingId")
+    private Long hotelBookingId;
 
     @NotNull
-    @Column(name = "taxiId")
-    private Long taxiId;
+    @Column(name = "taxiBookingId")
+    private Long taxiBookingId;
 
     public Long getId() {
         return id;
@@ -98,32 +97,32 @@ public class TravelPlan implements Serializable {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomerId(Long customerBookingId) {
+        this.customerId = customerBookingId;
     }
 
-    public Long getFlightId() {
-        return flightId;
+    public Long getFlightBookingId() {
+        return flightBookingId;
     }
 
-    public void setFlightId(Long flightId) {
-        this.flightId = flightId;
+    public void setFlightBookingId(Long flightBookingId) {
+        this.flightBookingId = flightBookingId;
     }
 
-    public Long getHotelId() {
-        return hotelId;
+    public Long getHotelBookingId() {
+        return hotelBookingId;
     }
 
-    public void setHotelId(Long hotelId) {
-        this.hotelId = hotelId;
+    public void setHotelBookingId(Long hotelBookingId) {
+        this.hotelBookingId = hotelBookingId;
     }
 
-    public Long getTaxiId() {
-        return taxiId;
+    public Long getTaxiBookingId() {
+        return taxiBookingId;
     }
 
-    public void setTaxiId(Long taxiId) {
-        this.taxiId = taxiId;
+    public void setTaxiBookingId(Long taxiBookingId) {
+        this.taxiBookingId = taxiBookingId;
     }
 
 }
