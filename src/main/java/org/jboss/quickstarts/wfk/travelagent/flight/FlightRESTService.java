@@ -44,6 +44,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.WebApplicationException;
 
 import org.jboss.quickstarts.wfk.customer.Customer;
+import org.jboss.quickstarts.wfk.hotel.Hotel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -87,16 +88,34 @@ public class FlightRESTService {
      */
     @GET
     public Response retrieveAllFlights() {
-        JSONArray Customers = service.findAllOrderedByName();
+        JSONArray flights = service.findAllOrderedByName();
         
-        if(Customers != null)
+        if(flights != null)
         {
-        	return Response.ok(Customers.toString()).build();
+        	return Response.ok(flights.toString()).build();
         } else
         {
         	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         
+    }
+    
+    /**
+     * <p>Search for and return a Hotel identified by id.</p>
+     * 
+     * @param id The long parameter value provided as a Hotel's id
+     * @return A Response containing a single Hotel
+     */
+    @GET
+    @Path("/{id:[0-9]+}")
+    public Response retrieveFlightById(@PathParam("id") long id) {
+        JSONObject flight = service.findById(id);
+        if (flight == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        //log.info("findById " + id + ": found Hotel = " + Hotel.getName() + " " + Hotel.getPostcode() + " " + Hotel.getPhoneNumber() + " " + Hotel.getId());
+        
+        return Response.ok(flight.toString()).build();
     }
     
     

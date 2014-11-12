@@ -94,4 +94,28 @@ public class FlightService {
     	return null;
     	}
     }
+
+	JSONObject findById(Long id) {
+		
+    	try
+    	{
+        URI uri = new URIBuilder()
+                .setScheme("http")
+                .setHost("jbosscontactsangularjs-110336260.rhcloud.com")
+                .setPath("/rest/flights/id/" + id.toString())
+                //.setParameter("id", id.toString())
+                .build();
+        HttpGet req = new HttpGet(uri);
+        CloseableHttpResponse response = httpClient.execute(req);
+        String responseBody = EntityUtils.toString(response.getEntity());
+        JSONObject responseJson = new JSONObject(responseBody);
+        
+        HttpClientUtils.closeQuietly(response);
+        return responseJson;
+    	} catch (Exception e) {
+    	log.info(e.toString());
+    	return null;
+    	}
+    	
+	}
 }
