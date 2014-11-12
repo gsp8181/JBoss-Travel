@@ -76,7 +76,7 @@ public class TravelPlanService {
      * @return List of TravelPlan objects
      */
     List<TravelPlan> findAllOrderedByName() {
-        return crud.findAllOrderedByName();
+        return crud.findAll();
     }
 
     /**
@@ -87,42 +87,6 @@ public class TravelPlanService {
      */
     TravelPlan findById(Long id) {
         return crud.findById(id);
-    }
-
-    /**
-     * <p>Returns a single TravelPlan object, specified by a String email.</p>
-     *
-     * <p>If there is more than one TravelPlan with the specified email, only the first encountered will be returned.<p/>
-     * 
-     * @param email The email field of the TravelPlan to be returned
-     * @return The first TravelPlan with the specified email
-     */
-    TravelPlan findByEmail(String email) {
-        return crud.findByEmail(email);
-    }
-
-    /**
-     * <p>Returns a single TravelPlan object, specified by a String firstName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     * 
-     * @param firstName The firstName field of the TravelPlan to be returned
-     * @return The first TravelPlan with the specified firstName
-     */
-    TravelPlan findByFirstName(String firstName) {
-        return crud.findByFirstName(firstName);
-    }
-
-    /**
-     * <p>Returns a single TravelPlan object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     * 
-     * @param lastName The lastName field of the TravelPlan to be returned
-     * @return The first TravelPlan with the specified lastName
-     */
-    TravelPlan findByLastName(String lastName) {
-        return crud.findByFirstName(lastName);
     }
 
     /**
@@ -160,42 +124,6 @@ public class TravelPlanService {
 
         // Write the travelPlan to the database.
         return crud.create(travelPlan);
-    }
-
-    /**
-     * <p>Updates an existing TravelPlan object in the application database with the provided TravelPlan object.<p/>
-     *
-     * <p>Validates the data in the provided TravelPlan object using a TravelPlanValidator object.<p/>
-     * 
-     * @param travelPlan The TravelPlan object to be passed as an update to the application database
-     * @return The TravelPlan object that has been successfully updated in the application database
-     * @throws ConstraintViolationException, ValidationException, Exception
-     */
-    TravelPlan update(TravelPlan travelPlan) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("TravelPlanService.update() - Updating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
-        
-        // Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
-        validator.validateTravelPlan(travelPlan);
-
-        //Perform a rest call to get the state of the travelPlan from the allareacodes.com API
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.allareacodes.com")
-                .setPath("/api/1.0/api.json")
-                .setParameter("npa", travelPlan.getPhoneNumber().substring(1,4))
-                .setParameter("tracking_email", "h.firth@ncl.ac.uk")
-                .setParameter("tracking_url", "http://www.ncl.ac.uk/undergraduate/modules/module/CSC8104")
-                .build();
-        HttpGet req = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(req);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject responseJson = new JSONObject(responseBody);
-        JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        travelPlan.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);
-
-        // Either update the travelPlan or add it if it can't be found.
-        return crud.update(travelPlan);
     }
 
     /**

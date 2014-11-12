@@ -87,28 +87,6 @@ public class TravelPlanRESTService {
         List<TravelPlan> travelPlans = service.findAllOrderedByName();
         return Response.ok(travelPlans).build();
     }
-
-    /**
-     * <p>Search for and return a TravelPlan identified by email address.<p/>
-     *
-     * <p>Path annotation includes very simple regex to differentiate between email addresses and Ids.
-     * <strong>DO NOT</strong> attempt to use this regex to validate email addresses.</p>
-     *
-     *
-     * @param email The string parameter value provided as a TravelPlan's email
-     * @return A Response containing a single TravelPlan
-     */
-    @GET
-    @Path("/{email:^.+@.+$}")
-    public Response retrieveTravelPlansByEmail(@PathParam("email") String email) {
-        TravelPlan travelPlan;
-        try {
-            travelPlan = service.findByEmail(email);
-        } catch (NoResultException e) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        return Response.ok(travelPlan).build();
-    }
     
     /**
      * <p>Search for and return a TravelPlan identified by id.</p>
@@ -165,67 +143,6 @@ public class TravelPlanRESTService {
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
             responseObj.put("email", "That email is already used, please use a unique email");
-            builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
-        } catch (Exception e) {
-            log.info("Exception - " + e.toString());
-            // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("error", e.getMessage());
-            builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
-        }
-
-        return builder.build();
-    }
-
-    /**
-     * <p>Updates a travelPlan with the ID provided in the TravelPlan. Performs validation, and will return a JAX-RS response with either 200 ok,
-     * or with a map of fields, and related errors.</p>
-     * 
-     * @param travelPlan The TravelPlan object, constructed automatically from JSON input, to be <i>updated</i> via {@link TravelPlanService#update(TravelPlan)}
-     * @param id The long parameter value provided as the id of the TravelPlan to be updated
-     * @return A Response indicating the outcome of the create operation
-     */
-    @PUT
-    @Path("/{id:[0-9][0-9]*}")
-    public Response updateTravelPlan(@PathParam("id") long id, TravelPlan travelPlan) {
-        if (travelPlan == null) {
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        log.info("updateTravelPlan started. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " "
-                + travelPlan.getBirthDate() + " " + travelPlan.getId());
-
-        if (travelPlan.getId() != id) {
-            // The client attempted to update the read-only Id. This is not permitted.
-            Response response = Response.status(Response.Status.CONFLICT).entity("The travelPlan ID cannot be modified").build();
-            throw new WebApplicationException(response);
-        }
-        if (service.findById(travelPlan.getId()) == null) {
-            // Verify if the travelPlan exists. Return 404, if not present.
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
-        
-        Response.ResponseBuilder builder = null;
-        
-        try {
-            // Apply the changes the TravelPlan.
-            service.update(travelPlan);
-
-            // Create an OK Response and pass the travelPlan back in case it is needed.
-            builder = Response.ok(travelPlan);
-
-            log.info("updateTravelPlan completed. TravelPlan = " + travelPlan.getFirstName() + " " + travelPlan.getLastName() + " " + travelPlan.getEmail() + " " + travelPlan.getPhoneNumber() + " "
-                + travelPlan.getBirthDate() + " " + travelPlan.getId());
-        } catch (ConstraintViolationException ce) {
-            log.info("ConstraintViolationException - " + ce.toString());
-            // Handle bean validation issues
-            builder = createViolationResponse(ce.getConstraintViolations());
-        } catch (ValidationException e) {
-            log.info("ValidationException - " + e.toString());
-            // Handle the unique constrain violation
-            Map<String, String> responseObj = new HashMap<String, String>();
-            responseObj.put("email", "That email is already used, please use a unique email");
-            responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
-            responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/wfk/rest/TravelPlanRESTService.java line 242.");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());

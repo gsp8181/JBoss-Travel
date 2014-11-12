@@ -46,11 +46,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = TravelPlan.FIND_ALL, query = "SELECT c FROM TravelPlan c ORDER BY c.lastName ASC, c.firstName ASC"),
-    @NamedQuery(name = TravelPlan.FIND_BY_EMAIL, query = "SELECT c FROM TravelPlan c WHERE c.email = :email")
+    @NamedQuery(name = TravelPlan.FIND_ALL, query = "SELECT c FROM TravelPlan c ORDER BY c.id ASC"),
 })
 @XmlRootElement
-@Table(name = "TravelPlan", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "TravelPlan")
 public class TravelPlan implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
@@ -72,35 +71,21 @@ public class TravelPlan implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "customerId")
+    private Long customerId;
 
     @NotNull
-    @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
-    @Column(name = "last_name")
-    private String lastName;
+
+    @Column(name = "flightId")
+    private Long flightId;
 
     @NotNull
-    @NotEmpty
-    @Email(message = "The email address must be in the format of name@domain.com")
-    private String email;
+    @Column(name = "hotelId")
+    private Long hotelId;
 
     @NotNull
-    @Pattern(regexp = "^\\([2-9][0-8][0-9]\\)\\s?[0-9]{3}\\-[0-9]{4}$")
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @NotNull
-    @Past(message = "Birthdates can not be in the future. Please choose one from the past")
-    @Column(name = "birth_date")
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
-
-    @Column(name = "state")
-    private String state;
+    @Column(name = "taxiId")
+    private Long taxiId;
 
     public Long getId() {
         return id;
@@ -110,51 +95,36 @@ public class TravelPlan implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Long getFlightId() {
+        return flightId;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFlightId(Long flightId) {
+        this.flightId = flightId;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getHotelId() {
+        return hotelId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Long getTaxiId() {
+        return taxiId;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setTaxiId(Long taxiId) {
+        this.taxiId = taxiId;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getState() {
-        return this.state;
-    }
 }

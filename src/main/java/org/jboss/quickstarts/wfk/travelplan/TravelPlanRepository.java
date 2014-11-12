@@ -51,11 +51,11 @@ public class TravelPlanRepository {
     private EntityManager em;
     
     /**
-     * <p>Returns a List of all persisted {@link TravelPlan} objects, sorted alphabetically by last name.</p>
+     * <p>Returns a List of all persisted {@link TravelPlan} objects, sorted alphabetically by id.</p>
      * 
      * @return List of TravelPlan objects
      */
-    List<TravelPlan> findAllOrderedByName() {
+    List<TravelPlan> findAll() {
         TypedQuery<TravelPlan> query = em.createNamedQuery(TravelPlan.FIND_ALL, TravelPlan.class); 
         return query.getResultList();
     }
@@ -71,55 +71,6 @@ public class TravelPlanRepository {
     }
 
     /**
-     * <p>Returns a single TravelPlan object, specified by a String email.</p>
-     *
-     * <p>If there is more than one TravelPlan with the specified email, only the first encountered will be returned.<p/>
-     *
-     * @param email The email field of the TravelPlan to be returned
-     * @return The first TravelPlan with the specified email
-     */
-    TravelPlan findByEmail(String email) {
-        TypedQuery<TravelPlan> query = em.createNamedQuery(TravelPlan.FIND_BY_EMAIL, TravelPlan.class).setParameter("email", email); 
-        return query.getSingleResult();
-    }
-
-    /**
-     * <p>Returns a single TravelPlan object, specified by a String firstName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     *
-     * @param firstName The firstName field of the TravelPlan to be returned
-     * @return The first TravelPlan with the specified firstName
-     */
-    TravelPlan findByFirstName(String firstName) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<TravelPlan> criteria = cb.createQuery(TravelPlan.class);
-        Root<TravelPlan> travelPlan = criteria.from(TravelPlan.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(travelPlan).where(cb.equal(travelPlan.get(TravelPlan_.firstName), firstName));
-        criteria.select(travelPlan).where(cb.equal(travelPlan.get("firstName"), firstName));
-        return em.createQuery(criteria).getSingleResult();
-    }
-
-    /**
-     * <p>Returns a single TravelPlan object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     *
-     * @param lastName The lastName field of the TravelPlan to be returned
-     * @return The first TravelPlan with the specified lastName
-     */
-    TravelPlan findByLastName(String lastName) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<TravelPlan> criteria = cb.createQuery(TravelPlan.class);
-        Root<TravelPlan> travelPlan = criteria.from(TravelPlan.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(travelPlan).where(cb.equal(travelPlan.get(TravelPlan_.lastName), lastName));
-        criteria.select(travelPlan).where(cb.equal(travelPlan.get("lastName"), lastName));
-        return em.createQuery(criteria).getSingleResult();
-    }
-
-    /**
      * <p>Persists the provided TravelPlan object to the application database using the EntityManager.</p>
      *
      * <p>{@link javax.persistence.EntityManager#persist(Object) persist(Object)} takes an entity instance, adds it to the
@@ -132,32 +83,10 @@ public class TravelPlanRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     TravelPlan create(TravelPlan travelPlan) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("TravelPlanRepository.create() - Creating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+        log.info("TravelPlanRepository.create() - Creating TravelPlan for " + travelPlan.getCustomerId());
         
         // Write the travelPlan to the database.
         em.persist(travelPlan);
-        
-        return travelPlan;
-    }
-
-    /**
-     * <p>Updates an existing TravelPlan object in the application database with the provided TravelPlan object.</p>
-     * 
-     * <p>{@link javax.persistence.EntityManager#merge(Object) merge(Object)} creates a new instance of your entity,
-     * copies the state from the supplied entity, and makes the new copy managed. The instance you pass in will not be
-     * managed (any changes you make will not be part of the transaction - unless you call merge again).</p>
-     * 
-     * <p>merge(Object) however must have an object with the @Id already generated.</p>
-     * 
-     * @param travelPlan The TravelPlan object to be merged with an existing TravelPlan
-     * @return The TravelPlan that has been merged
-     * @throws ConstraintViolationException, ValidationException, Exception
-     */
-    TravelPlan update(TravelPlan travelPlan) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("TravelPlanRepository.update() - Updating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
-        
-        // Either update the travelPlan or add it if it can't be found.
-        em.merge(travelPlan);
         
         return travelPlan;
     }
@@ -170,7 +99,7 @@ public class TravelPlanRepository {
      * @throws Exception
      */
     TravelPlan delete(TravelPlan travelPlan) throws Exception {
-        log.info("TravelPlanRepository.delete() - Deleting " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+        log.info("TravelPlanRepository.delete() - Cancelling TravelPlan #" + travelPlan.getId());
         
         if (travelPlan.getId() != null) {
             /*
