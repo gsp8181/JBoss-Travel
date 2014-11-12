@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -50,8 +51,21 @@ public class TravelSketch implements Serializable {
     @NotNull
     @Column(name = "taxiId")
     private Long taxiId;
+    
+    @NotNull
+    @Future
+    @Column(name = "bookingDate")
+    private Date bookingDate;
 
-    public Long getCustomerId() {
+    public Date getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(Date bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+
+	public Long getCustomerId() {
         return customerId;
     }
 
