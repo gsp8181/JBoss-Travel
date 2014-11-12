@@ -92,27 +92,15 @@ public class CustomerService {
     }
 
     /**
-     * <p>Returns a single Customer object, specified by a String firstName.<p/>
+     * <p>Returns a single Customer object, specified by a String name.<p/>
      *
      * <p>If there is more then one, only the first will be returned.<p/>
      * 
-     * @param firstName The firstName field of the Customer to be returned
-     * @return The first Customer with the specified firstName
+     * @param name The name field of the Customer to be returned
+     * @return The first Customer with the specified name
      */
-    Customer findByFirstName(String firstName) {
-        return crud.findByFirstName(firstName);
-    }
-
-    /**
-     * <p>Returns a single Customer object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     * 
-     * @param lastName The lastName field of the Customer to be returned
-     * @return The first Customer with the specified lastName
-     */
-    Customer findByLastName(String lastName) {
-        return crud.findByFirstName(lastName);
+    Customer findByName(String name) {
+        return crud.findByName(name);
     }
 
     /**
@@ -125,7 +113,7 @@ public class CustomerService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Customer create(Customer Customer) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("CustomerService.create() - Creating " + Customer.getFirstName() + " " + Customer.getLastName());
+        log.info("CustomerService.create() - Creating " + Customer.getName());
         
         // Check to make sure the data fits with the parameters in the Customer model and passes validation.
         validator.validateCustomer(Customer);
@@ -145,7 +133,7 @@ public class CustomerService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Customer update(Customer Customer) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("CustomerService.update() - Updating " + Customer.getFirstName() + " " + Customer.getLastName());
+        log.info("CustomerService.update() - Updating " + Customer.getName());
         
         // Check to make sure the data fits with the parameters in the Customer model and passes validation.
         validator.validateCustomer(Customer);

@@ -19,7 +19,7 @@ CustomerService End Points
 * Request example:
 
 ```JavaScript
-{"firstName": "John", "lastName": "Smith", "phoneNumber": "01915552092", "email": "john.smith@newcastle.co.uk"}
+{"name": "John Smith", "phoneNumber": "01915552092", "email": "john.smith@newcastle.co.uk"}
 ```
 
 * Response example:
@@ -40,8 +40,8 @@ CustomerService End Points
 * Response example:
 
 ```javascript
-[{"id": 14, "firstName": "John", "lastName": 'Smith', "phoneNumber": "01915552092", "email": "john.smith@newcastle.co.uk"},
- {"id": 15, "firstName": "Jane", "lastName": "Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}]
+[{"id": 14, "name": "John Smith", "phoneNumber": "01915552092", "email": "john.smith@newcastle.co.uk"},
+ {"id": 15, "name": "Jane Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}]
 ```
 
 ### Find a contact by it's ID.
@@ -51,7 +51,7 @@ CustomerService End Points
 * Response example:
 
 ```javascript
-{"id": 15, "firstName": "Jane", "lastName": "Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}
+{"id": 15, "name": "Jane Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}
 ```
 
 
@@ -64,7 +64,7 @@ CustomerService End Points
 * Response example:
 
 ```javascript
-{"id": 15, "firstName": "Jane", "lastName": "Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}
+{"id": 15, "name": "Jane Smith", "phoneNumber": "01512235655", "email": "jane.smith@liverpool.co.uk"}
 ```
 
 

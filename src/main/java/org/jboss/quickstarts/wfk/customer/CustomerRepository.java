@@ -84,38 +84,20 @@ public class CustomerRepository {
     }
 
     /**
-     * <p>Returns a single Customer object, specified by a String firstName.<p/>
+     * <p>Returns a single Customer object, specified by a String name.<p/>
      *
      * <p>If there is more then one, only the first will be returned.<p/>
      *
-     * @param firstName The firstName field of the Customer to be returned
-     * @return The first Customer with the specified firstName
+     * @param name The name field of the Customer to be returned
+     * @return The first Customer with the specified name
      */
-    Customer findByFirstName(String firstName) {
+    Customer findByName(String name) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Customer> criteria = cb.createQuery(Customer.class);
         Root<Customer> Customer = criteria.from(Customer.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(Customer).where(cb.equal(Customer.get(Customer_.firstName), firstName));
-        criteria.select(Customer).where(cb.equal(Customer.get("firstName"), firstName));
-        return em.createQuery(criteria).getSingleResult();
-    }
-
-    /**
-     * <p>Returns a single Customer object, specified by a String lastName.<p/>
-     *
-     * <p>If there is more then one, only the first will be returned.<p/>
-     *
-     * @param lastName The lastName field of the Customer to be returned
-     * @return The first Customer with the specified lastName
-     */
-    Customer findByLastName(String lastName) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Customer> criteria = cb.createQuery(Customer.class);
-        Root<Customer> Customer = criteria.from(Customer.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new feature in JPA 2.0.
-        // criteria.select(Customer).where(cb.equal(Customer.get(Customer_.lastName), lastName));
-        criteria.select(Customer).where(cb.equal(Customer.get("lastName"), lastName));
+        // criteria.select(Customer).where(cb.equal(Customer.get(Customer_.name), name));
+        criteria.select(Customer).where(cb.equal(Customer.get("name"), name));
         return em.createQuery(criteria).getSingleResult();
     }
 
@@ -132,7 +114,7 @@ public class CustomerRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Customer create(Customer Customer) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("CustomerRepository.create() - Creating " + Customer.getFirstName() + " " + Customer.getLastName());
+        log.info("CustomerRepository.create() - Creating " + Customer.getName());
         
         // Write the Customer to the database.
         em.persist(Customer);
@@ -154,7 +136,7 @@ public class CustomerRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Customer update(Customer Customer) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("CustomerRepository.update() - Updating " + Customer.getFirstName() + " " + Customer.getLastName());
+        log.info("CustomerRepository.update() - Updating " + Customer.getName());
         
         // Either update the Customer or add it if it can't be found.
         em.merge(Customer);

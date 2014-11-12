@@ -122,7 +122,7 @@ public class CustomerRESTService {
         if (Customer == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("findById " + id + ": found Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
+        log.info("findById " + id + ": found Customer = " + Customer.getName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
                 + Customer.getId());
         
         return Response.ok(Customer).build();
@@ -138,7 +138,7 @@ public class CustomerRESTService {
     @SuppressWarnings("unused")
     @POST
     public Response createCustomer(Customer Customer) {
-        log.info("createCustomer started. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
+        log.info("createCustomer started. Customer = " + Customer.getName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
             + Customer.getId());
         if (Customer == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -153,7 +153,7 @@ public class CustomerRESTService {
             // Create a "Resource Created" 201 Response and pass the Customer back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(Customer);
             
-            log.info("createCustomer completed. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
+            log.info("createCustomer completed. Customer = " + Customer.getName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
                 + Customer.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
@@ -190,7 +190,7 @@ public class CustomerRESTService {
         if (Customer == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        log.info("updateCustomer started. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
+        log.info("updateCustomer started. Customer = " + Customer.getName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
                 + Customer.getId());
 
         if (Customer.getId() != id) {
@@ -212,7 +212,7 @@ public class CustomerRESTService {
             // Create an OK Response and pass the Customer back in case it is needed.
             builder = Response.ok(Customer);
 
-            log.info("updateCustomer completed. Customer = " + Customer.getFirstName() + " " + Customer.getLastName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
+            log.info("updateCustomer completed. Customer = " + Customer.getName() + " " + Customer.getEmail() + " " + Customer.getPhoneNumber() + " "
                 + Customer.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
