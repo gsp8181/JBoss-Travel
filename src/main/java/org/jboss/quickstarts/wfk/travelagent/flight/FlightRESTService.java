@@ -69,7 +69,7 @@ import org.json.JSONObject;
  * transaction demarcation when accessing the database." - Antonio Goncalves
  * 
  */
-@Path("/flights")
+@Path("/travelagent/flights")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Stateless
