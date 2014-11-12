@@ -71,7 +71,6 @@ public class FlightService {
      * @return List of Contact objects
      */
     JSONArray findAllOrderedByName() {
-        //Perform a rest call to get the state of the contact from the allareacodes.com API
     	try
     	{
         URI uri = new URIBuilder()
@@ -83,9 +82,6 @@ public class FlightService {
         CloseableHttpResponse response = httpClient.execute(req);
         String responseBody = EntityUtils.toString(response.getEntity());
         JSONArray responseJson = new JSONArray(responseBody);
-        //responseJson.
-        //JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        //contact.setState(areaCodes.getJSONObject(0).getString("state"));
         
         HttpClientUtils.closeQuietly(response);
         return responseJson;
