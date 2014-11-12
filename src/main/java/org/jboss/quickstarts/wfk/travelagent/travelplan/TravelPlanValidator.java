@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.travelplan;
+package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 import java.util.HashSet;
 import java.util.Set;
