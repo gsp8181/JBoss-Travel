@@ -90,13 +90,10 @@ public class FlightRESTService {
     public Response retrieveAllFlights() {
         JSONArray flights = service.findAllOrderedByName();
         
-        if(flights != null)
-        {
-        	return Response.ok(flights.toString()).build();
-        } else
-        {
-        	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        if (flights == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+        return Response.ok(flights.toString()).build();
         
     }
     
