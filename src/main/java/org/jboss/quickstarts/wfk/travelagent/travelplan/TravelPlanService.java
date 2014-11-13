@@ -157,11 +157,11 @@ public class TravelPlanService {
 	private long bookHotel(TravelSketch travelSketch)
 			throws Exception {
 		URI uri = new URIBuilder().setScheme("http")
-				//.setHost("travel.gsp8181.co.uk")
-				//.setPath("/rest/bookings")
-				.setHost("localhost")
-				.setPort(8080)
-				.setPath("/travel/rest/bookings")
+				.setHost("travel.gsp8181.co.uk")
+				.setPath("/rest/bookings")
+				//.setHost("localhost")
+				//.setPort(8080)
+				//.setPath("/travel/rest/bookings")
 				.build();
 		HttpPost req = new HttpPost(uri);
 		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentFlight.toString() + "\",\"hotelId\":\"" + travelSketch.getHotelId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
@@ -203,14 +203,15 @@ public class TravelPlanService {
 	
 	private void revert(TravelPlan travelPlan) throws Exception
 	{
+		// do independently
 		if(travelPlan.getHotelBookingId() != null)
 		{
 		URI uri = new URIBuilder().setScheme("http")
-				//.setHost("travel.gsp8181.co.uk")
-				//.setPath("/rest/bookings")
-				.setHost("localhost")
-				.setPort(8080)
-				.setPath("/travel/rest/bookings/" + travelPlan.getHotelBookingId())
+				.setHost("travel.gsp8181.co.uk")
+				.setPath("/rest/bookings/" + travelPlan.getHotelBookingId())
+				//.setHost("localhost")
+				//.setPort(8080)
+				//.setPath("/travel/rest/bookings/" + travelPlan.getHotelBookingId())
 				.build();
 		HttpDelete req = new HttpDelete(uri);
 		CloseableHttpResponse response = httpClient.execute(req);
@@ -249,15 +250,19 @@ public class TravelPlanService {
     TravelPlan delete(TravelPlan travelPlan) throws Exception {
         //log.info("TravelPlanService.delete() - Deleting " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
         
-    	
-    	//CLEANUP, tests , does it exist and whatnot
+    	if (travelPlan.getId() == null) {
+    	       
+            log.info("TravelPlanService.delete() - No ID was found so can't Delete.");
+            return null;
+        }
+    	//TODO: CLEANUP, tests
     	
 		URI uriH = new URIBuilder().setScheme("http")
-				//.setHost("travel.gsp8181.co.uk")
-				//.setPath("/rest/bookings")
-				.setHost("localhost")
-				.setPort(8080)
-				.setPath("/travel/rest/bookings/" + travelPlan.getHotelBookingId())
+				.setHost("travel.gsp8181.co.uk")
+				.setPath("/rest/bookings/" + travelPlan.getHotelBookingId())
+				//.setHost("localhost")
+				//.setPort(8080)
+				//.setPath("/travel/rest/bookings/" + travelPlan.getHotelBookingId())
 				.build();
 		HttpDelete reqH = new HttpDelete(uriH);
 		CloseableHttpResponse responseH = httpClient.execute(reqH);
@@ -280,19 +285,13 @@ public class TravelPlanService {
 			}
 		//String responseBody = EntityUtils.toString(response.getEntity());
 		HttpClientUtils.closeQuietly(responseF);
+		
+		
+		TravelPlan deletedTravelPlan = null;
+		deletedTravelPlan = crud.delete(travelPlan);
+		return deletedTravelPlan;
     	
-    	
-    	
-    	
-        TravelPlan deletedTravelPlan = null;
         
-        if (travelPlan.getId() != null) {
-            deletedTravelPlan = crud.delete(travelPlan);
-        } else {
-            log.info("TravelPlanService.delete() - No ID was found so can't Delete.");
-        }
-        
-        return deletedTravelPlan;
     	//return null;
     }
 
