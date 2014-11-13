@@ -80,7 +80,6 @@ public class Booking implements Serializable {
     @Column(name = "hotelId")
     private Long hotelId;
 
-    //TODO: is future the right ting?
     @Future(message = "Booking date must be in the future")
     @NotNull
     @Column(name = "bookingDate")
