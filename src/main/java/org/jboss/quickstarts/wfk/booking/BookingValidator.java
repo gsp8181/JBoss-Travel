@@ -131,7 +131,6 @@ public class BookingValidator {
      * @param customerId The customerId to check is unique
      * @return boolean which represents whether the booking was already found, and if so, whether it belongs to the user with the given ID
      */
-  //TODO: THIS IS ALL WRONG, THIS SHOULD ALSO CHECK WHETHER THE BOOKING IS REGISTERED TO THE GIVEN USER!!
     boolean customerExists(Long customerId) {
         Customer booking = null;
         try {
@@ -149,7 +148,6 @@ public class BookingValidator {
     * @param customerId The hotelId to check is unique
     * @return boolean which represents whether the booking was already found, and if so, whether it belongs to the user with the given ID
     */
- //TODO: THIS IS ALL WRONG, THIS SHOULD ALSO CHECK WHETHER THE BOOKING IS REGISTERED TO THE GIVEN USER!!
     boolean hotelExists(Long hotelId) {
         Hotel booking = null;
         try {
