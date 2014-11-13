@@ -23,7 +23,7 @@ CustomerService End Points
 ```
 
 * Response example:
-* Success: 200 OK
+* Success: 201 Created
 * Validation error: Collection of `<field name>:<error msg>` for each error
 
 ```JavaScript
@@ -85,7 +85,7 @@ HotelService End Points
 ```
 
 * Response example:
-* Success: 200 OK
+* Success: 201 Created
 * Validation error: Collection of `<field name>:<error msg>` for each error
 
 ```JavaScript
@@ -145,7 +145,7 @@ BookingService End Points
 ```
 
 * Response example:
-* Success: 200 OK
+* Success: 201 Created
 * Validation error: Collection of `<field name>:<error msg>` for each error
 
 ```JavaScript
@@ -191,7 +191,7 @@ BookingService End Points
 
 ##DELETE
 ### Delete one booking
-#### /rest/bookings
+#### /rest/bookings/\<id>
 
 * Request type: DELETE
 * Return type: JSON
@@ -201,6 +201,79 @@ BookingService End Points
 {"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}
 ```
 
+TravelPlanService End Points
+------------------------
+##CREATE
+### Create a new booking
+
+#### /rest/travelagent/travelplans
+
+* Request type: POST
+* Request type: JSON
+* Return type: JSON
+* Request example:
+
+```JavaScript
+{"customerId":10002, "flightId":10000, "hotelId":1027, "taxiId":5, "bookingDate": "2016-10-20"}
+```
+
+* Response example:
+* Success: 201 Created
+* Validation error: Collection of `<field name>:<error msg>` for each error
+
+```JavaScript
+{"error":"Failed to create a hotel booking"}
+```
+
+
+##READ
+### List all bookings
+#### /rest/travelagent/travelplans
+
+* Request type: GET
+* Return type: JSON
+* Response example:
+
+```javascript
+[{"id":2,"customerId":10002,"flightBookingId":3,"hotelBookingId":1,"taxiBookingId":7},{"id":4,"customerId":10002,"flightBookingId":4,"hotelBookingId":3,"taxiBookingId":8}]
+```
+
+
+##DELETE
+### Cancel one booking
+#### /rest/travelagent/travelplans/\<id>
+
+* Request type: DELETE
+* Return type: JSON
+* Response example:
+
+```javascript
+{"id":2,"customerId":10002,"flightBookingId":3,"hotelBookingId":1,"taxiBookingId":7}
+```
+
+FlightService End Points
+------------------------
+##READ
+### List all bookings
+#### /rest/travelagent/flights
+
+* Request type: GET
+* Return type: JSON
+* Response example:
+
+```javascript
+[{"id":10001,"departurePoint":"DUB","flightNumber":"12345","destinationPoint":"NCL"},{"id":10000,"departurePoint":"VLN","flightNumber":"ABCDE","destinationPoint":"NCL"}]
+```
+
+### Find a flight by it's associated flight ID.
+#### /rest/travelagent/flights/\<flightId>
+* Request type: GET
+* Return type: JSON
+* Response example:
+
+```javascript
+{"id":10001,"departurePoint":"DUB","flightNumber":"12345","destinationPoint":"NCL"}
+```
 
 ContactService End Points (Depreciated)
 ------------------------
