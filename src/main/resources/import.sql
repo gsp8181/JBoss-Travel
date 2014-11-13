@@ -32,4 +32,4 @@ insert into Booking (id, customerId, hotelId, bookingDate) values (1003, 10002, 
 
 -- TRAVEL AGENTS GO HERE DO NOT CHANGE!
 insert into Customer (id, name, email, phone_number) values (10000, 'Don', 'd.daubaras@ncl.ac.uk', '07123456789')
-insert into Customer (id, name, email, phone_number) values (18181, 'Geoffs Travel', 'g.prytherch@ncl.ac.uk', '0800001066')
+insert into Customer (id, name, email, phone_number) values (18181, 'Geoffs Travel', 'g.prytherch@ncl.ac.uk', '01914960142')
