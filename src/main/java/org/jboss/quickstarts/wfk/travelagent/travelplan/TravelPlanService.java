@@ -21,6 +21,7 @@ package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -76,7 +77,7 @@ public class TravelPlanService {
     private @Named("httpClient") CloseableHttpClient httpClient;
     
     private final Long travelAgentTaxi = (long) 0;
-    private final Long travelAgentFlight = (long) 0;
+    private final Long travelAgentFlight = (long) 18181;
     private final Long travelAgentHotel = (long) 18181;
     
     /**
@@ -110,13 +111,23 @@ public class TravelPlanService {
     TravelPlan create(TravelSketch travelSketch) throws ConstraintViolationException, ValidationException, Exception {
     	TravelPlan travelPlan = new TravelPlan();//validate travelsketch?
     	travelPlan.setCustomerId(travelSketch.getCustomerId()); //TODO: WHY DOES THE ID JUMP 2?
+    	log.info("TravelPlanService.create() - Creating travelplan for customer #" + travelPlan.getCustomerId());
     	
-		bookHotel(travelSketch, travelPlan);
+    	try
+    	{
+		travelPlan.setHotelBookingId(bookHotel(travelSketch));
     	
-    	travelPlan.setFlightBookingId((long) 1);
+    	travelPlan.setFlightBookingId(bookFlight(travelSketch));
+    	
     	travelPlan.setTaxiBookingId((long) 2);
+    	} catch (Exception e)
+    	{
+    		revert(travelPlan);
+    		
+    		throw e;
+    	}
     	
-    	//log.info("TravelPlanService.create() - Creating " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+    	
         
         // Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
         validator.validateTravelPlan(travelPlan);
@@ -143,9 +154,8 @@ public class TravelPlanService {
         return crud.create(travelPlan);
     }
 
-	private void bookHotel(TravelSketch travelSketch, TravelPlan travelPlan)
-			throws URISyntaxException, UnsupportedEncodingException,
-			IOException, ClientProtocolException {//TODO: Change return type to true or false or exception/id
+	private long bookHotel(TravelSketch travelSketch)
+			throws Exception {
 		URI uri = new URIBuilder().setScheme("http")
 				//.setHost("travel.gsp8181.co.uk")
 				//.setPath("/rest/bookings")
@@ -154,15 +164,79 @@ public class TravelPlanService {
 				.setPath("/travel/rest/bookings")
 				.build();
 		HttpPost req = new HttpPost(uri);
-		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentHotel.toString() + "\",\"hotelId\":\"" + travelSketch.getHotelId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
+		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentFlight.toString() + "\",\"hotelId\":\"" + travelSketch.getHotelId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
 		req.addHeader("Content-Type", "application/json");
 		req.setEntity(params);
 		CloseableHttpResponse response = httpClient.execute(req);
+		if(response.getStatusLine().getStatusCode() != 201)
+		{
+			throw new Exception("Failed to create a hotel booking");
+		}
 		String responseBody = EntityUtils.toString(response.getEntity());
-		log.info(responseBody);
-		JSONObject responseJson = new JSONObject(responseBody); //TODO: were there any JSON errors??
-		travelPlan.setHotelBookingId(responseJson.getLong("id"));//TODO: Change to Return
-		HttpClientUtils.closeQuietly(response);//TODO: get 404 http://stackoverflow.com/questions/7181534/http-post-using-json-in-java
+		JSONObject responseJson = new JSONObject(responseBody);
+		long rtn = responseJson.getLong("id");
+		HttpClientUtils.closeQuietly(response);     //TODO: get 404 http://stackoverflow.com/questions/7181534/http-post-using-json-in-java
+		return rtn;
+	}
+	
+	private long bookFlight(TravelSketch travelSketch)
+			throws Exception {
+		URI uri = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
+				.setPath("/rest/bookings")
+				.build();
+		HttpPost req = new HttpPost(uri);
+		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentHotel.toString() + "\",\"flightId\":\"" + travelSketch.getFlightId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
+		req.addHeader("Content-Type", "application/json");
+		req.setEntity(params);
+		CloseableHttpResponse response = httpClient.execute(req);
+		if(response.getStatusLine().getStatusCode() != 201)
+		{
+			throw new Exception("Failed to create a flight booking");
+		}
+		String responseBody = EntityUtils.toString(response.getEntity());
+		JSONObject responseJson = new JSONObject(responseBody);
+		long rtn = responseJson.getLong("id");
+		HttpClientUtils.closeQuietly(response);     //TODO: get 404 http://stackoverflow.com/questions/7181534/http-post-using-json-in-java
+		return rtn;
+	}
+	
+	private void revert(TravelPlan travelPlan) throws Exception
+	{
+		if(travelPlan.getHotelBookingId() != null)
+		{
+		URI uri = new URIBuilder().setScheme("http")
+				//.setHost("travel.gsp8181.co.uk")
+				//.setPath("/rest/bookings")
+				.setHost("localhost")
+				.setPort(8080)
+				.setPath("/travel/rest/bookings/" + travelPlan.getHotelBookingId())
+				.build();
+		HttpDelete req = new HttpDelete(uri);
+		CloseableHttpResponse response = httpClient.execute(req);
+		if(response.getStatusLine().getStatusCode() != 204)
+			{
+				
+			}
+		//String responseBody = EntityUtils.toString(response.getEntity());
+		HttpClientUtils.closeQuietly(response);
+		}
+		
+		if(travelPlan.getFlightBookingId() != null)
+		{
+		URI uri = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
+				.setPath("/rest/bookings/" + travelPlan.getFlightBookingId())
+				.build();
+		HttpDelete req = new HttpDelete(uri);
+		CloseableHttpResponse response = httpClient.execute(req);
+		if(response.getStatusLine().getStatusCode() != 204)
+			{
+				
+			}
+		//String responseBody = EntityUtils.toString(response.getEntity());
+		HttpClientUtils.closeQuietly(response);
+		}
 	}
 
     /**
@@ -173,8 +247,43 @@ public class TravelPlanService {
      * @throws Exception
      */
     TravelPlan delete(TravelPlan travelPlan) throws Exception {
-        /*log.info("TravelPlanService.delete() - Deleting " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
+        //log.info("TravelPlanService.delete() - Deleting " + travelPlan.getFirstName() + " " + travelPlan.getLastName());
         
+    	
+    	//CLEANUP, tests , does it exist and whatnot
+    	
+		URI uriH = new URIBuilder().setScheme("http")
+				//.setHost("travel.gsp8181.co.uk")
+				//.setPath("/rest/bookings")
+				.setHost("localhost")
+				.setPort(8080)
+				.setPath("/travel/rest/bookings/" + travelPlan.getHotelBookingId())
+				.build();
+		HttpDelete reqH = new HttpDelete(uriH);
+		CloseableHttpResponse responseH = httpClient.execute(reqH);
+		if(responseH.getStatusLine().getStatusCode() != 204)
+			{
+				
+			}
+		//String responseBody = EntityUtils.toString(response.getEntity());
+		HttpClientUtils.closeQuietly(responseH);
+		
+		URI uriF = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
+				.setPath("/rest/bookings/" + travelPlan.getFlightBookingId())
+				.build();
+		HttpDelete reqF = new HttpDelete(uriF);
+		CloseableHttpResponse responseF = httpClient.execute(reqF);
+		if(responseF.getStatusLine().getStatusCode() != 204)
+			{
+				
+			}
+		//String responseBody = EntityUtils.toString(response.getEntity());
+		HttpClientUtils.closeQuietly(responseF);
+    	
+    	
+    	
+    	
         TravelPlan deletedTravelPlan = null;
         
         if (travelPlan.getId() != null) {
@@ -183,8 +292,8 @@ public class TravelPlanService {
             log.info("TravelPlanService.delete() - No ID was found so can't Delete.");
         }
         
-        return deletedTravelPlan;*/
-    	return null;
+        return deletedTravelPlan;
+    	//return null;
     }
 
 }
