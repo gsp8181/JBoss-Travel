@@ -140,8 +140,8 @@ public class TravelPlanRESTService {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
-            //responseObj.put("email", "That email is already used, please use a unique email");
-            builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
+            responseObj.put("error", "The booking failed to save, transaction rolled back");
+            builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions
