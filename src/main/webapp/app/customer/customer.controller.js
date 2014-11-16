@@ -52,7 +52,7 @@
             // Clear input fields. If $scope.customer was set to an empty object {},
             // then invalid form values would not be reset.
             // By specifying all properties, input fields with invalid values are also reset.
-            $scope.customer = {firstName: "", lastName: "", phoneNumber: "", email: "", birthDate: ""};
+            $scope.customer = {name: "", phoneNumber: "", email: ""};
 
             // clear messages
             $scope.messages.clear();
