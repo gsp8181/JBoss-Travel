@@ -32,6 +32,7 @@
     <!-- A list of stored customers -->
     <div class="customer-list-heading clearfix">
         <p class="pull-left">Customer {{(details)?'Details':'Name'}}</p>
+        <a type="button" class="btn glyphicon glyphicon-plus pull-right" id="addCustomer" href="#/add"></a> 
         <button class="btn pull-right" id="toggleDetails" ng-click="details=!details">
             <span class="glyphicon {{(details)?'glyphicon-resize-small':'glyphicon-resize-full'}}"></span>
         </button>
@@ -41,7 +42,7 @@
             <p>{{heading}}</p>
             <ul class="customers">
                 <!-- The list is built using Angular's ng-repeat functionality, iterating over customer objects in customers -->
-                <li class="customer" ng-repeat="customer in subset | orderBy: 'firstName'">
+                <li class="customer" ng-repeat="customer in subset | orderBy: 'name'">
                     <a href="#/edit/{{customer.id}}">{{customer.name}}</a>
                     <div class="customer-details" ng-show="details">
                         <p>
