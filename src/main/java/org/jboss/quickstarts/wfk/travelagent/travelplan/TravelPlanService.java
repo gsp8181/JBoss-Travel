@@ -120,38 +120,20 @@ public class TravelPlanService {
     	travelPlan.setFlightBookingId(bookFlight(travelSketch));
     	
     	travelPlan.setTaxiBookingId((long) 2);
+    	
+    	
+    	// Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
+    	validator.validateTravelPlan(travelPlan);
+    	
+		// Write the travelPlan to the database.
+        return crud.create(travelPlan);
     	} catch (Exception e)
     	{
     		revert(travelPlan);
     		
     		throw e;
     	}
-    	
-    	
-        
-        // Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
-        validator.validateTravelPlan(travelPlan);
-/*
-        //Perform a rest call to get the state of the travelPlan from the allareacodes.com API
-        URI uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("www.allareacodes.com")
-                .setPath("/api/1.0/api.json")
-                .setParameter("npa", travelPlan.getPhoneNumber().substring(1,4))
-                .setParameter("tracking_email", "h.firth@ncl.ac.uk")
-                .setParameter("tracking_url", "http://www.ncl.ac.uk/undergraduate/modules/module/CSC8104")
-                .build();
-        HttpGet req = new HttpGet(uri);
-        CloseableHttpResponse response = httpClient.execute(req);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject responseJson = new JSONObject(responseBody);
-        JSONArray areaCodes = responseJson.getJSONArray("area_codes");
-        travelPlan.setState(areaCodes.getJSONObject(0).getString("state"));
-        HttpClientUtils.closeQuietly(response);*/
 
-
-        // Write the travelPlan to the database.
-        return crud.create(travelPlan);
     }
 
 	private long bookHotel(TravelSketch travelSketch)
@@ -291,8 +273,6 @@ public class TravelPlanService {
 		deletedTravelPlan = crud.delete(travelPlan);
 		return deletedTravelPlan;
     	
-        
-    	//return null;
     }
 
 }

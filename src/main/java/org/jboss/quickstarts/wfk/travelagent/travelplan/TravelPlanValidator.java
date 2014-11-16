@@ -81,8 +81,8 @@ public class TravelPlanValidator {
      * @param id The user id to check the email against if it was found
      * @return boolean which represents whether the email was found, and if so if it belongs to the user with id
      */
-    boolean emailAlreadyExists(String email, Long id) {
-        /*TravelPlan travelPlan = null;
+    /*boolean emailAlreadyExists(String email, Long id) {
+        TravelPlan travelPlan = null;
         TravelPlan travelPlanWithID = null;
         try {
             travelPlan = crud.findByEmail(email);
@@ -100,7 +100,7 @@ public class TravelPlanValidator {
                 // ignore
             }
         }
-        return travelPlan != null;*/
+        return travelPlan != null;
     	return false;
-    }
+    }*/
 }
