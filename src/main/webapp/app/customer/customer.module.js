@@ -16,9 +16,9 @@
  */
 (function() {
     'use strict';
-    //Top level definition for app.contact sub-module.
+    //Top level definition for app.customer sub-module.
     angular
-        .module('app.contact', [
+        .module('app.customer', [
             'ngResource',
             'app.util'
         ]);

@@ -34,14 +34,14 @@ body {
     border-top: 1px solid #e5e5e5;
 }
 
-/* Contacts list styling */
-.contact-list {
+/* Customers list styling */
+.customer-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.contact-list-heading {
+.customer-list-heading {
     margin-top: 15px;
     border-top: 0px;
     border-left: 0px;
@@ -54,7 +54,7 @@ body {
     padding-bottom: 5px;
 }
 
-.contact-list-heading p {
+.customer-list-heading p {
     font-size: 1.5em;
     max-width: 50%;
 }
@@ -67,13 +67,13 @@ body {
     margin: 0;
 }
 
-.contacts {
+.customers {
     list-style: none;
     margin: 0;
     padding: 0px;
 }
 
-.contact {
+.customer {
     border-top: 1px solid #e5e5e5;
     padding: 5px;
     padding-left: 15px;
@@ -82,21 +82,21 @@ body {
     cursor: pointer;
 }
 
-.contact a {
+.customer a {
     display: block;
     text-decoration: none;
     color: inherit;
 }
 
-ul.contacts li.contact:nth-of-type(even) {
+ul.customers li.customer:nth-of-type(even) {
     background-color: #f9f9f9
 }
 
-.contact:hover {
+.customer:hover {
     background-color: #ddd !important;
 }
 
-.contact-details p {
+.customer-details p {
     padding-left: 25px;
     font-size: 0.8em;
     background-color: inherit;

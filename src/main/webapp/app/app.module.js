@@ -20,7 +20,7 @@
     angular
         .module('app', [
             'ngRoute',
-            'app.contact',
+            'app.customer',
             'app.util'
         ]);
 })();

@@ -17,23 +17,23 @@
 (function() {
     'use strict';
     angular
-        .module('app.contact')
-        .factory('Contact', Contact);
+        .module('app.customer')
+        .factory('Customer', Customer);
 
-    Contact.$inject = ['$resource'];
+    Customer.$inject = ['$resource'];
 
-    function Contact($resource) {
-        //Declares Contact as a class of Resource, whose instance.$methods and Class.methods may be used
-        // to easily interact with the RESTful rest/contacts endpoint via $http.
-        var Contact = $resource(
-            'rest/contacts/:contactId',
-            {contactId: '@id'},
+    function Customer($resource) {
+        //Declares Customer as a class of Resource, whose instance.$methods and Class.methods may be used
+        // to easily interact with the RESTful rest/customers endpoint via $http.
+        var Customer = $resource(
+            'rest/customers/:customerId',
+            {customerId: '@id'},
             {
                 'update': {method: 'PUT'}
             }
         );
-        //Declare public class variable to act as a pseudo-cache TODO: use proper $cacheFactor cache in Contact
-        Contact.data = [];
-        return Contact;
+        //Declare public class variable to act as a pseudo-cache TODO: use proper $cacheFactor cache in Customer
+        Customer.data = [];
+        return Customer;
     }
 })();

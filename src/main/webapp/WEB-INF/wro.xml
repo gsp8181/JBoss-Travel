@@ -24,9 +24,9 @@
         <js>/app/app.module.js</js>
         <js>/app/app.route.js</js>
         <js>/app/app.controller.js</js>
-        <js>/app/contact/contact.module.js</js>
-        <js>/app/contact/contact.js</js>
-        <js>/app/contact/contact.controller.js</js>
+        <js>/app/customer/customer.module.js</js>
+        <js>/app/customer/customer.js</js>
+        <js>/app/customer/customer.controller.js</js>
         <js>/app/util/util.module.js</js>
         <js>/app/util/ajaxNonceInterceptor.service.js</js>
         <js>/app/util/messageBag.service.js</js>

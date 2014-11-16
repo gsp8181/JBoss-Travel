@@ -30,21 +30,21 @@
         //Note that this app is a single page app, composed of multiple 'views'
         //Each 'view' is some combination of a template and a controller
         //A 'view' is routed to using a URL fragment following a # symbol. For example, to select the 'home' route, the
-        // URL is http://localhost:8080/jboss-contacts-angularjs/#/home
+        // URL is http://localhost:8080/jboss-customers-angularjs/#/home
         $routeProvider.
             //If URL fragment is '/home', then load the home.html template, with, the default, AppController
             when('/home', {
                 templateUrl: 'templates/home.html',
                 controller: 'AppController'
-                //If URL fragment is '/add', then load the contactForm.html template, with ContactController
+                //If URL fragment is '/add', then load the customerForm.html template, with CustomerController
             }).when('/add', {
-                templateUrl: 'templates/contact/contactForm.html',
-                controller: 'ContactController'
+                templateUrl: 'templates/customer/customerForm.html',
+                controller: 'CustomerController'
                 //If URL fragment is '/edit' followed by an obligatory identifier, use the same controller/template as
                 // with '/add'. Appropriate form controls will be chosen based upon URL.
-            }).when('/edit/:contactId', {
-                templateUrl: 'templates/contact/contactForm.html',
-                controller: 'ContactController'
+            }).when('/edit/:customerId', {
+                templateUrl: 'templates/customer/customerForm.html',
+                controller: 'CustomerController'
                 //If URL fragment is /about, then load the about.html template with no controller
             }).when('/about', {
                 templateUrl: 'templates/about.html'

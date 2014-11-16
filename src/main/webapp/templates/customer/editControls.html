@@ -18,12 +18,12 @@
 <div class="form-group clearfix">
     <div class="btn-group pull-right">
         <!-- ng-disable conditionally applies the special attribute 'disabled'. -->
-        <!-- When clicked, execute $scope.addContact() function. -->
-        <button class="btn btn-primary" id="save-button" ng-disabled="contactForm.$invalid" ng-click="saveContact()">
+        <!-- When clicked, execute $scope.addCustomer() function. -->
+        <button class="btn btn-primary" id="save-button" ng-disabled="customerForm.$invalid" ng-click="saveCustomer()">
             <span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Save
         </button>
-        <!-- When clicked, execute $scope.deleteContact(). -->
-        <button class="btn btn-default" ng-click="deleteContact()">
+        <!-- When clicked, execute $scope.deleteCustomer(). -->
+        <button class="btn btn-default" ng-click="deleteCustomer()">
             <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
         </button>
         <a href="#/home" class="btn btn-default">

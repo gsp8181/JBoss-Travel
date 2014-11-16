@@ -17,64 +17,64 @@
 (function() {
     'use strict';
     angular
-        .module('app.contact')
-        .controller('ContactController', ContactController);
+        .module('app.customer')
+        .controller('CustomerController', CustomerController);
 
-    ContactController.$inject = ['$scope', '$routeParams', '$location', 'Contact', 'messageBag'];
+    CustomerController.$inject = ['$scope', '$routeParams', '$location', 'Customer', 'messageBag'];
 
-    function ContactController($scope, $routeParams, $location, Contact, messageBag) {
-        //Assign Contact service to $scope variable
-        $scope.contacts = Contact;
+    function CustomerController($scope, $routeParams, $location, Customer, messageBag) {
+        //Assign Customer service to $scope variable
+        $scope.customers = Customer;
         //Assign messageBag service to $scope variable
         $scope.messages = messageBag;
 
         //Get today's date for the birthDate form value max
         $scope.date = Date.now();
 
-        $scope.contact = {};
+        $scope.customer = {};
         $scope.create = true;
 
-        //If $routeParams has :contactId then load the specified contact, and display edit controls on contactForm
-        if($routeParams.hasOwnProperty('contactId')) {
-            $scope.contact = $scope.contacts.get({contactId: $routeParams.contactId});
+        //If $routeParams has :customerId then load the specified customer, and display edit controls on customerForm
+        if($routeParams.hasOwnProperty('customerId')) {
+            $scope.customer = $scope.customers.get({customerId: $routeParams.customerId});
             $scope.create = false;
         }
 
 
-        // Define a reset function, that clears the prototype new Contact object, and
+        // Define a reset function, that clears the prototype new Customer object, and
         // consequently, the form
         $scope.reset = function() {
             // Sets the form to it's pristine state
-            if($scope.contactForm) {
-                $scope.contactForm.$setPristine();
+            if($scope.customerForm) {
+                $scope.customerForm.$setPristine();
             }
 
-            // Clear input fields. If $scope.contact was set to an empty object {},
+            // Clear input fields. If $scope.customer was set to an empty object {},
             // then invalid form values would not be reset.
             // By specifying all properties, input fields with invalid values are also reset.
-            $scope.contact = {firstName: "", lastName: "", phoneNumber: "", email: "", birthDate: ""};
+            $scope.customer = {firstName: "", lastName: "", phoneNumber: "", email: "", birthDate: ""};
 
             // clear messages
             $scope.messages.clear();
         };
 
-        // Define an addContact() function, which creates a new contact via the REST service,
+        // Define an addCustomer() function, which creates a new customer via the REST service,
         // using those details provided and displaying any error messages
-        $scope.addContact = function() {
+        $scope.addCustomer = function() {
             $scope.messages.clear();
 
-            $scope.contacts.save($scope.contact,
+            $scope.customers.save($scope.customer,
                 //Successful query
                 function(data) {
 
-                    // Update the list of contacts
-                    $scope.contacts.data.push(data);
+                    // Update the list of customers
+                    $scope.customers.data.push(data);
 
                     // Clear the form
                     $scope.reset();
 
                     //Add success message
-                    $scope.messages.push('success', 'Contact added');
+                    $scope.messages.push('success', 'Customer added');
                     //Error
                 }, function(result) {
                     for(var error in result.data){
@@ -85,18 +85,18 @@
 
         };
 
-        // Define a saveContact() function, which saves the current contact using the REST service
+        // Define a saveCustomer() function, which saves the current customer using the REST service
         // and displays any error messages
-        $scope.saveContact = function() {
+        $scope.saveCustomer = function() {
             $scope.messages.clear();
-            $scope.contact.$update(
+            $scope.customer.$update(
                 //Successful query
                 function(data) {
-                    //Find the contact locally by id and update it
-                    var idx = _.findIndex($scope.contacts.data, {'id': $scope.contact.id});
-                    $scope.contacts.data[idx] = data;
+                    //Find the customer locally by id and update it
+                    var idx = _.findIndex($scope.customers.data, {'id': $scope.customer.id});
+                    $scope.customers.data[idx] = data;
                     //Add success message
-                    $scope.messages.push('success', 'Contact saved');
+                    $scope.messages.push('success', 'Customer saved');
                     //Error
                 }, function(result) {
                     for(var error in result.data){
@@ -106,21 +106,21 @@
             )
         };
 
-        // Define a deleteContact() function, which saves the current contact using the REST service
+        // Define a deleteCustomer() function, which saves the current customer using the REST service
         // and displays any error messages
-        $scope.deleteContact = function() {
+        $scope.deleteCustomer = function() {
             $scope.messages.clear();
 
             //Send the DELETE request
-            $scope.contact.$delete(
+            $scope.customer.$delete(
                 //Successful query
                 function() {
                     //TODO: Fix the wonky imitation of a cache by replacing with a proper $cacheFactory cache.
-                    //Find the contact locally by id and remove it
-                    var idx = _.findIndex($scope.contacts.data, {'id': $scope.contact.id});
-                    $scope.contacts.data.splice(idx, 1);
-                    //Mark success on the editContact form
-                    $scope.messages.push('success', 'Contact removed');
+                    //Find the customer locally by id and remove it
+                    var idx = _.findIndex($scope.customers.data, {'id': $scope.customer.id});
+                    $scope.customers.data.splice(idx, 1);
+                    //Mark success on the editCustomer form
+                    $scope.messages.push('success', 'Customer removed');
                     //Redirect back to /home
                     $location.path('/home');
                     //Error

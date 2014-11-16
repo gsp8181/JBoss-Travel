@@ -20,39 +20,39 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$scope', '$filter', 'Contact', 'messageBag'];
+    AppController.$inject = ['$scope', '$filter', 'Customer', 'messageBag'];
 
-    function AppController($scope, $filter, Contact, messageBag) {
-        //Assign Contact service to $scope variable
-        $scope.contacts = Contact;
+    function AppController($scope, $filter, Customer, messageBag) {
+        //Assign Customer service to $scope variable
+        $scope.customers = Customer;
         //Assign Messages service to $scope variable
         $scope.messages = messageBag;
 
-        //Divide contact list into several sub lists according to the first character of their firstName property
-        var getHeadings = function(contacts) {
+        //Divide customer list into several sub lists according to the first character of their firstName property
+        var getHeadings = function(customers) {
             var headings = {};
-            for(var i = 0; i<contacts.length; i++) {
-                //Get the first letter of a contact's firstName
-                var startsWithLetter = contacts[i].firstName.charAt(0).toUpperCase();
-                //If we have encountered that first letter before then add the contact to that list, else create it
+            for(var i = 0; i<customers.length; i++) {
+                //Get the first letter of a customer's firstName
+                var startsWithLetter = customers[i].name.charAt(0).toUpperCase();
+                //If we have encountered that first letter before then add the customer to that list, else create it
                 if(headings.hasOwnProperty(startsWithLetter)) {
-                    headings[startsWithLetter].push(contacts[i]);
+                    headings[startsWithLetter].push(customers[i]);
                 } else {
-                    headings[startsWithLetter] = [contacts[i]];
+                    headings[startsWithLetter] = [customers[i]];
                 }
             }
             return headings;
         };
 
-        //Upon initial loading of the controller, populate a list of Contacts and their letter headings
-        $scope.contacts.data = $scope.contacts.query(
+        //Upon initial loading of the controller, populate a list of Customers and their letter headings
+        $scope.customers.data = $scope.customers.query(
             //Successful query
             function(data) {
-                $scope.contacts.data = data;
-                $scope.contactsList = getHeadings($scope.contacts.data);
-                //Keep the contacts list headings in sync with the underlying contacts
-                $scope.$watchCollection('contacts.data', function(newContacts, oldContacts) {
-                    $scope.contactsList = getHeadings(newContacts);
+                $scope.customers.data = data;
+                $scope.customersList = getHeadings($scope.customers.data);
+                //Keep the customers list headings in sync with the underlying customers
+                $scope.$watchCollection('customers.data', function(newCustomers, oldCustomers) {
+                    $scope.customersList = getHeadings(newCustomers);
                 });
             },
             //Error
@@ -63,15 +63,15 @@
             }
         );
 
-        //Boolean flag representing whether the details of the contacts are expanded inline
+        //Boolean flag representing whether the details of the customers are expanded inline
         $scope.details = false;
 
         //Default search string
         $scope.search = "";
 
-        //Continuously filter the content of the contacts list according to the contents of $scope.search
+        //Continuously filter the content of the customers list according to the contents of $scope.search
         $scope.$watch('search', function(newValue, oldValue) {
-            $scope.contactsList = getHeadings($filter('filter')($scope.contacts.data, $scope.search));
+            $scope.customersList = getHeadings($filter('filter')($scope.customers.data, $scope.search));
         });
     }
 })();
