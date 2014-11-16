@@ -16,12 +16,24 @@
  */
 (function() {
     'use strict';
-    //Top level definition for application's parent module
     angular
-        .module('app', [
-            'ngRoute',
-            'app.customer',
-            'app.hotel',
-            'app.util'
-        ]);
+        .module('app.hotel')
+        .factory('Hotel', Hotel);
+
+    Hotel.$inject = ['$resource'];
+
+    function Hotel($resource) {
+        //Declares Hotel as a class of Resource, whose instance.$methods and Class.methods may be used
+        // to easily interact with the RESTful rest/hotels endpoint via $http.
+        var Hotel = $resource(
+            'rest/hotels/:hotelId',
+            {hotelId: '@id'},
+            {
+                'update': {method: 'PUT'}
+            }
+        );
+        //Declare public class variable to act as a pseudo-cache TODO: use proper $cacheFactor cache in Customer
+        Hotel.data = [];
+        return Hotel;
+    }
 })();

@@ -32,8 +32,8 @@
         //A 'view' is routed to using a URL fragment following a # symbol. For example, to select the 'home' route, the
         // URL is http://localhost:8080/jboss-customers-angularjs/#/home
         $routeProvider.
-            //If URL fragment is '/home', then load the home.html template, with, the default, AppController
-            when('/home', {
+            //If URL fragment is '/customer', then load the home.html template, with, the default, AppController
+            when('/customer', {
                 templateUrl: 'templates/home.html',
                 controller: 'AppController'
                 //If URL fragment is '/add', then load the customerForm.html template, with CustomerController
@@ -48,9 +48,13 @@
                 //If URL fragment is /about, then load the about.html template with no controller
             }).when('/about', {
                 templateUrl: 'templates/about.html'
+                //If URL fragment is 'hotel', then load the hotel.html template, with HotelController
+            }).when('/hotel', {
+                templateUrl: 'templates/hotel.html',
+                controller: 'HotelController'
                 // Add a default route
             }).otherwise({
-                redirectTo: '/home'
+                redirectTo: '/customer'
             });
     }
 })();
