@@ -70,7 +70,7 @@ public class Customer implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Pattern(regexp = "[A-Za-z-']+", message = "Please use a name without numbers or specials")
+    @Pattern(regexp = "[A-Za-z-' ]+", message = "Please use a name without numbers or specials")
     @Column(name = "name")
     private String name;
 
@@ -80,7 +80,7 @@ public class Customer implements Serializable {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "^0[0-9]{10}$")
+    @Pattern(regexp = "^0[0-9]{10}$", message = "Please provide a valid 11 digit UK phone number without spaces")
     @Column(name = "phone_number")
     private String phoneNumber;
 
