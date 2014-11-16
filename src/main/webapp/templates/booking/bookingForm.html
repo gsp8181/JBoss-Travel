@@ -19,61 +19,61 @@
 <!-- Status messages to be displayed -->
 <div rh-message-bag messages="messages"></div>
 
-<!-- This form is used to add new Hotel entries. Upon loading all fields are empty. -->
-<form name="hotelForm" role="form" id="hotelForm">
+<!-- This form is used to add new Booking entries. Upon loading all fields are empty. -->
+<form name="bookingForm" role="form" id="bookingForm">
 
-    <!-- Form group for Name input and associated error messages. -->
+    <!-- Form group for CustomerId input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': hotelForm.name.$invalid}">
-        <label for="name">Name:</label>
+    <div class="form-group" ng-class="{'has-error': bookingForm.customerId.$invalid}">
+        <label for="customerId">Customer ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
-        <input type="text" name="name" class="form-control"  id="name" placeholder="Enter a name."
-               ng-model="hotel.name" ng-pattern="/^[A-Za-z-' ]+$/" required>
+        <input type="text" name="customerId" class="form-control"  id="customerId" placeholder="25"
+               ng-model="booking.customerId" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="name-required" ng-show="hotelForm.name.$dirty && hotelForm.name.$error.required">
-            A name is required.
+        <p class="help-block" id="customerId-required" ng-show="bookingForm.customerId.$dirty && bookingForm.customerId.$error.required">
+            A customer ID is required.
         </p>
-        <p class="help-block" id="name-format" ng-show="hotelForm.name.$dirty && hotelForm.name.$error.pattern">
-            Please provide a name without numbers or special characters.
+        <p class="help-block" id="customerId-format" ng-show="bookingForm.customerId.$dirty && bookingForm.customerId.$error.pattern">
+            Please provide a valid customer ID in number format.
         </p>
     </div>
 
-    <!-- Form group for Phone Number input and associated error messages. -->
+    <!-- Form group for HotelId input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': hotelForm.phoneNumber.$invalid}">
-        <label for="phoneNumber">Phone:</label>
+    <div class="form-group" ng-class="{'has-error': bookingForm.hotelId.$invalid}">
+        <label for="hotelId">Hotel ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
-        <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="0NNNNNNNNNN"
-               ng-model="hotel.phoneNumber" ng-pattern="/^0[0-9]{10}$/" required>
+        <input type="text" name="hotelId" class="form-control" id="hotelId" placeholder="61"
+               ng-model="booking.hotelId" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="phoneNumber-required" ng-show="hotelForm.phoneNumber.$dirty && hotelForm.phoneNumber.$error.required">
-            A phone number is required.
+        <p class="help-block" id="hotelId-required" ng-show="bookingForm.hotelId.$dirty && bookingForm.hotelId.$error.required">
+            A hotel ID is required.
         </p>
-        <p class="help-block" id="phoneNumber-format" ng-show="hotelForm.phoneNumber.$dirty && hotelForm.phoneNumber.$error.pattern">
-            Please a provide a valid 11 digit UK phone number without spaces.
+        <p class="help-block" id="hotelId-format" ng-show="bookingForm.hotelId.$dirty && bookingForm.hotelId.$error.pattern">
+            Please a provide a valid hotel ID in number format.
         </p>
     </div>
 
     <!-- Form group for postcode input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': hotelForm.postcode.$invalid}">
+    <div class="form-group" ng-class="{'has-error': bookingForm.postcode.$invalid}">
         <label for="postcode">Postcode:</label>
         <input type="text" name="postcode" class="form-control" id="postcode" placeholder="SW8 9AZ"
-               ng-model="hotel.postcode" ng-pattern="/^([0-9-]+)|([A-Z0-9 ]+)$/" required>
+               ng-model="booking.postcode" ng-pattern="/^([0-9-]+)|([A-Z0-9 ]+)$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="postcode-required" ng-show="hotelForm.postcode.$dirty && hotelForm.postcode.$error.required">
+        <p class="help-block" id="postcode-required" ng-show="bookingForm.postcode.$dirty && bookingForm.postcode.$error.required">
             Please enter a valid UK postcode.
         </p>
-        <p class="help-block" id="postcode-format" ng-show="hotelForm.postcode.$dirty && hotelForm.postcode.$error.email">
+        <p class="help-block" id="postcode-format" ng-show="bookingForm.postcode.$dirty && bookingForm.postcode.$error.email">
             The postcode does not validate, please check and try again
         </p>
     </div>
 
     <!-- Load the appropriate form controls depending on whether the variable $scope.create is truthy -->
-    <div ng-if="create" ng-include="'templates/hotel/addControls.html'"></div>
-    <div ng-if="!create" ng-include="'templates/hotel/editControls.html'"></div>
+    <div ng-if="create" ng-include="'templates/booking/addControls.html'"></div>
+    <div ng-if="!create" ng-include="'templates/booking/editControls.html'"></div>
 
 </form>
