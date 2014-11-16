@@ -1,0 +1,79 @@
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!-- This is an Angular.js template -->
+
+<!-- Status messages to be displayed -->
+<div rh-message-bag messages="messages"></div>
+
+<!-- This form is used to add new Hotel entries. Upon loading all fields are empty. -->
+<form name="hotelForm" role="form" id="hotelForm">
+
+    <!-- Form group for Name input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': hotelForm.name.$invalid}">
+        <label for="name">Name:</label>
+        <!-- ng-pattern validates the contents of an input against a provided regexp. -->
+        <input type="text" name="name" class="form-control"  id="name" placeholder="Enter a name."
+               ng-model="hotel.name" ng-pattern="/^[A-Za-z-' ]+$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="name-required" ng-show="hotelForm.name.$dirty && hotelForm.name.$error.required">
+            A name is required.
+        </p>
+        <p class="help-block" id="name-format" ng-show="hotelForm.firstName.$dirty && hotelForm.name.$error.pattern">
+            Please provide a name without numbers or special characters.
+        </p>
+    </div>
+
+    <!-- Form group for Phone Number input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': hotelForm.phoneNumber.$invalid}">
+        <label for="phoneNumber">Phone:</label>
+        <!-- ng-pattern validates the contents of an input against a provided regexp. -->
+        <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="0NNNNNNNNNN"
+               ng-model="hotel.phoneNumber" ng-pattern="/^0[0-9]{10}$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="phoneNumber-required" ng-show="hotelForm.phoneNumber.$dirty && hotelForm.phoneNumber.$error.required">
+            A phone number is required.
+        </p>
+        <p class="help-block" id="phoneNumber-format" ng-show="hotelForm.phoneNumber.$dirty && hotelForm.phoneNumber.$error.pattern">
+            Please a provide a valid 11 digit UK phone number without spaces.
+        </p>
+    </div>
+
+    <!-- Form group for postcode input and associated error messages. -->
+    <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
+    <div class="form-group" ng-class="{'has-error': hotelForm.postcode.$invalid}">
+        <label for="postcode">Postcode:</label>
+        <input type="text" name="postcode" class="form-control" id="postcode" placeholder="SW8 9AZ"
+               ng-model="hotel.postcode" ng-pattern="/^([0-9-]+)|([A-Z0-9 ]+)$/" required>
+        <!-- Appropriate error messages, to be displayed as required. -->
+        <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
+        <p class="help-block" id="postcode-required" ng-show="hotelForm.postcode.$dirty && hotelForm.postcode.$error.required">
+            Please enter a valid UK postcode.
+        </p>
+        <p class="help-block" id="postcode-format" ng-show="hotelForm.postcode.$dirty && hotelForm.postcode.$error.email">
+            The postcode does not validate, please check and try again
+        </p>
+    </div>
+
+    <!-- Load the appropriate form controls depending on whether the variable $scope.create is truthy -->
+    <div ng-if="create" ng-include="'templates/hotel/addControls.html'"></div>
+    <div ng-if="!create" ng-include="'templates/hotel/editControls.html'"></div>
+
+</form>

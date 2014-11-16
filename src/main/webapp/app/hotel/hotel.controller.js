@@ -20,58 +20,117 @@
         .module('app.hotel')
         .controller('HotelController', HotelController);
 
-    HotelController.$inject = ['$scope', '$filter', 'Hotel', 'messageBag'];
+    HotelController.$inject = ['$scope', '$routeParams', '$location', 'Hotel', 'messageBag'];
 
-    function HotelController($scope, $filter, Hotel, messageBag) {
+    function HotelController($scope, $routeParams, $location, Hotel, messageBag) {
         //Assign Hotel service to $scope variable
         $scope.hotels = Hotel;
-        //Assign Messages service to $scope variable
+        //Assign messageBag service to $scope variable
         $scope.messages = messageBag;
 
-        //Divide hotel list into several sub lists according to the first character of their name property
-        var getHeadings = function(hotels) {
-            var headings = {};
-            for(var i = 0; i<hotels.length; i++) {
-                //Get the first letter of a customer's firstName
-                var startsWithLetter = hotels[i].name.charAt(0).toUpperCase();
-                //If we have encountered that first letter before then add the hotel to that list, else create it
-                if(headings.hasOwnProperty(startsWithLetter)) {
-                    headings[startsWithLetter].push(hotels[i]);
-                } else {
-                    headings[startsWithLetter] = [hotels[i]];
-                }
+        //Get today's date for the birthDate form value max
+        $scope.date = Date.now();
+
+        $scope.hotel = {};
+        $scope.create = true;
+
+        //If $routeParams has :hotelId then load the specified hotel, and display edit controls on hotelForm
+        if($routeParams.hasOwnProperty('hotelId')) {
+            $scope.hotel = $scope.hotels.get({hotelId: $routeParams.hotelId});
+            $scope.create = false;
+        }
+
+
+        // Define a reset function, that clears the prototype new Hotel object, and
+        // consequently, the form
+        $scope.reset = function() {
+            // Sets the form to it's pristine state
+            if($scope.hotelForm) {
+                $scope.hotelForm.$setPristine();
             }
-            return headings;
+
+            // Clear input fields. If $scope.hotel was set to an empty object {},
+            // then invalid form values would not be reset.
+            // By specifying all properties, input fields with invalid values are also reset.
+            $scope.hotel = {name: "", postcode: "", phoneNumber: ""};
+
+            // clear messages
+            $scope.messages.clear();
         };
 
-        //Upon initial loading of the controller, populate a list of Hotels and their letter headings
-        $scope.hotels.data = $scope.hotels.query(
-            //Successful query
-            function(data) {
-                $scope.hotels.data = data;
-                $scope.hotelsList = getHeadings($scope.hotels.data);
-                //Keep the hotels list headings in sync with the underlying hotels
-                $scope.$watchCollection('hotels.data', function(newHotels, oldHotels) {
-                    $scope.hotelsList = getHeadings(newHotels);
-                });
-            },
-            //Error
-            function(result) {
-                for(var error in result.data){
-                    $scope.messages.push('danger', result.data[error]);
+        // Define an addHotel() function, which creates a new hotel via the REST service,
+        // using those details provided and displaying any error messages
+        $scope.addHotel = function() {
+            $scope.messages.clear();
+
+            $scope.hotels.save($scope.hotel,
+                //Successful query
+                function(data) {
+
+                    // Update the list of hotels
+                    $scope.hotels.data.push(data);
+
+                    // Clear the form
+                    $scope.reset();
+
+                    //Add success message
+                    $scope.messages.push('success', 'Hotel added');
+                    //Error
+                }, function(result) {
+                    for(var error in result.data){
+                        $scope.messages.push('danger', result.data[error]);
+                    }
                 }
-            }
-        );
+            );
 
-        //Boolean flag representing whether the details of the hotels are expanded inline
-        $scope.details = false;
+        };
 
-        //Default search string
-        $scope.search = "";
+        // Define a saveHotel() function, which saves the current hotel using the REST service
+        // and displays any error messages
+        $scope.saveHotel = function() {
+            $scope.messages.clear();
+            $scope.hotel.$update(
+                //Successful query
+                function(data) {
+                    //Find the hotel locally by id and update it
+                    var idx = _.findIndex($scope.hotels.data, {'id': $scope.hotel.id});
+                    $scope.hotels.data[idx] = data;
+                    //Add success message
+                    $scope.messages.push('success', 'Hotel saved');
+                    //Error
+                }, function(result) {
+                    for(var error in result.data){
+                        $scope.messages.push('danger', result.data[error]);
+                    }
+                }
+            )
+        };
 
-        //Continuously filter the content of the hotels list according to the contents of $scope.search
-        $scope.$watch('search', function(newValue, oldValue) {
-            $scope.hotelsList = getHeadings($filter('filter')($scope.hotels.data, $scope.search));
-        });
+        // Define a deleteHotel() function, which saves the current hotel using the REST service
+        // and displays any error messages
+        $scope.deleteHotel = function() {
+            $scope.messages.clear();
+
+            //Send the DELETE request
+            $scope.hotel.$delete(
+                //Successful query
+                function() {
+                    //TODO: Fix the wonky imitation of a cache by replacing with a proper $cacheFactory cache.
+                    //Find the hotel locally by id and remove it
+                    var idx = _.findIndex($scope.hotels.data, {'id': $scope.hotel.id});
+                    $scope.hotels.data.splice(idx, 1);
+                    //Mark success on the editHotel form
+                    $scope.messages.push('success', 'Hotel removed');
+                    //Redirect back to /home
+                    $location.path('/home');
+                    //Error
+                }, function(result) {
+                    for(var error in result.data){
+                        $scope.messages.push('danger', result.data[error]);
+                    }
+                }
+            );
+
+        };
     }
 })();

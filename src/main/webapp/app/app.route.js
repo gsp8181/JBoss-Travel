@@ -51,15 +51,15 @@
                 //If URL fragment is 'hotel', then load the hotel.html template, with HotelController
             }).when('/hotel', {
                 templateUrl: 'templates/hotel.html',
+                controller: 'HotelListController'
+                    //If URL fragment is '/hotel/add', then load the hotelForm.html template, with HotelController
+            }).when('/hotel/add', {
+                templateUrl: 'templates/hotel/hotelForm.html',
                 controller: 'HotelController'
-                    //If URL fragment is '/hotels/add', then load the hotelForm.html template, with HotelController
-            }).when('/hotels/add', {
-                templateUrl: 'templates/hotels/hotelsForm.html',
-                controller: 'HotelController'
-                //If URL fragment is '/hotels/edit' followed by an obligatory identifier, use the same controller/template as
+                //If URL fragment is '/hotel/edit' followed by an obligatory identifier, use the same controller/template as
                 // with '/add'. Appropriate form controls will be chosen based upon URL.
-            }).when('/hotels/edit/:customerId', {
-                templateUrl: 'templates/hotels/hotelForm.html',
+            }).when('/hotel/edit/:hotelId', {
+                templateUrl: 'templates/hotel/hotelForm.html',
                 controller: 'HotelController'
                 // Add a default route
             }).otherwise({

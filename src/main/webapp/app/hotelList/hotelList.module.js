@@ -16,13 +16,11 @@
  */
 (function() {
     'use strict';
-    //Top level definition for application's parent module
+    //Top level definition for app.hotel sub-module.
     angular
-        .module('app', [
-            'ngRoute',
-            'app.customer',
+        .module('app.hotelList', [
+            'ngResource',
             'app.hotel',
-            'app.hotelList',
             'app.util'
         ]);
 })();

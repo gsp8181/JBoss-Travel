@@ -32,7 +32,7 @@
                 'update': {method: 'PUT'}
             }
         );
-        //Declare public class variable to act as a pseudo-cache TODO: use proper $cacheFactor cache in Customer
+        //Declare public class variable to act as a pseudo-cache TODO: use proper $cacheFactor cache in Hotel
         Hotel.data = [];
         return Hotel;
     }
