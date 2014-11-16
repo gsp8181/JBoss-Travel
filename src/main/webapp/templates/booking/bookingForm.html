@@ -56,19 +56,20 @@
         </p>
     </div>
 
-    <!-- Form group for postcode input and associated error messages. -->
+    <!-- Form group for Booking Date input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': bookingForm.postcode.$invalid}">
-        <label for="postcode">Postcode:</label>
-        <input type="text" name="postcode" class="form-control" id="postcode" placeholder="SW8 9AZ"
-               ng-model="booking.postcode" ng-pattern="/^([0-9-]+)|([A-Z0-9 ]+)$/" required>
+    <div class="form-group" ng-class="{'has-error': bookingForm.bookingDate.$invalid}">
+        <label for="bookingDate">Booking Date:</label>
+        <!-- min & max provide the valid range of dates for the input. -->
+        <input type="date" name="bookingDate" class="form-control" id="bookingDate"
+               min="{{date | date:'yyyy-MM-dd'}}" ng-model="booking.bookingDate" placeholder="2017-10-20" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="postcode-required" ng-show="bookingForm.postcode.$dirty && bookingForm.postcode.$error.required">
-            Please enter a valid UK postcode.
+        <p class="help-block" id="bookingdate-required" ng-show="bookingForm.bookingDate.$dirty && bookingForm.bookingDate.$error.required">
+            Please enter a valid booking date.
         </p>
-        <p class="help-block" id="postcode-format" ng-show="bookingForm.postcode.$dirty && bookingForm.postcode.$error.email">
-            The postcode does not validate, please check and try again
+        <p class="help-block" id="bookingdate-past" ng-show="bookingForm.bookingDate.$dirty && bookingForm.bookingDate.$error.min">
+            Booking dates cannot be in the past. Please choose one from the future.
         </p>
     </div>
 
