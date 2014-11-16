@@ -105,32 +105,5 @@
                 }
             )
         };
-
-        // Define a deleteCustomer() function, which saves the current customer using the REST service
-        // and displays any error messages
-        $scope.deleteCustomer = function() {
-            $scope.messages.clear();
-
-            //Send the DELETE request
-            $scope.customer.$delete(
-                //Successful query
-                function() {
-                    //TODO: Fix the wonky imitation of a cache by replacing with a proper $cacheFactory cache.
-                    //Find the customer locally by id and remove it
-                    var idx = _.findIndex($scope.customers.data, {'id': $scope.customer.id});
-                    $scope.customers.data.splice(idx, 1);
-                    //Mark success on the editCustomer form
-                    $scope.messages.push('success', 'Customer removed');
-                    //Redirect back to /home
-                    $location.path('/home');
-                    //Error
-                }, function(result) {
-                    for(var error in result.data){
-                        $scope.messages.push('danger', result.data[error]);
-                    }
-                }
-            );
-
-        };
     }
 })();

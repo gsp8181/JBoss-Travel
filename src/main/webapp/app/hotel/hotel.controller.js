@@ -105,32 +105,5 @@
                 }
             )
         };
-
-        // Define a deleteHotel() function, which saves the current hotel using the REST service
-        // and displays any error messages
-        $scope.deleteHotel = function() {
-            $scope.messages.clear();
-
-            //Send the DELETE request
-            $scope.hotel.$delete(
-                //Successful query
-                function() {
-                    //TODO: Fix the wonky imitation of a cache by replacing with a proper $cacheFactory cache.
-                    //Find the hotel locally by id and remove it
-                    var idx = _.findIndex($scope.hotels.data, {'id': $scope.hotel.id});
-                    $scope.hotels.data.splice(idx, 1);
-                    //Mark success on the editHotel form
-                    $scope.messages.push('success', 'Hotel removed');
-                    //Redirect back to /home
-                    $location.path('/home');
-                    //Error
-                }, function(result) {
-                    for(var error in result.data){
-                        $scope.messages.push('danger', result.data[error]);
-                    }
-                }
-            );
-
-        };
     }
 })();
