@@ -16,7 +16,7 @@
  */
 (function() {
     'use strict';
-    //Top level definition for app.hotel sub-module.
+    //Top level definition for app.hotelList sub-module.
     angular
         .module('app.hotelList', [
             'ngResource',
