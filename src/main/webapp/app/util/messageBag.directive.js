@@ -21,7 +21,7 @@
      * @example <div rh-message-bag messages="..."></div>
      */
     angular
-        .module('app.contact')
+        .module('app.customer')
         .directive('rhMessageBag', messageBag);
 
     function messageBag() {

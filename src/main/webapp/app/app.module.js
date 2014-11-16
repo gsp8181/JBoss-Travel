@@ -20,7 +20,11 @@
     angular
         .module('app', [
             'ngRoute',
-            'app.contact',
+            'app.customer',
+            'app.hotel',
+            'app.hotelList',
+            'app.booking',
+            'app.bookingList',
             'app.util'
         ]);
 })();

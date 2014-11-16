@@ -20,38 +20,39 @@
 <div rh-message-bag messages="messages"></div>
 
 <div class="jumbotron">
-    <h2>Welcome to Contacts with Angular.js</h2>
+    <h2>Customer Database</h2>
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-        <!-- Standard html text input, whose value is bound to a value in the Contacts controller, and used to filter contacts-->
-        <input type="text" class="form-control" placeholder="Search" name="contact-search-term" id="contact-search-term" ng-model="search">
+        <!-- Standard html text input, whose value is bound to a value in the Customers controller, and used to filter customers-->
+        <input type="text" class="form-control" placeholder="Search" name="customer-search-term" id="customer-search-term" ng-model="search">
     </div>
 </div>
 
 <div>
-    <!-- A list of stored contacts -->
-    <div class="contact-list-heading clearfix">
-        <p class="pull-left">Contact {{(details)?'Details':'Name'}}</p>
+    <!-- A list of stored customers -->
+    <div class="customer-list-heading clearfix">
+        <p class="pull-left">Customer {{(details)?'Details':'Name'}}</p>
+        <a type="button" class="btn glyphicon glyphicon-plus pull-right" id="addCustomer" href="#/add"></a> 
         <button class="btn pull-right" id="toggleDetails" ng-click="details=!details">
             <span class="glyphicon {{(details)?'glyphicon-resize-small':'glyphicon-resize-full'}}"></span>
         </button>
     </div>
-    <ul class="contact-list letter-headings">
-        <li class="letter-heading" ng-repeat="(heading, subset) in contactsList | orderBy: heading">
+    <ul class="customer-list letter-headings">
+        <li class="letter-heading" ng-repeat="(heading, subset) in customersList | orderBy: heading">
             <p>{{heading}}</p>
-            <ul class="contacts">
-                <!-- The list is built using Angular's ng-repeat functionality, iterating over contact objects in contacts -->
-                <li class="contact" ng-repeat="contact in subset | orderBy: 'firstName'">
-                    <a href="#/edit/{{contact.id}}">{{contact.firstName}} {{contact.lastName}}</a>
-                    <div class="contact-details" ng-show="details">
+            <ul class="customers">
+                <!-- The list is built using Angular's ng-repeat functionality, iterating over customer objects in customers -->
+                <li class="customer" ng-repeat="customer in subset | orderBy: 'name'">
+                    <a href="#/edit/{{customer.id}}">{{customer.name}}</a>
+                    <div class="customer-details" ng-show="details">
                         <p>
-                            <strong>{{contact.email}}</strong>
+                            <strong>ID : {{customer.id}}</strong>
                         </p>
                         <p>
-                            {{contact.phoneNumber}} : <strong>({{contact.state}})</strong>
+                            <strong>{{customer.email}}</strong>
                         </p>
                         <p>
-                            {{contact.birthDate}}
+                            {{customer.phoneNumber}}
                         </p>
                     </div>
                 </li>

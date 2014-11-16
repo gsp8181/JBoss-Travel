@@ -116,17 +116,17 @@ public class BookingRESTService {
      * @param id The long parameter value provided as a Booking's id
      * @return A Response containing a single Booking
      */
-    /*@GET
+    @GET
     @Path("/{id:[0-9]+}")
     public Response retrieveBookingById(@PathParam("id") long id) {
         Booking booking = service.findById(id);
         if (booking == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("findById " + id + ": found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        log.info("retrieveBookingById: found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
         
         return Response.ok(booking).build();
-    }*/
+    }
     
     /**
      * <p>Search for and return a collection of bookings identified by its customerId.</p>
@@ -135,8 +135,8 @@ public class BookingRESTService {
      * @return A Response containing a list of Bookings
      */
     @GET
-    @Path("/{customerId:[0-9]+}")
-    public Response retrieveBookingById(@PathParam("customerId") long customerId) {
+    @Path("/customer/{customerId:[0-9]+}")
+    public Response retrieveBookingByCustomerId(@PathParam("customerId") long customerId) {
         List<Booking> bookings = service.findByCustomerId(customerId);
         if (bookings == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -211,7 +211,7 @@ public class BookingRESTService {
      * @return A Response indicating the outcome of the create operation
      */
     @PUT
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("/{id:[0-9]+}")
     public Response updateBooking(@PathParam("id") long id, Booking booking) {
         if (booking == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -277,7 +277,7 @@ public class BookingRESTService {
      * @return A Response indicating the outcome of the delete operation
      */
     @DELETE
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("/{id:[0-9]+}")
     public Response deleteBooking(@PathParam("id") Long id) {
         log.info("deleteBooking started. Booking ID = " + id);
         Response.ResponseBuilder builder = null;
