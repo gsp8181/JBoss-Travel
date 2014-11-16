@@ -20,7 +20,7 @@
 <div rh-message-bag messages="messages"></div>
 
 <div class="jumbotron">
-    <h2>Welcome to Contacts with Angular.js</h2>
+    <h2>Customer Database</h2>
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
         <!-- Standard html text input, whose value is bound to a value in the Contacts controller, and used to filter contacts-->
@@ -31,7 +31,7 @@
 <div>
     <!-- A list of stored contacts -->
     <div class="contact-list-heading clearfix">
-        <p class="pull-left">Contact {{(details)?'Details':'Name'}}</p>
+        <p class="pull-left">Customer {{(details)?'Details':'Name'}}</p>
         <button class="btn pull-right" id="toggleDetails" ng-click="details=!details">
             <span class="glyphicon {{(details)?'glyphicon-resize-small':'glyphicon-resize-full'}}"></span>
         </button>
