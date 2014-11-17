@@ -20,14 +20,17 @@ package org.jboss.quickstarts.wfk.hotel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.Response;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -136,6 +139,108 @@ public class AddHotelTest {
             ((Map<String, String>) response.getEntity()).size());
         log.info("Duplicate hotel register attempt failed with return code " + response.getStatus());
     }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(4)
+    public void testInvalidName() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel By The Sea With Loads Of Letters In The Name", "A01 0AA", "01910401234");
+        Response response = hotelRESTService.createHotel(hotel);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(5)
+    public void testInvalidPhoneNumber() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel Two", "A01 0AA", "0191040123411");
+        Response response = hotelRESTService.createHotel(hotel);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(6)
+    public void testInvalidPhoneNumberTwo() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel Two", "A01 0AA", "01910ABC234");
+        Response response = hotelRESTService.createHotel(hotel);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(7)
+    public void testInvalidPostcode() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel Two", "A0& 0AA", "01910401234");
+        Response response = hotelRESTService.createHotel(hotel);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(8)
+    public void testInvalidPostcodeTwo() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel Two", "A01AA 0AA", "01910401234");
+        Response response = hotelRESTService.createHotel(hotel);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(9)
+    public void testChangeId() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel Two", "A01 0AA", "01910401234");
+    	Response response = hotelRESTService.createHotel(hotel);
+
+    	assertTrue("NOT IMPLEMENTED", false);
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Test
+    @InSequence(10)
+    public void testDelete() throws Exception {
+    	Hotel hotel = createHotelInstance("Good Hotel Two", "A01AA 0AA", "01910401234");
+        Response response = hotelRESTService.createHotel(hotel);
+
+        assertTrue("NOT IMPLEMENTED", false);
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    
 
     /**
      * <p>A utility method to construct a {@link org.jboss.quickstarts.wfk.hotel.Hotel Hotel} object for use in

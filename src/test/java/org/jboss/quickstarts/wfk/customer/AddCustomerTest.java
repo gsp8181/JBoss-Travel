@@ -20,14 +20,17 @@ package org.jboss.quickstarts.wfk.customer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.Response;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -63,7 +66,7 @@ public class AddCustomerTest {
      */
     @Deployment
     public static Archive<?> createTestArchive() {
-        //HttpComponents and org.JSON are required by ContactService
+        //HttpComponents and org.JSON are required by CustomerService
         File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
                 "org.apache.httpcomponents:httpclient:4.3.2",
                 "org.json:json:20140107"
@@ -184,6 +187,36 @@ public class AddCustomerTest {
         Customer customer = createCustomerInstance("Jon Smith", "jon@mailinator.com", "one one eight");
         Response response = customerRESTService.createCustomer(customer);
 
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(8)
+    public void testChangeId() throws Exception {
+        Customer customer = createCustomerInstance("Jon Smith", "jon@mailinator.com", "01234567890");
+        Response response = customerRESTService.createCustomer(customer);
+
+        assertTrue("NOT YET IMPLEMENTED", false);
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(9)
+    public void testDelete() throws Exception {
+        Customer customer = createCustomerInstance("Jon Smith", "jon@mailinator.com", "01234567890");
+        Response response = customerRESTService.createCustomer(customer);
+
+        assertTrue("NOT YET IMPLEMENTED", false);
         assertEquals("Unexpected response status", 400, response.getStatus());
         assertNotNull("response.getEntity() should not be null", response.getEntity());
         assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
