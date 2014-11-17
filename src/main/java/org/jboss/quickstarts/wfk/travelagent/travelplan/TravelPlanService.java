@@ -150,7 +150,7 @@ public class TravelPlanService {
 		String responseBody = EntityUtils.toString(response.getEntity());
 		JSONObject responseJson = new JSONObject(responseBody);
 		long rtn = responseJson.getLong("id");
-		HttpClientUtils.closeQuietly(response);     //TODO: get 404 http://stackoverflow.com/questions/7181534/http-post-using-json-in-java
+		HttpClientUtils.closeQuietly(response);
 		return rtn;
 	}
 	
@@ -172,7 +172,7 @@ public class TravelPlanService {
 		String responseBody = EntityUtils.toString(response.getEntity());
 		JSONObject responseJson = new JSONObject(responseBody);
 		long rtn = responseJson.getLong("id");
-		HttpClientUtils.closeQuietly(response);     //TODO: get 404 http://stackoverflow.com/questions/7181534/http-post-using-json-in-java
+		HttpClientUtils.closeQuietly(response);
 		return rtn;
 	}
 	
@@ -230,7 +230,6 @@ public class TravelPlanService {
             log.info("TravelPlanService.delete() - No ID was found so can't Delete.");
             return null;
         }
-    	//TODO: CLEANUP, tests
     	
 		URI uriH = new URIBuilder().setScheme("http")
 				.setHost("travel.gsp8181.co.uk")

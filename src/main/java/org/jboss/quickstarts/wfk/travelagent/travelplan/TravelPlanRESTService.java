@@ -127,7 +127,6 @@ public class TravelPlanRESTService {
             // Create a "Resource Created" 201 Response and pass the travelPlan back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(travelPlan);
             
-            //TODO: the contents of what is below is pure rubbish, change in the future
             log.info("createTravelPlan completed. TravelPlan #" + travelPlan.getId());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
