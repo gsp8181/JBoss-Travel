@@ -1,4 +1,6 @@
 /*
+ * Geoffrey Prytherch - Adapted from JBoss Examples, with the licence given below
+ * 
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -132,7 +134,63 @@ public class AddCustomerTest {
             ((Map<String, String>) response.getEntity()).size());
         log.info("Duplicate customer register attempt failed with return code " + response.getStatus());
     }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(4)
+    public void testTooLong() throws Exception {
+        Customer customer = createCustomerInstance("A very very very long name over the char limit", "jon@mailinator.com", "01234567890");
+        Response response = customerRESTService.createCustomer(customer);
 
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Long Name customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(5)
+    public void testSpecialName() throws Exception {
+        Customer customer = createCustomerInstance("$*%*&^special chars", "jon@mailinator.com", "01234567890");
+        Response response = customerRESTService.createCustomer(customer);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(6)
+    public void testInvalidEmail() throws Exception {
+        Customer customer = createCustomerInstance("Jon Smith", "£2.56", "01234567890");
+        Response response = customerRESTService.createCustomer(customer);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Invalid EMail customer register attempt failed with return code " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(7)
+    public void testInvalidPhone() throws Exception {
+        Customer customer = createCustomerInstance("Jon Smith", "jon@mailinator.com", "one one eight");
+        Response response = customerRESTService.createCustomer(customer);
+
+        assertEquals("Unexpected response status", 400, response.getStatus());
+        assertNotNull("response.getEntity() should not be null", response.getEntity());
+        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
+            ((Map<String, String>) response.getEntity()).size());
+        log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
+    }
+    
     /**
      * <p>A utility method to construct a {@link org.jboss.quickstarts.wfk.customer.Customer Customer} object for use in
      * testing. This object is not persisted.</p>

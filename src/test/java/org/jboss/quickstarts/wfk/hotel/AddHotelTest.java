@@ -1,4 +1,6 @@
 /*
+ * Geoffrey Prytherch - Adapted from JBoss Examples, with the licence given below
+ * 
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -95,7 +97,7 @@ public class AddHotelTest {
     @Test
     @InSequence(1)
     public void testRegister() throws Exception {
-    	Hotel hotel = createHotelInstance("Jack Doe", "jack@mailinator.com", "01234567890");
+    	Hotel hotel = createHotelInstance("Good Hotel", "A00 0AA", "01910001234");
         Response response = hotelRESTService.createHotel(hotel);
 
         assertEquals("Unexpected response status", 201, response.getStatus());
@@ -119,20 +121,20 @@ public class AddHotelTest {
     @SuppressWarnings("unchecked")
     @Test
     @InSequence(3)
-    public void testDuplicateEmail() throws Exception {
+    public void testDuplicatePhone() throws Exception {
         // Register an initial user
-    	Hotel hotel = createHotelInstance("Jane Doe", "jane@mailinator.com", "01912235532");
+    	Hotel hotel = createHotelInstance("One Hotel", "Q82 1AP", "08007383773");
         hotelRESTService.createHotel(hotel);
 
         // Register a different user with the same email
-        Hotel anotherHotel = createHotelInstance("John Doe", "jane@mailinator.com", "01704231123");
+        Hotel anotherHotel = createHotelInstance("Another Hotel", "O11 9XZ", "08007383773");
         Response response = hotelRESTService.createHotel(anotherHotel);
 
         assertEquals("Unexpected response status", 409, response.getStatus());
         assertNotNull("response.getEntity() should not be null", response.getEntity());
         assertEquals("Unexpected response.getEntity(). It contains" + response.getEntity(), 1,
             ((Map<String, String>) response.getEntity()).size());
-        log.info("Duplicate customer register attempt failed with return code " + response.getStatus());
+        log.info("Duplicate hotel register attempt failed with return code " + response.getStatus());
     }
 
     /**
@@ -145,10 +147,10 @@ public class AddHotelTest {
      * @return The Contact object create
      */
     private Hotel createHotelInstance(String name, String postcode, String phone) {
-    	Hotel customer = new Hotel();
-        customer.setName(name);
-        customer.setPostcode(postcode);
-        customer.setPhoneNumber(phone);
-        return customer;
+    	Hotel hotel = new Hotel();
+        hotel.setName(name);
+        hotel.setPostcode(postcode);
+        hotel.setPhoneNumber(phone);
+        return hotel;
     }
 }
