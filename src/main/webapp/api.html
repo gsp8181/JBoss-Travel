@@ -399,6 +399,7 @@ pre code, pre tt {
 </head>
 <body>
 	<div id="readme" class="blob instapaper_body">
+
 		<article class="markdown-body entry-content"
 			itemprop="mainContentOfPage">
 			<h1>
@@ -821,11 +822,15 @@ pre code, pre tt {
 			</ul>
 
 			<div class="highlight highlight-JavaScript">
-				<pre>{<span class="pl-s1"><span class="pl-pds">"</span>customerId<span
+				<pre>{<span class="pl-s1"><span class="pl-pds">"</span>customer<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span>{<span
+						class="pl-s1"><span class="pl-pds">"</span>id<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">10001</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>hotelId<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-cn">27</span>,<span
+						class="pl-cn">10001</span>},<span class="pl-s1"><span
+						class="pl-pds">"</span>hotel<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">1027</span>},<span
 						class="pl-s1"><span class="pl-pds">"</span>bookingDate<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
 						class="pl-s1"><span class="pl-pds">"</span>2015-10-20<span
@@ -874,47 +879,111 @@ pre code, pre tt {
 				<pre>[{<span class="pl-s1"><span class="pl-pds">"</span>id<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
 						class="pl-cn">1001</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
+						class="pl-pds">"</span>customer<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-cn">10001</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">27</span>,<span class="pl-s1"><span
+						class="pl-s1"><span class="pl-pds">"</span>John Smith<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>email<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>john.smith@cust.com<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>(212) 555-1212<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
+						class="pl-pds">"</span>hotel<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">1027</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>MGM Grand<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>postcode<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>SW4 5AX<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>02074450192<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
 						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-s1"><span
 						class="pl-pds">"</span>2015-10-20<span class="pl-pds">"</span></span>},{<span
 						class="pl-s1"><span class="pl-pds">"</span>id<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
 						class="pl-cn">1002</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
+						class="pl-pds">"</span>customer<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-cn">10002</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
+						class="pl-s1"><span class="pl-pds">"</span>Davey Jones<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>email<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>davey.jones@cust.com<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>(212) 555-3333<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
+						class="pl-pds">"</span>hotel<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">1099</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>Marriot Liverpool<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>postcode<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>L1 9AZ<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>01916662903<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
 						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-s1"><span
 						class="pl-pds">"</span>2015-10-20<span class="pl-pds">"</span></span>},{<span
 						class="pl-s1"><span class="pl-pds">"</span>id<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
 						class="pl-cn">1003</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
+						class="pl-pds">"</span>customer<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-cn">10002</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
+						class="pl-s1"><span class="pl-pds">"</span>Davey Jones<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>email<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>davey.jones@cust.com<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>(212) 555-3333<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
+						class="pl-pds">"</span>hotel<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">1099</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>Marriot Liverpool<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>postcode<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>L1 9AZ<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>01916662903<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
 						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-s1"><span
-						class="pl-pds">"</span>2015-10-21<span class="pl-pds">"</span></span>},{<span
-						class="pl-s1"><span class="pl-pds">"</span>id<span
-						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">1</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-cn">10012</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
-						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-s1"><span
-						class="pl-pds">"</span>2015-10-22<span class="pl-pds">"</span></span>}]</pre>
+						class="pl-pds">"</span>2015-10-21<span class="pl-pds">"</span></span>}]</pre>
 			</div>
 
 			<h3>
@@ -927,9 +996,9 @@ pre code, pre tt {
 			</h3>
 
 			<h4>
-				<a id="user-content-restbookingscustomerid" class="anchor"
-					href="#restbookingscustomerid" aria-hidden="true"><span
-					class="octicon octicon-link"></span></a>/rest/bookings/&lt;customerId&gt;
+				<a id="user-content-restbookingscustomercustomerid" class="anchor"
+					href="#restbookingscustomercustomerid" aria-hidden="true"><span
+					class="octicon octicon-link"></span></a>/rest/bookings/customer/&lt;customerId&gt;
 			</h4>
 
 			<ul class="task-list">
@@ -939,28 +1008,42 @@ pre code, pre tt {
 			</ul>
 
 			<div class="highlight highlight-javascript">
-				<pre>[{<span class="pl-s1"><span class="pl-pds">"</span>id<span
+				<pre>{<span class="pl-s1"><span class="pl-pds">"</span>id<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">1002</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-cn">10002</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
+						class="pl-cn">1001</span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>customer<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">10001</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
+						class="pl-s1"><span class="pl-pds">"</span>John Smith<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>email<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>john.smith@cust.com<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>(212) 555-1212<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
+						class="pl-pds">"</span>hotel<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">1027</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>MGM Grand<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>postcode<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>SW4 5AX<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>02074450192<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
 						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-s1"><span
-						class="pl-pds">"</span>2015-10-20<span class="pl-pds">"</span></span>},{<span
-						class="pl-s1"><span class="pl-pds">"</span>id<span
-						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">1003</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-cn">10002</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
-						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-s1"><span
-						class="pl-pds">"</span>2015-10-21<span class="pl-pds">"</span></span>}]</pre>
+						class="pl-pds">"</span>2015-10-20<span class="pl-pds">"</span></span>}</pre>
 			</div>
 
 			<h2>
@@ -989,15 +1072,40 @@ pre code, pre tt {
 			<div class="highlight highlight-javascript">
 				<pre>{<span class="pl-s1"><span class="pl-pds">"</span>id<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">1003</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-cn">10002</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
+						class="pl-cn">1001</span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>customer<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">10001</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
 						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
+						class="pl-s1"><span class="pl-pds">"</span>John Smith<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>email<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>john.smith@cust.com<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>(212) 555-1212<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
+						class="pl-pds">"</span>hotel<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span>{<span class="pl-s1"><span
+						class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-cn">1027</span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>name<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>MGM Grand<span
+						class="pl-pds">"</span></span>,<span class="pl-s1"><span
+						class="pl-pds">"</span>postcode<span class="pl-pds">"</span></span><span
+						class="pl-ko">:</span><span class="pl-s1"><span
+						class="pl-pds">"</span>SW4 5AX<span class="pl-pds">"</span></span>,<span
+						class="pl-s1"><span class="pl-pds">"</span>phoneNumber<span
+						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
+						class="pl-s1"><span class="pl-pds">"</span>02074450192<span
+						class="pl-pds">"</span></span>},<span class="pl-s1"><span
 						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
 						class="pl-ko">:</span><span class="pl-s1"><span
-						class="pl-pds">"</span>2015-10-21<span class="pl-pds">"</span></span>}</pre>
+						class="pl-pds">"</span>2015-10-20<span class="pl-pds">"</span></span>}</pre>
 			</div>
 
 			<h2>
@@ -1024,17 +1132,7 @@ pre code, pre tt {
 			</ul>
 
 			<div class="highlight highlight-javascript">
-				<pre>{<span class="pl-s1"><span class="pl-pds">"</span>id<span
-						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">1003</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>customerId<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-cn">10002</span>,<span
-						class="pl-s1"><span class="pl-pds">"</span>hotelId<span
-						class="pl-pds">"</span></span><span class="pl-ko">:</span><span
-						class="pl-cn">99</span>,<span class="pl-s1"><span
-						class="pl-pds">"</span>bookingDate<span class="pl-pds">"</span></span><span
-						class="pl-ko">:</span><span class="pl-s1"><span
-						class="pl-pds">"</span>2015-10-21<span class="pl-pds">"</span></span>}</pre>
+				<pre>{}</pre>
 			</div>
 
 			<h2>
@@ -1496,6 +1594,7 @@ pre code, pre tt {
 						class="pl-pds">'</span>1966-01-03<span class="pl-pds">'</span></span>}</pre>
 			</div>
 		</article>
+
 	</div>
 </body>
 </html>
