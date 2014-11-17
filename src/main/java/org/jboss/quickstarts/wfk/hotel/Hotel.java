@@ -26,6 +26,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  * <p>This is a the Domain object. The Hotel class represents how Hotel resources are represented in the application
  * database.</p>

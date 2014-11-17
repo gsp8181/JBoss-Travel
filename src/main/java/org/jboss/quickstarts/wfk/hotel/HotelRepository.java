@@ -66,7 +66,7 @@ public class HotelRepository {
      * @param id The id field of the Hotel to be returned
      * @return The Hotel with the specified id
      */
-    public Hotel findById(Long id) {
+    Hotel findById(Long id) {
         return em.find(Hotel.class, id);
     }
 

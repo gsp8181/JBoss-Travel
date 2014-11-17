@@ -121,7 +121,7 @@ public class BookingRESTService {
         if (booking == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("retrieveBookingById: found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        log.info("retrieveBookingById: found Booking " + booking.getId()  + " = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
         
         return Response.ok(booking).build();
     }
@@ -133,14 +133,14 @@ public class BookingRESTService {
      * @return A Response containing a list of Bookings
      */
     @GET
-    @Path("/customer/{customerId:[0-9]+}")
+    @Path("/customer/{customerId:[0-9]+}") //TODO: DONE BROKEN!! :)))))
     public Response retrieveBookingByCustomerId(@PathParam("customerId") long customerId) {
         List<Booking> bookings = service.findByCustomerId(customerId);
         if (bookings == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         for(Booking booking : bookings)
-        	log.info("retrieveBookingById: found Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        	log.info("retrieveBookingById: found Booking " + booking.getId()  + " = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
         
         return Response.ok(bookings).build();
     }
@@ -155,7 +155,7 @@ public class BookingRESTService {
     @SuppressWarnings("unused")
     @POST
     public Response createBooking(Booking booking) {
-        log.info("createBooking started. Booking = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        log.info("createBooking started. Booking = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
         if (booking == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
@@ -169,7 +169,7 @@ public class BookingRESTService {
             // Create a "Resource Created" 201 Response and pass the booking back in case it is needed.
             builder = Response.status(Response.Status.CREATED).entity(booking);
             
-            log.info("createBooking completed. Booking =  = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+            log.info("createBooking completed. Booking =  = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -214,7 +214,7 @@ public class BookingRESTService {
         if (booking == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        log.info("updateBooking started. Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+        log.info("updateBooking started. Booking " + booking.getId()  + " = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
 
         if (booking.getId() != id) {
             // The client attempted to update the read-only Id. This is not permitted.
@@ -235,7 +235,7 @@ public class BookingRESTService {
             // Create an OK Response and pass the booking back in case it is needed.
             builder = Response.ok(booking);
 
-            log.info("updateBooking completed. Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+            log.info("updateBooking completed. Booking " + booking.getId()  + " = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
         } catch (ConstraintViolationException ce) {
             log.info("ConstraintViolationException - " + ce.toString());
             // Handle bean validation issues
@@ -290,7 +290,7 @@ public class BookingRESTService {
             }
 
             builder = Response.noContent();
-            log.info("deleteBooking completed. Booking " + booking.getId()  + " = customer: " + booking.getCustomerId() + " hotel: " + booking.getHotelId() + " on " + booking.getBookingDate());
+            log.info("deleteBooking completed. Booking " + booking.getId()  + " = customer: " + booking.getCustomer().getId() + " hotel: " + booking.getHotel().getId() + " on " + booking.getBookingDate());
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions

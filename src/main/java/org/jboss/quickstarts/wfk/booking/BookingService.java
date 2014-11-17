@@ -98,7 +98,7 @@ public class BookingService {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Booking create(Booking booking) throws ConstraintViolationException, ValidationException, Exception {
-    	log.info("BookingService.create() - Creating " + booking.getCustomerId() + " customer booking hotel: " + booking.getHotelId());
+    	log.info("BookingService.create() - Creating " + booking.getCustomer().getId() + " customer booking hotel: " + booking.getHotel().getId());
         
         // Check to make sure the data fits with the parameters in the Booking model and passes validation.
         validator.validateBooking(booking);

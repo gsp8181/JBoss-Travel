@@ -23,9 +23,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,6 +37,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.jboss.quickstarts.wfk.customer.Customer;
+import org.jboss.quickstarts.wfk.hotel.Hotel;
 
 /**
  * <p>This is a the Domain object. The Booking class represents how booking resources are represented in the application
@@ -50,8 +56,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Booking.FIND_ALL, query = "SELECT c FROM Booking c ORDER BY c.hotelId ASC, c.customerId ASC, c.bookingDate ASC"),
-    @NamedQuery(name = Booking.FIND_BY_ID_AND_DATE, query = "SELECT c FROM Booking c WHERE c.hotelId = :hotelId AND c.bookingDate = :bookingDate")
+    @NamedQuery(name = Booking.FIND_ALL, query = "SELECT c FROM Booking c ORDER BY c.hotel.id ASC, c.customer.id ASC, c.bookingDate ASC"),
+    @NamedQuery(name = Booking.FIND_BY_ID_AND_DATE, query = "SELECT c FROM Booking c WHERE c.hotel.id = :hotelId AND c.bookingDate = :bookingDate")
 })
 @XmlRootElement
 @Table(name = "Booking")//, uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -74,14 +80,14 @@ public class Booking implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+    
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="customerId")
+    private Customer customer;
 
-    @NotNull
-    @Column(name = "customerId")
-    private Long customerId;
-
-    @NotNull
-    @Column(name = "hotelId")
-    private Long hotelId;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="hotelId")
+    private Hotel hotel;
 
     @Future(message = "Booking date must be in the future")
     @NotNull
@@ -97,20 +103,20 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Long getHotelId() {
-        return hotelId;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setHotelId(Long hotelId) {
-        this.hotelId = hotelId;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public Date getBookingDate() {

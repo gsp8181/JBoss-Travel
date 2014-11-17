@@ -77,21 +77,21 @@ public class BookingValidator {
         }
 
         // Check the uniqueness of the email address
-        if (bookingAlreadyExists(booking.getHotelId(), booking.getBookingDate(), booking.getId())) {
+        if (bookingAlreadyExists(booking.getHotel().getId(), booking.getBookingDate(), booking.getId())) {
             throw new ValidationException("Date/Hotel combination already exists");
         }
         
         // Make sure there is an associated Customer to the provided customerId
-        if(!customerExists(booking.getCustomerId()))
-        {
-        	throw new ValidationException("Customer ID does not exist in the database");
-        }
+       // if(!customerExists(booking.getCustomerId()))
+       // {
+       // 	throw new ValidationException("Customer ID does not exist in the database");
+       // }
         
         // Make sure there is an associated Hotel to the provided hotelId
-        if(!hotelExists(booking.getHotelId()))
-        {
-        	throw new ValidationException("Hotel ID does not exist in the database");
-        }
+       // if(!hotelExists(booking.getHotelId()))
+       // {
+       // 	throw new ValidationException("Hotel ID does not exist in the database");
+       // }
     }
 
     /**
@@ -114,7 +114,7 @@ public class BookingValidator {
         if (booking != null && id != null) {
             try {
                 bookingWithID = crud.findById(id);
-                if (bookingWithID != null && bookingWithID.getHotelId().equals(hotelId) && bookingWithID.getBookingDate().equals(bookingDate)) {
+                if (bookingWithID != null && bookingWithID.getHotel().getId().equals(hotelId) && bookingWithID.getBookingDate().equals(bookingDate)) {
                     booking = null;
                 }
             } catch (NoResultException e) {
@@ -131,7 +131,7 @@ public class BookingValidator {
      * @param customerId The customerId to check is unique
      * @return boolean which represents whether the booking was already found, and if so, whether it belongs to the user with the given ID
      */
-    boolean customerExists(Long customerId) {
+   /* boolean customerExists(Long customerId) {
         Customer booking = null;
         try {
             booking = custRep.findById(customerId);
@@ -139,7 +139,7 @@ public class BookingValidator {
             // ignore
         }
         return booking != null;
-    }
+    }*/
     
     /**
     *
@@ -148,7 +148,7 @@ public class BookingValidator {
     * @param customerId The hotelId to check is unique
     * @return boolean which represents whether the booking was already found, and if so, whether it belongs to the user with the given ID
     */
-    boolean hotelExists(Long hotelId) {
+   /* boolean hotelExists(Long hotelId) {
         Hotel booking = null;
         try {
             booking = hotelRep.findById(hotelId);
@@ -156,5 +156,5 @@ public class BookingValidator {
             // ignore
         }
         return booking != null;
-    }
+    }*/
 }

@@ -116,7 +116,7 @@ public class BookingRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     Booking create(Booking booking) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("BookingRepository.create() - Creating " + booking.getCustomerId() + " customer booking hotel: " + booking.getHotelId());
+        log.info("BookingRepository.create() - Creating " + booking.getCustomer().getId() + " customer booking hotel: " + booking.getHotel().getId());
         
         // Write the booking to the database.
         em.persist(booking);
