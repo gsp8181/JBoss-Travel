@@ -19,18 +19,9 @@
 package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.*;
-import javax.validation.constraints.Future;
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class TravelSketch implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/

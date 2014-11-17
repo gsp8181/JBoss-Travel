@@ -19,17 +19,9 @@
 package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * <p>This is a the Domain object. The TravelPlan class represents how travelPlan resources are represented in the application

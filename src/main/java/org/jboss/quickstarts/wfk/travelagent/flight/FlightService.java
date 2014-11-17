@@ -19,6 +19,13 @@
 package org.jboss.quickstarts.wfk.travelagent.flight;
 
 
+import java.net.URI;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -26,20 +33,10 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.jboss.quickstarts.wfk.contact.Contact;
+import org.jboss.quickstarts.wfk.hotel.HotelRepository;
+import org.jboss.quickstarts.wfk.hotel.HotelValidator;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
-import javax.ws.rs.GET;
-import javax.ws.rs.core.Response;
-
-import java.net.URI;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * <p>This Service assumes the Control responsibility in the ECB pattern.</p>

@@ -18,6 +18,10 @@
  */
 package org.jboss.quickstarts.wfk.booking;
 
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Logger;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -27,12 +31,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
-
-import org.jboss.quickstarts.wfk.contact.Contact;
-
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * <p>This is a Repository class and connects the Service/Control layer (see {@link BookingService} with the
