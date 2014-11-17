@@ -139,7 +139,7 @@ public class TravelPlanService {
 				//.setPath("/travel/rest/bookings")
 				.build();
 		HttpPost req = new HttpPost(uri);
-		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentFlight.toString() + "\",\"hotelId\":\"" + travelSketch.getHotelId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
+		StringEntity params = new StringEntity("{\"customer\":{\"id\":\"" + travelAgentFlight.toString() + "\"},\"hotel\":{\"id\":\"" + travelSketch.getHotelId().toString() +"\"},\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
 		req.addHeader("Content-Type", "application/json");
 		req.setEntity(params);
 		CloseableHttpResponse response = httpClient.execute(req);
@@ -161,7 +161,7 @@ public class TravelPlanService {
 				.setPath("/rest/bookings")
 				.build();
 		HttpPost req = new HttpPost(uri);
-		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentHotel.toString() + "\",\"flightId\":\"" + travelSketch.getFlightId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
+		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentFlight.toString() + "\",\"flightId\":\"" + travelSketch.getFlightId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
 		req.addHeader("Content-Type", "application/json");
 		req.setEntity(params);
 		CloseableHttpResponse response = httpClient.execute(req);
