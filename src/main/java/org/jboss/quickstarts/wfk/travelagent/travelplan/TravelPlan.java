@@ -19,9 +19,12 @@
 package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.jboss.quickstarts.wfk.customer.Customer;
 
 /**
  * <p>This is a the Domain object. The TravelPlan class represents how travelPlan resources are represented in the application
@@ -61,10 +64,10 @@ public class TravelPlan implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @NotNull
-    @Column(name = "customerId")
-    private Long customerId;
-
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="customerId")
+    private Customer customer;
+    
     @NotNull
     @Column(name = "flightBookingId")
     private Long flightBookingId;
@@ -77,20 +80,20 @@ public class TravelPlan implements Serializable {
     @Column(name = "taxiBookingId")
     private Long taxiBookingId;
 
-    public Long getId() {
+    public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerBookingId) {
-        this.customerId = customerBookingId;
     }
 
     public Long getFlightBookingId() {

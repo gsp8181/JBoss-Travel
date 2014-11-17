@@ -98,7 +98,7 @@ public class TravelPlanRESTService {
         if (travelPlan == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        log.info("findById " + id + ": found TravelPlan for customer " + travelPlan.getCustomerId());
+        log.info("findById " + id + ": found TravelPlan for customer " + travelPlan.getCustomer().getId());
         
         return Response.ok(travelPlan).build();
     }

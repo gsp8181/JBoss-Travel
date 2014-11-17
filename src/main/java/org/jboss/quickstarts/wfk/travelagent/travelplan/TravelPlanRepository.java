@@ -80,7 +80,7 @@ public class TravelPlanRepository {
      * @throws ConstraintViolationException, ValidationException, Exception
      */
     TravelPlan create(TravelPlan travelPlan) throws ConstraintViolationException, ValidationException, Exception {
-        log.info("TravelPlanRepository.create() - Creating TravelPlan for " + travelPlan.getCustomerId());
+        log.info("TravelPlanRepository.create() - Creating TravelPlan for " + travelPlan.getCustomer().getId());
         
         // Write the travelPlan to the database.
         em.persist(travelPlan);

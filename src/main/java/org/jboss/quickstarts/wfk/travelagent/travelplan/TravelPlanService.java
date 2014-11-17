@@ -27,6 +27,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.jboss.quickstarts.wfk.customer.Customer;
 import org.json.JSONObject;
 
 import javax.enterprise.context.Dependent;
@@ -103,8 +104,10 @@ public class TravelPlanService {
      */
     TravelPlan create(TravelSketch travelSketch) throws ConstraintViolationException, ValidationException, Exception {
     	TravelPlan travelPlan = new TravelPlan();//validate travelsketch?
-    	travelPlan.setCustomerId(travelSketch.getCustomerId()); //TODO: WHY DOES THE ID JUMP 2?
-    	log.info("TravelPlanService.create() - Creating travelplan for customer #" + travelPlan.getCustomerId());
+    	Customer c = new Customer();
+    	c.setId(travelSketch.getCustomerId());
+    	travelPlan.setCustomer(c); //TODO: WHY DOES THE ID JUMP 2?
+    	log.info("TravelPlanService.create() - Creating travelplan for customer #" + travelPlan.getCustomer().getId());
     	
     	try
     	{
