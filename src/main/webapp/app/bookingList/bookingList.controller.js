@@ -43,7 +43,7 @@
                     headings[startsWithLetter] = [bookings[i]];
                 }*/
             	//Get the customer ID
-            	var customerId = bookings[i].customerId;
+            	var customerId = bookings[i].customer.id + "  " + bookings[i].customer.name;
                 //If we have encountered that customer id before then add the booking to that list, else create it
                 if(headings.hasOwnProperty(customerId)) {
                     headings[customerId].push(bookings[i]);

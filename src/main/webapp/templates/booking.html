@@ -45,19 +45,19 @@
             <ul class="customers">
                 <!-- The list is built using Angular's ng-repeat functionality, iterating over booking objects in bookings -->
                 <li class="customer" ng-repeat="booking in subset | orderBy: 'customerId'">
-                    <a href="#/booking/edit/{{booking.id}}">{{booking.id}}</a>
+                    <a href="#/booking/edit/{{booking.id}}">{{booking.id}}, {{booking.bookingDate}}</a>
                     <div class="customer-details" ng-show="details">
                         <p>
                             <strong>ID : {{booking.id}}</strong>
                         </p>
                         <p>
-                            <strong>Customer ID : {{booking.customerId}}</strong>
+                            <strong>Customer : {{booking.customer.id}}, {{booking.customer.name}}</strong>
                         </p>
                         <p>
                             <strong>Booked for : {{booking.bookingDate}}</strong>
                         </p>
                         <p>
-                            <strong>At : {{booking.hotelId}}</strong>
+                            <strong>At : {{booking.hotel.id}}, {{booking.hotel.name}}</strong>
                         </p>
                     </div>
                 </li>
