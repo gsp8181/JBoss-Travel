@@ -54,7 +54,7 @@
             // Clear input fields. If $scope.booking was set to an empty object {},
             // then invalid form values would not be reset.
             // By specifying all properties, input fields with invalid values are also reset.
-            $scope.booking = {name: "", postcode: "", phoneNumber: ""};
+            $scope.booking = {customerId: "", hotelId: "", phoneNumber: ""};
 
             // clear messages
             $scope.messages.clear();
