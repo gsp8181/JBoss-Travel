@@ -141,7 +141,7 @@ BookingService End Points
 * Request example:
 
 ```JavaScript
-{"customerId":10001,"hotelId":27,"bookingDate":"2015-10-20"}
+{"customer":{"id":10001},"hotel":{"id":1027},"bookingDate":"2015-10-20"}
 ```
 
 * Response example:
@@ -162,17 +162,17 @@ BookingService End Points
 * Response example:
 
 ```javascript
-[{"id":1001,"customerId":10001,"hotelId":27,"bookingDate":"2015-10-20"},{"id":1002,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-20"},{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"},{"id":1,"customerId":10012,"hotelId":99,"bookingDate":"2015-10-22"}]
+[{"id":1001,"customer":{"id":10001,"name":"John Smith","email":"john.smith@cust.com","phoneNumber":"(212) 555-1212"},"hotel":{"id":1027,"name":"MGM Grand","postcode":"SW4 5AX","phoneNumber":"02074450192"},"bookingDate":"2015-10-20"},{"id":1002,"customer":{"id":10002,"name":"Davey Jones","email":"davey.jones@cust.com","phoneNumber":"(212) 555-3333"},"hotel":{"id":1099,"name":"Marriot Liverpool","postcode":"L1 9AZ","phoneNumber":"01916662903"},"bookingDate":"2015-10-20"},{"id":1003,"customer":{"id":10002,"name":"Davey Jones","email":"davey.jones@cust.com","phoneNumber":"(212) 555-3333"},"hotel":{"id":1099,"name":"Marriot Liverpool","postcode":"L1 9AZ","phoneNumber":"01916662903"},"bookingDate":"2015-10-21"}]
 ```
 
 ### Find a list of bookings by it's associated customer ID.
-#### /rest/bookings/\<customerId>
+#### /rest/bookings/customer/\<customerId>
 * Request type: GET
 * Return type: JSON
 * Response example:
 
 ```javascript
-[{"id":1002,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-20"},{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}]
+{"id":1001,"customer":{"id":10001,"name":"John Smith","email":"john.smith@cust.com","phoneNumber":"(212) 555-1212"},"hotel":{"id":1027,"name":"MGM Grand","postcode":"SW4 5AX","phoneNumber":"02074450192"},"bookingDate":"2015-10-20"}
 ```
 
 
@@ -185,7 +185,7 @@ BookingService End Points
 * Response example:
 
 ```javascript
-{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}
+{"id":1001,"customer":{"id":10001,"name":"John Smith","email":"john.smith@cust.com","phoneNumber":"(212) 555-1212"},"hotel":{"id":1027,"name":"MGM Grand","postcode":"SW4 5AX","phoneNumber":"02074450192"},"bookingDate":"2015-10-20"}
 ```
 
 
@@ -198,7 +198,7 @@ BookingService End Points
 * Response example:
 
 ```javascript
-{"id":1003,"customerId":10002,"hotelId":99,"bookingDate":"2015-10-21"}
+{}
 ```
 
 TravelPlanService End Points
