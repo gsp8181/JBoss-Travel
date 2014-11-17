@@ -18,17 +18,24 @@
  */
 (function() {
     'use strict';
-    //Top level definition for application's parent module
     angular
-        .module('app', [
-            'ngRoute',
-            'app.customer',
-            'app.hotel',
-            'app.hotelList',
-            'app.booking',
-            'app.bookingList',
-            'app.travelPlan',
-            'app.travelPlanList',
-            'app.util'
-        ]);
+        .module('app.travelPlan')
+        .factory('TravelPlan', TravelPlan);
+
+    TravelPlan.$inject = ['$resource'];
+
+    function TravelPlan($resource) {
+        //Declares TravelPlan as a class of Resource, whose instance.$methods and Class.methods may be used
+        // to easily interact with the RESTful rest/travelPlans endpoint via $http.
+        var TravelPlan = $resource(
+            'rest/travelagent/travelplans/:travelPlanId',
+            {travelPlanId: '@id'},
+            {
+                'update': {method: 'PUT'}
+            }
+        );
+        //Declare public class variable to act as a pseudo-cache TODO: use proper $cacheFactor cache in TravelPlan
+        TravelPlan.data = [];
+        return TravelPlan;
+    }
 })();

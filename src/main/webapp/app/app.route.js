@@ -76,6 +76,19 @@
             }).when('/booking/edit/:bookingId', {
                 templateUrl: 'templates/booking/bookingForm.html',
                 controller: 'BookingController'
+                	//If URL fragment is 'agent', then load the travelPlan.html template, with TravelAgentListController
+            }).when('/agent', {
+                templateUrl: 'templates/travelPlan.html',
+                controller: 'TravelPlanListController'
+                    //If URL fragment is '/agent/add', then load the bookingForm.html template, with TravelAgentController
+            }).when('/agent/add', {
+                templateUrl: 'templates/travelPlan/travelPlanForm.html',
+                controller: 'TravelPlanController'
+                //If URL fragment is '/agent/edit' followed by an obligatory identifier, use the same controller/template as
+                // with '/add'. Appropriate form controls will be chosen based upon URL.
+            }).when('/agent/edit/:travelPlanId', {
+                templateUrl: 'templates/travelPlan/travelPlanForm.html',
+                controller: 'TravelPlanController'
                 // Add a default route
             }).otherwise({
                 redirectTo: '/customer'

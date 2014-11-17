@@ -18,17 +18,11 @@
  */
 (function() {
     'use strict';
-    //Top level definition for application's parent module
+    //Top level definition for app.travelPlanList sub-module.
     angular
-        .module('app', [
-            'ngRoute',
-            'app.customer',
-            'app.hotel',
-            'app.hotelList',
-            'app.booking',
-            'app.bookingList',
+        .module('app.travelPlanList', [
+            'ngResource',
             'app.travelPlan',
-            'app.travelPlanList',
             'app.util'
         ]);
 })();
