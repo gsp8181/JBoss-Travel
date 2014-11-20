@@ -30,7 +30,7 @@
         <label for="customerId">Customer ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
         <input type="text" name="customerId" class="form-control"  id="customerId" placeholder="25"
-               ng-model="booking.customerId" ng-pattern="/^[0-9]+$/" required>
+               ng-model="booking.customer.id" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
         <p class="help-block" id="customerId-required" ng-show="bookingForm.customerId.$dirty && bookingForm.customerId.$error.required">
@@ -47,7 +47,7 @@
         <label for="hotelId">Hotel ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
         <input type="text" name="hotelId" class="form-control" id="hotelId" placeholder="61"
-               ng-model="booking.hotelId" ng-pattern="/^[0-9]+$/" required>
+               ng-model="booking.hotel.id" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
         <p class="help-block" id="hotelId-required" ng-show="bookingForm.hotelId.$dirty && bookingForm.hotelId.$error.required">
