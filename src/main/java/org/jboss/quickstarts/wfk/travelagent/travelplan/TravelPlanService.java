@@ -240,7 +240,7 @@ public class TravelPlanService {
 		//String responseBody = EntityUtils.toString(response.getEntity());
 		HttpClientUtils.closeQuietly(response);
 		}
-		if(travelPlan.getFlightBookingId() != null)
+		if(travelPlan.getTaxiBookingId() != null)
 		{
 		URI uri = new URIBuilder().setScheme("http")
 				.setHost("jbosscontactsangularjs-110060653.rhcloud.com")

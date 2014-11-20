@@ -21,90 +21,90 @@
 <!-- Status messages to be displayed -->
 <div rh-message-bag messages="messages"></div>
 
-<!-- This form is used to add new TravelAgent entries. Upon loading all fields are empty. -->
-<form name="travelAgentForm" role="form" id="travelAgentForm">
+<!-- This form is used to add new TravelPlan entries. Upon loading all fields are empty. -->
+<form name="travelPlanForm" role="form" id="travelPlanForm">
 	<div ng-if="create">
     <!-- Form group for CustomerId input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': travelAgentForm.customerId.$invalid}">
+    <div class="form-group" ng-class="{'has-error': travelPlanForm.customerId.$invalid}">
         <label for="customerId">Customer ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
         <input type="text" name="customerId" class="form-control"  id="customerId" placeholder="25"
-               ng-model="travelAgent.customer.id" ng-pattern="/^[0-9]+$/" required>
+               ng-model="travelPlan.customerId" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="customerId-required" ng-show="travelAgentForm.customerId.$dirty && travelAgentForm.customerId.$error.required">
+        <p class="help-block" id="customerId-required" ng-show="travelPlanForm.customerId.$dirty && travelPlanForm.customerId.$error.required">
             A customer ID is required.
         </p>
-        <p class="help-block" id="customerId-format" ng-show="travelAgentForm.customerId.$dirty && travelAgentForm.customerId.$error.pattern">
+        <p class="help-block" id="customerId-format" ng-show="travelPlanForm.customerId.$dirty && travelPlanForm.customerId.$error.pattern">
             Please provide a valid customer ID in number format.
         </p>
     </div>
 
     <!-- Form group for HotelId input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': travelAgentForm.hotelId.$invalid}">
+    <div class="form-group" ng-class="{'has-error': travelPlanForm.hotelId.$invalid}">
         <label for="hotelId">Hotel ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
         <input type="text" name="hotelId" class="form-control" id="hotelId" placeholder="61"
-               ng-model="travelAgent.hotel.id" ng-pattern="/^[0-9]+$/" required>
+               ng-model="travelPlan.hotelId" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="hotelId-required" ng-show="travelAgentForm.hotelId.$dirty && travelAgentForm.hotelId.$error.required">
+        <p class="help-block" id="hotelId-required" ng-show="travelPlanForm.hotelId.$dirty && travelPlanForm.hotelId.$error.required">
             A hotel ID is required.
         </p>
-        <p class="help-block" id="hotelId-format" ng-show="travelAgentForm.hotelId.$dirty && travelAgentForm.hotelId.$error.pattern">
+        <p class="help-block" id="hotelId-format" ng-show="travelPlanForm.hotelId.$dirty && travelPlanForm.hotelId.$error.pattern">
             Please a provide a valid hotel ID in number format.
         </p>
     </div>
     
     <!-- Form group for FlightId input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': travelAgentForm.flightId.$invalid}">
+    <div class="form-group" ng-class="{'has-error': travelPlanForm.flightId.$invalid}">
         <label for="flightId">Flight ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
         <input type="text" name="flightId" class="form-control" id="flightId" placeholder="61"
-               ng-model="travelAgent.flight.id" ng-pattern="/^[0-9]+$/" required>
+               ng-model="travelPlan.flightId" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="flightId-required" ng-show="travelAgentForm.flightId.$dirty && travelAgentForm.flightId.$error.required">
+        <p class="help-block" id="flightId-required" ng-show="travelPlanForm.flightId.$dirty && travelPlanForm.flightId.$error.required">
             A flight ID is required.
         </p>
-        <p class="help-block" id="flightId-format" ng-show="travelAgentForm.flightId.$dirty && travelAgentForm.flightId.$error.pattern">
+        <p class="help-block" id="flightId-format" ng-show="travelPlanForm.flightId.$dirty && travelPlanForm.flightId.$error.pattern">
             Please a provide a valid flight ID in number format.
         </p>
     </div>
     
     <!-- Form group for TaxiId input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': travelAgentForm.taxiId.$invalid}">
+    <div class="form-group" ng-class="{'has-error': travelPlanForm.taxiId.$invalid}">
         <label for="taxiId">Taxi ID:</label>
         <!-- ng-pattern validates the contents of an input against a provided regexp. -->
         <input type="text" name="taxiId" class="form-control" id="taxiId" placeholder="61"
-               ng-model="travelAgent.taxi.id" ng-pattern="/^[0-9]+$/" required>
+               ng-model="travelPlan.taxiId" ng-pattern="/^[0-9]+$/" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="taxiId-required" ng-show="travelAgentForm.taxiId.$dirty && travelAgentForm.taxiId.$error.required">
+        <p class="help-block" id="taxiId-required" ng-show="travelPlanForm.taxiId.$dirty && travelPlanForm.taxiId.$error.required">
             A taxi ID is required.
         </p>
-        <p class="help-block" id="taxiId-format" ng-show="travelAgentForm.taxiId.$dirty && travelAgentForm.taxiId.$error.pattern">
+        <p class="help-block" id="taxiId-format" ng-show="travelPlanForm.taxiId.$dirty && travelPlanForm.taxiId.$error.pattern">
             Please a provide a valid taxi ID in number format.
         </p>
     </div>
 
     <!-- Form group for Booking Date input and associated error messages. -->
     <!-- ng-class conditionally applies a class string (e.g 'has-error'), dependent upon a boolean expression. -->
-    <div class="form-group" ng-class="{'has-error': travelAgentForm.bookingDate.$invalid}">
+    <div class="form-group" ng-class="{'has-error': travelPlanForm.bookingDate.$invalid}">
         <label for="bookingDate">Booking Date:</label>
         <!-- min & max provide the valid range of dates for the input. -->
         <input type="date" name="bookingDate" class="form-control" id="bookingDate"
-               min="{{date | date:'yyyy-MM-dd'}}" ng-model="travelAgent.bookingDate" placeholder="2017-10-20" required>
+               min="{{date | date:'yyyy-MM-dd'}}" ng-model="travelPlan.bookingDate" placeholder="2017-10-20" required>
         <!-- Appropriate error messages, to be displayed as required. -->
         <!-- ng-show conditionally applies the style {display: none !important} if statement is false. -->
-        <p class="help-block" id="bookingdate-required" ng-show="travelAgentForm.bookingDate.$dirty && travelAgentForm.bookingDate.$error.required">
+        <p class="help-block" id="bookingdate-required" ng-show="travelPlanForm.bookingDate.$dirty && travelPlanForm.bookingDate.$error.required">
             Please enter a valid booking date.
         </p>
-        <p class="help-block" id="bookingdate-past" ng-show="travelAgentForm.bookingDate.$dirty && travelAgentForm.bookingDate.$error.min">
+        <p class="help-block" id="bookingdate-past" ng-show="travelPlanForm.bookingDate.$dirty && travelPlanForm.bookingDate.$error.min">
             Booking dates cannot be in the past. Please choose one from the future.
         </p>
     </div>
