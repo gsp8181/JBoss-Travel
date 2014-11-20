@@ -34,10 +34,13 @@
     <!-- A list of stored customers -->
     <div class="customer-list-heading clearfix">
         <p class="pull-left">Travel Agent Booking {{(details)?'Details':'Name'}}</p>
-        <a type="button" class="btn glyphicon glyphicon-plus pull-right" id="addCustomer" href="#/agent/add"></a> 
-        <button class="btn pull-right" id="toggleDetails" ng-click="details=!details">
+    <div class="btn-group pull-right">
+        <a class="btn btn-default glyphicon glyphicon-plus" id="addCustomer" href="#/agent/add"></a> 
+        <button class="btn btn-default" id="toggleDetails" ng-click="details=!details">
             <span class="glyphicon {{(details)?'glyphicon-resize-small':'glyphicon-resize-full'}}"></span>
         </button>
+        </div>
+        </div>
     </div>
     <ul class="customer-list letter-headings">
         <li class="letter-heading" ng-repeat="(heading, subset) in travelPlansList | orderBy: heading">
