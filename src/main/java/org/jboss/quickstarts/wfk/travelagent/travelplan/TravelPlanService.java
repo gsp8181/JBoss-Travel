@@ -19,6 +19,7 @@
 package org.jboss.quickstarts.wfk.travelagent.travelplan;
 
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
@@ -36,6 +37,7 @@ import javax.inject.Named;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
@@ -70,7 +72,7 @@ public class TravelPlanService {
     @Inject
     private @Named("httpClient") CloseableHttpClient httpClient;
     
-    private final Long travelAgentTaxi = (long) 18181;
+    private final Long travelAgentTaxi = (long) 10000;
     private final Long travelAgentFlight = (long) 18181;
     private final Long travelAgentHotel = (long) 18181;
     
@@ -115,14 +117,15 @@ public class TravelPlanService {
     	
     	travelPlan.setFlightBookingId(bookFlight(travelSketch));
     	
-    	travelPlan.setTaxiBookingId((long) 2);
+    	travelPlan.setTaxiBookingId(bookTaxi(travelSketch));
     	
     	
     	// Check to make sure the data fits with the parameters in the TravelPlan model and passes validation.
     	validator.validateTravelPlan(travelPlan);
     	
 		// Write the travelPlan to the database.
-        return crud.create(travelPlan);
+        TravelPlan rtn =  crud.create(travelPlan);
+        return rtn;
     	} catch (Exception e)
     	{
     		revert(travelPlan);
@@ -131,6 +134,27 @@ public class TravelPlanService {
     	}
 
     }
+
+	private Long bookTaxi(TravelSketch travelSketch) throws Exception {
+		URI uri = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110060653.rhcloud.com")
+				.setPath("/rest/bookings")
+				.build();
+		HttpPost req = new HttpPost(uri);
+		StringEntity params = new StringEntity("{\"customerId\":\"" + travelAgentTaxi.toString() + "\",\"taxiId\":\"" + travelSketch.getTaxiId().toString() +"\",\"bookingDate\":\"" + travelSketch.getBookingDate() + "\"}");
+		req.addHeader("Content-Type", "application/json");
+		req.setEntity(params);
+		CloseableHttpResponse response = httpClient.execute(req);
+		if(response.getStatusLine().getStatusCode() != 201)
+		{
+			throw new Exception("Failed to create a flight booking");
+		}
+		String responseBody = EntityUtils.toString(response.getEntity());
+		JSONObject responseJson = new JSONObject(responseBody);
+		long rtn = responseJson.getLong("id");
+		HttpClientUtils.closeQuietly(response);
+		return rtn;
+	}
 
 	private long bookHotel(TravelSketch travelSketch)
 			throws Exception {
@@ -206,6 +230,21 @@ public class TravelPlanService {
 		URI uri = new URIBuilder().setScheme("http")
 				.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
 				.setPath("/rest/bookings/" + travelPlan.getFlightBookingId())
+				.build();
+		HttpDelete req = new HttpDelete(uri);
+		CloseableHttpResponse response = httpClient.execute(req);
+		if(response.getStatusLine().getStatusCode() != 204)
+			{
+				
+			}
+		//String responseBody = EntityUtils.toString(response.getEntity());
+		HttpClientUtils.closeQuietly(response);
+		}
+		if(travelPlan.getFlightBookingId() != null)
+		{
+		URI uri = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110060653.rhcloud.com")
+				.setPath("/rest/bookings/" + travelPlan.getTaxiBookingId())
 				.build();
 		HttpDelete req = new HttpDelete(uri);
 		CloseableHttpResponse response = httpClient.execute(req);
