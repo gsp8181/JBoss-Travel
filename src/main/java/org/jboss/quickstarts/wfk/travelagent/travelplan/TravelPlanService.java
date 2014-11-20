@@ -108,7 +108,7 @@ public class TravelPlanService {
     	TravelPlan travelPlan = new TravelPlan();//validate travelsketch?
     	Customer c = new Customer();
     	c.setId(travelSketch.getCustomerId());
-    	travelPlan.setCustomer(c); //TODO: WHY DOES THE ID JUMP 2?
+    	travelPlan.setCustomer(c);
     	log.info("TravelPlanService.create() - Creating travelplan for customer #" + travelPlan.getCustomer().getId());
     	
     	try

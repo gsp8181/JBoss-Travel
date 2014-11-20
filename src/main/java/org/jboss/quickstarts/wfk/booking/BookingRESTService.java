@@ -133,7 +133,7 @@ public class BookingRESTService {
      * @return A Response containing a list of Bookings
      */
     @GET
-    @Path("/customer/{customerId:[0-9]+}") //TODO: DONE BROKEN!! :)))))
+    @Path("/customer/{customerId:[0-9]+}")
     public Response retrieveBookingByCustomerId(@PathParam("customerId") long customerId) {
         List<Booking> bookings = service.findByCustomerId(customerId);
         if (bookings == null) {
