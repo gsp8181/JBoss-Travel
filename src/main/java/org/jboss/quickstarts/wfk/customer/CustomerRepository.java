@@ -66,7 +66,7 @@ public class CustomerRepository {
      * @param id The id field of the Customer to be returned
      * @return The Customer with the specified id
      */
-    Customer findById(Long id) {
+    public Customer findById(Long id) {
         return em.find(Customer.class, id);
     }
 
