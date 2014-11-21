@@ -118,10 +118,10 @@ public class TravelPlanTest {
 				.create(WebArchive.class, "test.war")
 				.addClasses(TravelPlan.class, TravelPlanRESTService.class,
 						TravelPlanRepository.class, TravelPlanValidator.class,
-						TravelPlanService.class, TravelSketch.class, Customer.class,
-						CustomerRESTService.class, CustomerRepository.class,
-						CustomerValidator.class, CustomerService.class,
-						Resources.class)
+						TravelPlanService.class, TravelSketch.class,
+						Customer.class, CustomerRESTService.class,
+						CustomerRepository.class, CustomerValidator.class,
+						CustomerService.class, Resources.class)
 				.addAsLibraries(libs)
 				.addAsResource("META-INF/test-persistence.xml",
 						"META-INF/persistence.xml")
@@ -139,7 +139,7 @@ public class TravelPlanTest {
 
 	@Inject
 	private @Named("httpClient") CloseableHttpClient httpClient;
-	
+
 	@Inject
 	@Named("logger")
 	Logger log;
@@ -149,122 +149,161 @@ public class TravelPlanTest {
 	// Make one portion fail and check for reverts
 
 	// Cancel booking and test
-	
+
 	@After
-	public void tearDown() throws Exception
-	{
+	public void tearDown() throws Exception {
 		Response response = travelPlanRESTService.retrieveAllTravelPlans();
-		String responseBody = EntityUtils.toString((HttpEntity) response.getEntity());
+		String responseBody = EntityUtils.toString((HttpEntity) response
+				.getEntity());
 		JSONArray responseJSON = new JSONArray(responseBody);
-		for(int i = 0;i<responseJSON.length();i++)
-		{
+		for (int i = 0; i < responseJSON.length(); i++) {
 			JSONObject jo = responseJSON.getJSONObject(i);
 			travelPlanRESTService.deleteTravelPlan(jo.getLong("id"));
 		}
-		
+
 	}
-	
+
 	@Test
 	@InSequence(1)
-	public void TestBooking() throws Exception
-	{
+	public void TestBooking() throws Exception {
 		TravelSketch ts1 = new TravelSketch();
 		ts1.setFlightId(10001L);
 		ts1.setHotelId(1099L);
 		ts1.setTaxiId(101L);
 		ts1.setBookingDate("2018-03-29");
 		ts1.setCustomerId(createTestCustomer());
-		
+
 		Response response = travelPlanRESTService.createTravelPlan(ts1);
-		
+
 		assertEquals("Unexpected response", 201, response.getStatus());
-		
+
 		long flightId = 0;
 		long hotelId = 0;
 		long taxiId = 0;
-		
+
 		Response r1 = travelPlanRESTService.retrieveAllTravelPlans();
 		String responseBody = EntityUtils.toString((HttpEntity) r1.getEntity());
 		JSONArray responseJSON = new JSONArray(responseBody);
-		for(int i = 0;i<responseJSON.length();i++)
-		{
+		for (int i = 0; i < responseJSON.length(); i++) {
 			JSONObject jo = responseJSON.getJSONObject(i);
-			if(jo.getJSONObject("customer").getLong("id") == createTestCustomer())
-			{
+			if (jo.getJSONObject("customer").getLong("id") == createTestCustomer()) {
 				flightId = jo.getLong("flightBookingId");
 				hotelId = jo.getLong("hotelBookingId");
 				taxiId = jo.getLong("taxiBookingId");
 			}
-		} 
+		}
 		assertNotEquals("Flight did not book", 0L, flightId);
 		assertNotEquals("Taxi did not book", 0L, taxiId);
 		assertNotEquals("Hotel did not book", 0L, hotelId);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			URI uri = new URIBuilder()
-					.setScheme("http")
-					.setHost("travel.gsp8181.co.uk")
-					.setPath("/rest/bookings/" + hotelId)
-					.build();
-			HttpGet req = new HttpGet(uri);
-			CloseableHttpResponse response2 = httpClient.execute(req);
-			assertEquals("Hotel did not book",200,response2.getStatusLine().getStatusCode());
 
-			HttpClientUtils.closeQuietly(response2);
+		URI uri = new URIBuilder().setScheme("http")
+				.setHost("travel.gsp8181.co.uk")
+				.setPath("/rest/bookings/" + hotelId).build();
+		HttpGet req = new HttpGet(uri);
+		CloseableHttpResponse response2 = httpClient.execute(req);
+		assertEquals("Hotel did not book", 200, response2.getStatusLine()
+				.getStatusCode());
 
-		
-			URI uri1 = new URIBuilder()
-					.setScheme("http")
-					.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
-					.setPath(
-							"/rest/bookings/" + flightId)
-					.build();
-			HttpGet req1 = new HttpGet(uri1);
-			CloseableHttpResponse response3 = httpClient.execute(req1);
-			assertEquals("Flight did not book",200,response3.getStatusLine().getStatusCode());
-			HttpClientUtils.closeQuietly(response3);
-			
-			URI uri2 = new URIBuilder().setScheme("http")
-					.setHost("jbosscontactsangularjs-110060653.rhcloud.com")
-					.setPath("/rest/bookings/" + taxiId)
-					.build();
-			HttpGet req2 = new HttpGet(uri2);
-			CloseableHttpResponse response4 = httpClient.execute(req2);
-			assertEquals("Taxi did not book",200,response4.getStatusLine().getStatusCode());
-			HttpClientUtils.closeQuietly(response4);
-		
-		
-		
+		HttpClientUtils.closeQuietly(response2);
+
+		URI uri1 = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
+				.setPath("/rest/bookings/" + flightId).build();
+		HttpGet req1 = new HttpGet(uri1);
+		CloseableHttpResponse response3 = httpClient.execute(req1);
+		assertEquals("Flight did not book", 200, response3.getStatusLine()
+				.getStatusCode());
+		HttpClientUtils.closeQuietly(response3);
+
+		URI uri2 = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110060653.rhcloud.com")
+				.setPath("/rest/bookings/" + taxiId).build();
+		HttpGet req2 = new HttpGet(uri2);
+		CloseableHttpResponse response4 = httpClient.execute(req2);
+		assertEquals("Taxi did not book", 200, response4.getStatusLine()
+				.getStatusCode());
+		HttpClientUtils.closeQuietly(response4);
+
 	}
-	
+
 	@Test
 	@InSequence(2)
-	public void TestFail() throws Exception
-	{
-		
+	public void TestFail() throws Exception {
+
 	}
-	
+
 	@Test
 	@InSequence(3)
-	public void TestCancel() throws Exception
-	{
-		
+	public void TestCancel() throws Exception {
+		TravelSketch ts1 = new TravelSketch();
+		ts1.setFlightId(10001L);
+		ts1.setHotelId(1099L);
+		ts1.setTaxiId(101L);
+		ts1.setBookingDate("2018-03-29");
+		ts1.setCustomerId(createTestCustomer());
+
+		Response response = travelPlanRESTService.createTravelPlan(ts1);
+
+		assertEquals("Unexpected response", 201, response.getStatus());
+
+		long flightId = 0;
+		long hotelId = 0;
+		long taxiId = 0;
+		long bId = 0;
+
+		Response r1 = travelPlanRESTService.retrieveAllTravelPlans();
+		String responseBody = EntityUtils.toString((HttpEntity) r1.getEntity());
+		JSONArray responseJSON = new JSONArray(responseBody);
+		for (int i = 0; i < responseJSON.length(); i++) {
+			JSONObject jo = responseJSON.getJSONObject(i);
+			if (jo.getJSONObject("customer").getLong("id") == createTestCustomer()) {
+				bId = jo.getLong("id");
+				flightId = jo.getLong("flightBookingId");
+				hotelId = jo.getLong("hotelBookingId");
+				taxiId = jo.getLong("taxiBookingId");
+			}
+		}
+		assertNotEquals("Flight did not book", 0L, flightId);
+		assertNotEquals("Taxi did not book", 0L, taxiId);
+		assertNotEquals("Hotel did not book", 0L, hotelId);
+
+		Response ree = travelPlanRESTService.deleteTravelPlan(bId);
+		assertEquals("Cancellation was not successful", 204, ree.getStatus());
+
+		URI uri = new URIBuilder().setScheme("http")
+				.setHost("travel.gsp8181.co.uk")
+				.setPath("/rest/bookings/" + hotelId).build();
+		HttpGet req = new HttpGet(uri);
+		CloseableHttpResponse response2 = httpClient.execute(req);
+		assertEquals("Hotel did not cancel", 404, response2.getStatusLine()
+				.getStatusCode());
+
+		HttpClientUtils.closeQuietly(response2);
+
+		URI uri1 = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110336260.rhcloud.com")
+				.setPath("/rest/bookings/" + flightId).build();
+		HttpGet req1 = new HttpGet(uri1);
+		CloseableHttpResponse response3 = httpClient.execute(req1);
+		assertEquals("Flight did not cancel", 404, response3.getStatusLine()
+				.getStatusCode());
+		HttpClientUtils.closeQuietly(response3);
+
+		URI uri2 = new URIBuilder().setScheme("http")
+				.setHost("jbosscontactsangularjs-110060653.rhcloud.com")
+				.setPath("/rest/bookings/" + taxiId).build();
+		HttpGet req2 = new HttpGet(uri2);
+		CloseableHttpResponse response4 = httpClient.execute(req2);
+		assertEquals("Taxi did not cancel", 404, response4.getStatusLine()
+				.getStatusCode());
+		HttpClientUtils.closeQuietly(response4);
+
 	}
-	
+
 	@Test
 	@InSequence(4)
-	public void TestDoubleBook() throws Exception
-	{
-		
+	public void TestDoubleBook() throws Exception {
+
 	}
 
 	/**
@@ -313,7 +352,5 @@ public class TravelPlanTest {
 
 		}
 	}
-
-
 
 }
