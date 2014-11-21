@@ -221,7 +221,7 @@ public class AddHotelTest {
             log.info(" All hotels were retrieved with one request and returned status " + response.getStatus());
     }
     
-    @SuppressWarnings("unchecked")
+    /*@SuppressWarnings("unchecked")
 	@Test
     @InSequence(10)
     public void testChangeId() throws Exception {
@@ -234,7 +234,7 @@ public class AddHotelTest {
         assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
             ((Map<String, String>) response.getEntity()).size());
         log.info("Invalid customer register attempt failed with return code " + response.getStatus());
-    }
+    }*/
     
     
     @Test

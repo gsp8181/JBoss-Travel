@@ -204,7 +204,7 @@ public class AddCustomerTest {
             log.info(" All customers were retrieved with one request and returned status " + response.getStatus());
     }
     
-    @SuppressWarnings("unchecked")
+    /*@SuppressWarnings("unchecked")
     @Test
     @InSequence(9)
     public void testChangeId() throws Exception {
@@ -217,7 +217,7 @@ public class AddCustomerTest {
         assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
             ((Map<String, String>) response.getEntity()).size());
         log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
-    }
+    }*/
     
     @Test
     @InSequence(10)
