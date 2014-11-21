@@ -194,11 +194,21 @@ public class AddCustomerTest {
         log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
     }
     
-    @SuppressWarnings("unchecked")
     @Test
     @InSequence(8)
+    public void testGetAllCustomers() throws Exception
+    {
+            Response response = customerRESTService.retrieveAllCustomers();
+
+            assertEquals("Unexpected response status", 200, response.getStatus());
+            log.info(" All customers were retrieved with one request and returned status " + response.getStatus());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    @InSequence(9)
     public void testChangeId() throws Exception {
-        Customer customer = createCustomerInstance("Jon Smith", "jon@mailinator.com", "01234567890");
+        Customer customer = createCustomerInstance("Change Smith", "change@mailinator.com", "01266567890");
         Response response = customerRESTService.createCustomer(customer);
 
         assertTrue("NOT YET IMPLEMENTED", false);
@@ -209,19 +219,18 @@ public class AddCustomerTest {
         log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
     }
     
-    @SuppressWarnings("unchecked")
     @Test
-    @InSequence(9)
+    @InSequence(10)
     public void testDelete() throws Exception {
-        Customer customer = createCustomerInstance("Jon Smith", "jon@mailinator.com", "01234567890");
+        Customer customer = createCustomerInstance("Del Smith", "del@mailinator.com", "01235567890");
         Response response = customerRESTService.createCustomer(customer);
-
-        assertTrue("NOT YET IMPLEMENTED", false);
-        assertEquals("Unexpected response status", 400, response.getStatus());
-        assertNotNull("response.getEntity() should not be null", response.getEntity());
-        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
-            ((Map<String, String>) response.getEntity()).size());
-        log.info("Special chars in Name customer register attempt failed with return code " + response.getStatus());
+        
+        assertEquals("Unexpected response status", 201, response.getStatus());
+        
+        Response r2 = customerRESTService.deleteCustomer(customer.getId());
+        
+        assertEquals("Unexpected response status", 400, r2.getStatus());
+        log.info("Delete customer failed with return code " + r2.getStatus());
     }
     
     /**

@@ -34,6 +34,7 @@ import javax.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.quickstarts.wfk.customer.Customer;
 import org.jboss.quickstarts.wfk.util.Resources;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -210,9 +211,19 @@ public class AddHotelTest {
         log.info("Invalid customer register attempt failed with return code " + response.getStatus());
     }
     
+    @Test
+    @InSequence(9)
+    public void testGetAllHotels() throws Exception
+    {
+            Response response = hotelRESTService.retrieveAllHotels();
+
+            assertEquals("Unexpected response status", 200, response.getStatus());
+            log.info(" All hotels were retrieved with one request and returned status " + response.getStatus());
+    }
+    
     @SuppressWarnings("unchecked")
 	@Test
-    @InSequence(9)
+    @InSequence(10)
     public void testChangeId() throws Exception {
     	Hotel hotel = createHotelInstance("Good Hotel Two", "A01 0AA", "01910401234");
     	Response response = hotelRESTService.createHotel(hotel);
@@ -225,20 +236,21 @@ public class AddHotelTest {
         log.info("Invalid customer register attempt failed with return code " + response.getStatus());
     }
     
-    @SuppressWarnings("unchecked")
-	@Test
-    @InSequence(10)
+    
+    @Test
+    @InSequence(11)
     public void testDelete() throws Exception {
-    	Hotel hotel = createHotelInstance("Good Hotel Two", "A01AA 0AA", "01910401234");
+    	Hotel hotel = createHotelInstance("Good Hotel Del", "A08 0AA", "01910201234");
         Response response = hotelRESTService.createHotel(hotel);
-
-        assertTrue("NOT IMPLEMENTED", false);
-        assertEquals("Unexpected response status", 400, response.getStatus());
-        assertNotNull("response.getEntity() should not be null", response.getEntity());
-        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 4,
-            ((Map<String, String>) response.getEntity()).size());
-        log.info("Invalid customer register attempt failed with return code " + response.getStatus());
+        
+        assertEquals("Unexpected response status", 201, response.getStatus());
+        
+        Response r2 = hotelRESTService.deleteHotel(hotel.getId());
+        
+        assertEquals("Unexpected response status", 400, r2.getStatus());
+        log.info("Delete hotel failed with return code " + r2.getStatus());
     }
+    
     
     
 
