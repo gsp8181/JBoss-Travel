@@ -214,7 +214,7 @@ TravelPlanService End Points
 * Request example:
 
 ```JavaScript
-{"customerId":10002, "flightId":10000, "hotelId":1027, "taxiId":5, "bookingDate": "2016-10-20"}
+{"id":501,"customer":{"id":10002},"flightBookingId":49,"hotelBookingId":5,"taxiBookingId":2}
 ```
 
 * Response example:
@@ -235,7 +235,7 @@ TravelPlanService End Points
 * Response example:
 
 ```javascript
-[{"id":2,"customerId":10002,"flightBookingId":3,"hotelBookingId":1,"taxiBookingId":7},{"id":4,"customerId":10002,"flightBookingId":4,"hotelBookingId":3,"taxiBookingId":8}]
+[{"id":501,"customer":{"id":10002,"name":"Davey Jones","email":"davey.jones@cust.com","phoneNumber":"(212) 555-3333"},"flightBookingId":49,"hotelBookingId":5,"taxiBookingId":2}]
 ```
 
 
@@ -248,13 +248,13 @@ TravelPlanService End Points
 * Response example:
 
 ```javascript
-{"id":2,"customerId":10002,"flightBookingId":3,"hotelBookingId":1,"taxiBookingId":7}
+{}
 ```
 
 FlightService End Points
 ------------------------
 ##READ
-### List all bookings
+### List all flights
 #### /rest/travelagent/flights
 
 * Request type: GET
@@ -274,6 +274,31 @@ FlightService End Points
 ```javascript
 {"id":10001,"departurePoint":"DUB","flightNumber":"12345","destinationPoint":"NCL"}
 ```
+
+TaxiService End Points
+------------------------
+##READ
+### List all taxis
+#### /rest/travelagent/taxis
+
+* Request type: GET
+* Return type: JSON
+* Response example:
+
+```javascript
+[{"id":100,"regNumber":"NCLUNI1","numOfSeats":"5"},{"id":101,"regNumber":"NCLUNI2","numOfSeats":"6"}]
+```
+
+### Find a taxi by it's associated taxi ID.
+#### /rest/travelagent/taxis/\<taxiId>
+* Request type: GET
+* Return type: JSON
+* Response example:
+
+```javascript
+{"id":100,"regNumber":"NCLUNI1","numOfSeats":"5"}
+```
+
 
 ContactService End Points (Depreciated)
 ------------------------
