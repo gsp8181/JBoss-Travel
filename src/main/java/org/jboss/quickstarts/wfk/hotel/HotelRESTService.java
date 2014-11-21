@@ -31,6 +31,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -236,20 +237,15 @@ public class HotelRESTService {
     }
 
     /**
-     * <p>Deletes a Hotel using the ID provided. If the ID is not present then nothing can be deleted.</p>
-     *
-     * <p>Will return a JAX-RS response with either 200 OK or with a map of fields, and related errors.</p>
-     * 
-     * @param id The Long parameter value provided as the id of the Hotel to be deleted
-     * @return A Response indicating the outcome of the delete operation
+     * <p>Deletes a Hotel using the ID provided. As this is unsupported, a BAD REQUEST response will be sent to the user.</p>
      */
-    /*@DELETE
-    @Path("/{id:[0-9][0-9]*}")
+    @DELETE
+    @Path("/{id:[0-9]+}")
     public Response deleteHotel(@PathParam("id") Long id) {
         log.info("deleteHotel started. Hotel ID = " + id);
         
         throw new WebApplicationException(Response.Status.BAD_REQUEST);
-    }*/
+    }
     
     /**
      * <p>Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can be used

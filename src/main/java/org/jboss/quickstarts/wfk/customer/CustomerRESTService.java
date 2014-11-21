@@ -32,6 +32,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -237,20 +238,15 @@ public class CustomerRESTService {
     }
 
     /**
-     * <p>Deletes a Customer using the ID provided. If the ID is not present then nothing can be deleted.</p>
-     *
-     * <p>Will return a JAX-RS response with either 200 OK or with a map of fields, and related errors.</p>
-     * 
-     * @param id The Long parameter value provided as the id of the Customer to be deleted
-     * @return A Response indicating the outcome of the delete operation
+     * <p>Deletes a Customer using the ID provided. As this is not implemented, nothing will happen and a BAD REQUEST response will be sent</p>
      */
-    /*@DELETE
+    @DELETE
     @Path("/{id:[0-9]+}")
     public Response deleteCustomer(@PathParam("id") Long id) {
         log.info("deleteCustomer started. Customer ID = " + id);
         
         throw new WebApplicationException(Response.Status.BAD_REQUEST);
-    }*/
+    }
     
     /**
      * <p>Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can be used
