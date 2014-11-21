@@ -229,7 +229,27 @@ public class TravelPlanTest {
 	@Test
 	@InSequence(2)
 	public void TestFail() throws Exception {
+		TravelSketch ts1 = new TravelSketch();
+		ts1.setFlightId(10001L);
+		ts1.setHotelId(1099L);
+		ts1.setTaxiId(101L);
+		ts1.setBookingDate("2018-03-29");
+		ts1.setCustomerId(createTestCustomer());
 
+		Response response = travelPlanRESTService.createTravelPlan(ts1);
+
+		assertEquals("Unexpected response", 201, response.getStatus());
+
+		TravelSketch ts2 = new TravelSketch();
+		ts2.setFlightId(10000L);
+		ts2.setHotelId(1099L);
+		ts2.setTaxiId(100L);
+		ts2.setBookingDate("2018-03-29");
+		ts2.setCustomerId(createTestCustomer());
+
+		Response response2 = travelPlanRESTService.createTravelPlan(ts2);
+
+		assertNotEquals("Unexpected response", 201, response.getStatus());
 	}
 
 	@Test
@@ -303,7 +323,25 @@ public class TravelPlanTest {
 	@Test
 	@InSequence(4)
 	public void TestDoubleBook() throws Exception {
+		TravelSketch ts1 = new TravelSketch();
+		ts1.setFlightId(10001L);
+		ts1.setHotelId(1099L);
+		ts1.setTaxiId(101L);
+		ts1.setBookingDate("2018-03-29");
+		ts1.setCustomerId(createTestCustomer());
 
+		Response response = travelPlanRESTService.createTravelPlan(ts1);
+		
+		assertEquals("Unexpected response", 201, response.getStatus());
+		TravelSketch ts2 = new TravelSketch();
+		ts2.setFlightId(10001L);
+		ts2.setHotelId(1099L);
+		ts2.setTaxiId(101L);
+		ts2.setBookingDate("2018-03-29");
+		ts2.setCustomerId(createTestCustomer());
+
+		Response response2 = travelPlanRESTService.createTravelPlan(ts2);
+		assertNotEquals("Unexpected response", 201, response2.getStatus());
 	}
 
 	/**
