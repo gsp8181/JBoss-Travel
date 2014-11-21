@@ -20,10 +20,7 @@ package org.jboss.quickstarts.wfk.hotel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
-import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -34,7 +31,6 @@ import javax.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import org.jboss.quickstarts.wfk.customer.Customer;
 import org.jboss.quickstarts.wfk.util.Resources;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -95,8 +91,6 @@ public class AddHotelTest {
     @Inject
     @Named("logger") Logger log;
 
-    //Set millis 498484800000 from 1985-10-10T12:00:00.000Z
-    private Date date = new Date(498484800000L);
 
     @Test
     @InSequence(1)

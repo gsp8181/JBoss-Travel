@@ -20,7 +20,6 @@ package org.jboss.quickstarts.wfk.booking;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.text.ParseException;
@@ -187,9 +186,9 @@ public class AddBookingTest {
 	@Test
 	@InSequence(5)
 	public void testGetAllBookingsForCustomer() throws Exception {
-		Booking booking = createBookingInstance(createTestCustomer(),
+		createBookingInstance(createTestCustomer(),
 				createTestHotel(), "2010-05-06");
-		Booking booking2 = createBookingInstance(createTestCustomer(),
+		createBookingInstance(createTestCustomer(),
 				createTestHotel(), "2010-05-07");
 		Response response = bookingRESTService.retrieveBookingByCustomerId(createTestCustomer());
 		assertEquals("Unexpected response status", 200, response.getStatus());
@@ -208,7 +207,7 @@ public class AddBookingTest {
 	@Test
 	@InSequence(6)
 	public void testDoubleBook() throws Exception {
-		Booking booking = createBookingInstance(createTestCustomer(),
+		createBookingInstance(createTestCustomer(),
 				createTestHotel(), "2010-05-02");
 		Booking booking2 = createBookingInstance(createTestCustomer(),
 				createTestHotel(), "2010-05-02");
@@ -245,7 +244,6 @@ public class AddBookingTest {
 				+ response.getStatus());
 	}*/
 
-	@SuppressWarnings("unchecked")
 	@Test
 	@InSequence(8)
 	public void testDelete() throws Exception {
@@ -255,7 +253,7 @@ public class AddBookingTest {
 		
 		assertEquals("Unexpected response status", 200, response.getStatus());
 
-		Response r2 = bookingRESTService.deleteBooking(1L);
+		bookingRESTService.deleteBooking(1L);
 		
 		Response rF = bookingRESTService.retrieveBookingByCustomerId(createTestCustomer());
 		assertEquals("Unexpected response status", 200, rF.getStatus());

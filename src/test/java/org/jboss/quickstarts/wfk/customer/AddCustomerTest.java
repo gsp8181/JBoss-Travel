@@ -20,10 +20,7 @@ package org.jboss.quickstarts.wfk.customer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
-import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
